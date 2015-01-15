@@ -97,11 +97,11 @@ public class Board extends JPanel implements ActionListener {
                 if (a.isVisible())
                     g2d.drawImage(a.getImage(), a.getX(), a.getY(), this);
             }
-*/
+
             g2d.setColor(Color.WHITE);
             g2d.drawString("Aliens left: " + aliens.size(), 5, 15);
 
-
+*/
         } else {
             String msg = "Game Over";
             Font small = new Font("Helvetica", Font.BOLD, 14);
@@ -119,11 +119,11 @@ public class Board extends JPanel implements ActionListener {
 
 
     public void actionPerformed(ActionEvent e) {
-
+/*
         if (aliens.size()==0) {
             ingame = false;
         }
-
+*/
         ArrayList ms = pojazd.getMissiles();
 
         for (int i = 0; i < ms.size(); i++) {
