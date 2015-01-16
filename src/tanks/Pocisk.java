@@ -1,33 +1,43 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tanks;
 
 import java.awt.Image;
 import java.awt.Rectangle;
 import javax.swing.ImageIcon;
 
-/**
- *
- * @author Zet
- */
-
-public class Pocisk implements ICollidable{
+public class Pocisk implements ICollidable {
 
     private int x, y;
     private Image image;
     boolean visible;
     private int width, height;
-
-    private final int BOARD_WIDTH = 390;
+    private int kierunek;
+    private Pojazd strzelajacy;
     private final int MISSILE_SPEED = 2;
 
-    public Pocisk(int x, int y) {
+    public Pocisk(int x, int y, Pojazd p) {
 
-        ImageIcon ii =
-            new ImageIcon(this.getClass().getResource("pojazd.png"));
+        /*tu bedzie trzeba zmieniac obrazki wraz ze zmiana kierunku albo zmieniac pozycje sprite'a*/
+        kierunek = p.getKierunek();
+        strzelajacy = p;
+        ImageIcon ii = null;
+        switch (kierunek) {
+            case 1: {
+                ii = new ImageIcon(this.getClass().getResource("pociskGora.png"));
+                break;
+            }
+            case 2: {
+                ii = new ImageIcon(this.getClass().getResource("pociskDol.png"));
+                break;
+            }
+            case 3: {
+                ii = new ImageIcon(this.getClass().getResource("pociskPrawo.png"));
+                break;
+            }
+            case 4: {
+                ii = new ImageIcon(this.getClass().getResource("pociskLewo.png"));
+                break;
+            }
+        }
         image = ii.getImage();
         visible = true;
         width = image.getWidth(null);
@@ -36,7 +46,7 @@ public class Pocisk implements ICollidable{
         this.y = y;
     }
 
-     @Override
+    @Override
     public void collide(Object x) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -61,13 +71,44 @@ public class Pocisk implements ICollidable{
         this.visible = visible;
     }
 
-    public Rectangle getBounds() {
+    public Rectangle getWymiary() {
         return new Rectangle(x, y, width, height);
     }
 
     public void move() {
-        x += MISSILE_SPEED;
-        if (x > BOARD_WIDTH)
-            visible = false;
+        switch (kierunek) {
+            case 1: {
+                y -= MISSILE_SPEED;
+                if (y < 0) {
+                    visible = false; //tu zrobić obsługę przerzucania obiektu na poczatek kolejki pociskow do uzycia na obiekcie strzelajacego
+                    //strzelajacy.doKolejki(this);
+                }
+                break;
+            }
+            case 2: {
+                y += MISSILE_SPEED;
+                if (y > Main.FRAME_HEIGHT - this.height) {
+                    visible = false; //tu zrobić obsługę przerzucania obiektu na poczatek kolejki pociskow do uzycia na obiekcie strzelajacego
+                    //strzelajacy.doKolejki(this);
+                }
+                break;
+            }
+            case 3: {
+                x += MISSILE_SPEED;
+                if (x > Main.FRAME_WIDTH - this.width) {
+                    visible = false; //tu zrobić obsługę przerzucania obiektu na poczatek kolejki pociskow do uzycia na obiekcie strzelajacego
+                    //strzelajacy.doKolejki(this);
+                }
+                break;
+            }
+            case 4: {
+                x -= MISSILE_SPEED;
+                if (x < 0) {
+                    visible = false; //tu zrobić obsługę przerzucania obiektu na poczatek kolejki pociskow do uzycia na obiekcie strzelajacego
+                    //strzelajacy.doKolejki(this);
+                }
+                break;
+            }
+        }
     }
 }

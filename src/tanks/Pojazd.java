@@ -6,14 +6,17 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
-/**
- *
- * @author Zet
- */
 public class Pojazd implements ICollidable {
-
+    
+    public static final int GORA = 1;
+    public static final int DOL = 2;
+    public static final int PRAWO = 3;
+    public static final int LEWO = 4;
+    
+    private int kierunek;
     private String pojazdURL = "pojazd.png";
     private int dx;
+    private int v = 1;
     private int dy;
     private int x;
     private int y;
@@ -28,10 +31,11 @@ public class Pojazd implements ICollidable {
         image = ii.getImage();
         width = image.getWidth(null);
         height = image.getHeight(null);
+        kierunek = GORA;
         missiles = new ArrayList();
         visible = true;
-        x = 40;
-        y = 60;
+        x = 250;
+        y = 250;
     }
     
     // chyba tak zrobimy kolizje
@@ -45,15 +49,20 @@ public class Pojazd implements ICollidable {
         x += dx;
         y += dy;
 
-        if (x < 1) {
-            x = 1;
-        }
-
-        if (y < 1) {
-            y = 1;
-        }
+        if (x < 0) x = 0;
+        if (y < 0)  y = 0;
+        if (x > (Main.FRAME_WIDTH - this.width))  x = Main.FRAME_WIDTH - this.width;
+        if (y > (Main.FRAME_HEIGHT - this.height))  y = Main.FRAME_HEIGHT - this.height;
     }
 
+    public int getKierunek() {
+        return kierunek;
+    }
+
+    public void setKierunek(int kierunek) {
+        this.kierunek = kierunek;
+    }
+ 
     public int getX() {
         return x;
     }
@@ -78,7 +87,7 @@ public class Pojazd implements ICollidable {
         return visible;
     }
 
-    public Rectangle getBounds() {
+    public Rectangle getWymiary() {
         return new Rectangle(x, y, width, height);
     }
 
@@ -91,24 +100,28 @@ public class Pojazd implements ICollidable {
         }
 
         if (key == KeyEvent.VK_LEFT) {
-            dx = -1;
+            dx = -v;
+            kierunek = LEWO;
         }
 
         if (key == KeyEvent.VK_RIGHT) {
-            dx = 1;
+            dx = v;
+            kierunek = PRAWO;
         }
 
         if (key == KeyEvent.VK_UP) {
-            dy = -1;
+            dy = -v;
+            kierunek = GORA;
         }
 
         if (key == KeyEvent.VK_DOWN) {
-            dy = 1;
+            dy = v;
+            kierunek = DOL;
         }
     }
 
     public void fire() {
-        missiles.add(new Pocisk(x + width, y + height / 2));
+        missiles.add(new Pocisk(x + width, y + height, this));
     }
 
     public void keyReleased(KeyEvent e) {
