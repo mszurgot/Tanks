@@ -14,6 +14,9 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.JPanel;
+import tanks.kafelki.Kafelek;
+import tanks.kafelki.Krzak;
+import tanks.kafelki.Ziemia;
 
 public class Board extends JPanel implements ActionListener {
 
@@ -24,6 +27,7 @@ public class Board extends JPanel implements ActionListener {
     private int B_HEIGHT;
     private final static int SPACES = 20;
     private static int grid[] = new int[30]; 
+    private Kafelek[][] kafelki;
 
     public Board() {
         
@@ -37,6 +41,14 @@ public class Board extends JPanel implements ActionListener {
         pojazd = new Pojazd();
         timer = new Timer(5, this);
         timer.start();
+        kafelki = new Kafelek[Main.FRAME_WIDTH/SPACES/2][Main.FRAME_HEIGHT/SPACES/2];   
+        for(int i = 0 ; i < Main.FRAME_WIDTH/SPACES/2; i++){
+                for(int j = 0 ; j < Main.FRAME_WIDTH/SPACES/2; j++){         
+                    kafelki[i][j] = new Ziemia(grid[i*2],grid[j*2]);
+                }
+            }
+        kafelki[10][10] = new Krzak(grid[10*2],grid[10*2]);
+        kafelki[3][4] = new Krzak(grid[3*2],grid[4*2]);
         
     }
 /*
@@ -52,9 +64,15 @@ public class Board extends JPanel implements ActionListener {
     public void paint(Graphics g) {
         super.paint(g);
         
-        if (ingame) {
-
+        if (ingame) {        
             Graphics2D g2d = (Graphics2D) g;
+            
+            for(int i = 0 ; i < Main.FRAME_WIDTH/SPACES/2; i++){
+                for(int j = 0 ; j < Main.FRAME_WIDTH/SPACES/2; j++){
+                    Kafelek k = kafelki[i][j];
+                    if(!k.getClass().getSimpleName().equals("Krzak"))g2d.drawImage(k.getImage(),k.getGridX(),k.getGridY(),this);
+                }
+            }
 
             if (pojazd.isVisible()) {
                 g2d.drawImage(pojazd.getImage(), pojazd.getX(), pojazd.getY(),
@@ -67,6 +85,14 @@ public class Board extends JPanel implements ActionListener {
                 Pocisk m = (Pocisk) ms.get(i);
                 g2d.drawImage(m.getImage(), m.getX(), m.getY(), this);
             }
+            // ten sposob wyswietlania trzeba poprawic na bardziej wydajny najlepiej wyswietlac wszystkie krzaki z Arraylisty
+            for(int i = 0 ; i < Main.FRAME_WIDTH/SPACES/2; i++){
+                for(int j = 0 ; j < Main.FRAME_WIDTH/SPACES/2; j++){
+                    Kafelek k = kafelki[i][j];
+                    if(k.getClass().getSimpleName().equals("Krzak"))g2d.drawImage(k.getImage(),k.getGridX(),k.getGridY(),this);
+                }
+            }
+            
 
         } else {
             String msg = "Game Over";
@@ -98,6 +124,7 @@ public class Board extends JPanel implements ActionListener {
 
         
         pojazd.move();
+        pojazd.decReloadTimer();
         checkCollisions();
         repaint();
     }
@@ -128,5 +155,6 @@ public class Board extends JPanel implements ActionListener {
         public void keyPressed(KeyEvent e) {
             pojazd.keyPressed(e);
         }
+        
     }
 }

@@ -12,7 +12,7 @@ public class Pojazd implements ICollidable {
     public static final int DOL = 2;
     public static final int PRAWO = 3;
     public static final int LEWO = 4;
-    private String[] imageSrc = {"images/tank2up.png","images/tank2down.png", "images/tank2right.png", "images/tank2left.png"};
+    private String[] imageSrc = {"images/tank2up.png", "images/tank2down.png", "images/tank2right.png", "images/tank2left.png"};
     private Image[] imageTab = new Image[4];
     public boolean ruchWPrawo, ruchWLewo, ruchWGore, ruchWDol;
     private int kierunek;
@@ -21,9 +21,11 @@ public class Pojazd implements ICollidable {
     private boolean visible;
     private ArrayList missiles;
     private Image image;
-            
+    private int reloadTimer;
+    private final static int RELOAD_TIME = 50;
 
     public Pojazd() {
+
         ImageIcon ii;
         for (int i = 0; i < 4; i++) {
             ii = new ImageIcon(this.getClass().getResource(imageSrc[i]));
@@ -50,7 +52,6 @@ public class Pojazd implements ICollidable {
     public void move() {
 
         //System.out.println("x:" + x + " y:" + y + " dx:" + dx + " dy:" + dy + " gridX:" + gridX + " gridY:" + gridY + " ruchWPrawo:" + ruchWPrawo + " ruchWLewo:" + ruchWLewo + " ruchWGore:" + ruchWGore + " ruchWDol:" + ruchWDol);
-
         if (ruchWLewo) {
             if (x > Board.getGridValue(gridX - 1)) {
                 dx = -V;
@@ -105,10 +106,14 @@ public class Pojazd implements ICollidable {
 
     }
 
+    public void decReloadTimer() {
+        --reloadTimer;
+    }
+
     public Image getImage() {
         return image;
     }
-    
+
     public int getKierunek() {
         return kierunek;
     }
@@ -149,34 +154,28 @@ public class Pojazd implements ICollidable {
             fire();
         }
 
-        if (key == KeyEvent.VK_LEFT) {
+        if ((key == KeyEvent.VK_LEFT) && !ruchWGore && !ruchWDol) {
             kierunek = LEWO;
             ruchWLewo = true;
             ruchWPrawo = false;
             ruchWGore = false;
             ruchWDol = false;
             image = imageTab[3];
-        }
-
-        if (key == KeyEvent.VK_RIGHT) {
+        } else if ((key == KeyEvent.VK_RIGHT) && !ruchWGore && !ruchWDol) {
             kierunek = PRAWO;
             ruchWLewo = false;
             ruchWPrawo = true;
             ruchWGore = false;
             ruchWDol = false;
             image = imageTab[2];
-        }
-
-        if (key == KeyEvent.VK_UP) {
+        } else if ((key == KeyEvent.VK_UP) && !ruchWLewo && !ruchWPrawo) {
             kierunek = GORA;
             ruchWLewo = false;
             ruchWPrawo = false;
             ruchWGore = true;
             ruchWDol = false;
             image = imageTab[0];
-        }
-
-        if (key == KeyEvent.VK_DOWN) {
+        } else if (key == KeyEvent.VK_DOWN && !ruchWLewo && !ruchWPrawo) {
             kierunek = DOL;
             ruchWLewo = false;
             ruchWPrawo = false;
@@ -187,23 +186,28 @@ public class Pojazd implements ICollidable {
     }
 
     public void fire() {
-        
-        switch(kierunek){
-            case GORA:{
-                missiles.add(new Pocisk(x + 18, y, this));
-                break;
-            }
-            case DOL:{
-                missiles.add(new Pocisk(x + 18, y+36, this));
-                break;
-            }
-            case PRAWO:{
-                missiles.add(new Pocisk(x +36, y+18, this));
-                break;
-            }
-            case LEWO:{
-                missiles.add(new Pocisk(x, y+18, this));
-                break;
+        if (reloadTimer <= 0) {
+            switch (kierunek) {
+                case GORA: {
+                    missiles.add(new Pocisk(x + 18, y, this));
+                    reloadTimer = RELOAD_TIME;
+                    break;
+                }
+                case DOL: {
+                    missiles.add(new Pocisk(x + 18, y + 36, this));
+                    reloadTimer = RELOAD_TIME;
+                    break;
+                }
+                case PRAWO: {
+                    missiles.add(new Pocisk(x + 36, y + 18, this));
+                    reloadTimer = RELOAD_TIME;
+                    break;
+                }
+                case LEWO: {
+                    missiles.add(new Pocisk(x, y + 18, this));
+                    reloadTimer = RELOAD_TIME;
+                    break;
+                }
             }
         }
     }

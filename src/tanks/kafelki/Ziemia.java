@@ -5,18 +5,18 @@
  */
 package tanks.kafelki;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Zet
  */
-public abstract class Przeszkody extends Kafelek{
-    
-    /*
-    Dziwne zjawisko. Konstruktor w klasie abstrakcyjnej wymuszony przez IDE,
-    pewnie dlatego że dziedziczymy po klasie nie abstrakcyjnej;
-    */
-    public Przeszkody(int gridX, int gridY) {
+public class Ziemia extends Kafelek{
+
+    public Ziemia(int gridX, int gridY) {
         super(gridX, gridY);
+        ImageIcon ii = new ImageIcon(this.getClass().getResource("ground.png"));
+        image = ii.getImage();
     }
 
     
