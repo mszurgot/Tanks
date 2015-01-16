@@ -6,7 +6,6 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -14,7 +13,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class Board extends JPanel implements ActionListener {
@@ -24,12 +22,15 @@ public class Board extends JPanel implements ActionListener {
     private boolean ingame;
     private int B_WIDTH;
     private int B_HEIGHT;
+    private final static int SPACES = 20;
+    private static int grid[] = new int[30]; 
 
     public Board() {
         
+        for(int i = 0 ; i < Main.FRAME_WIDTH/SPACES; i++) grid[i] = i * SPACES;
         addKeyListener(new TAdapter());
         setFocusable(true);
-        setBackground(Color.BLACK);
+        setBackground(new Color(0,70,0));
         setDoubleBuffered(true);
         ingame = true;
         setSize(Main.FRAME_WIDTH, Main.FRAME_HEIGHT);
@@ -86,7 +87,6 @@ public class Board extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         ArrayList ms = pojazd.getMissiles();
-
         for (int i = 0; i < ms.size(); i++) {
             Pocisk m = (Pocisk) ms.get(i);
             if (m.isVisible()) {
@@ -96,6 +96,7 @@ public class Board extends JPanel implements ActionListener {
             }
         }
 
+        
         pojazd.move();
         checkCollisions();
         repaint();
@@ -114,12 +115,16 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
+    public static int getGridValue(int i) {
+        return grid[i];
+    }
+    
     private class TAdapter extends KeyAdapter {
-
+/*
         public void keyReleased(KeyEvent e) {
             pojazd.keyReleased(e);
         }
-
+*/
         public void keyPressed(KeyEvent e) {
             pojazd.keyPressed(e);
         }

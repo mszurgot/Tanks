@@ -22,19 +22,19 @@ public class Pocisk implements ICollidable {
         ImageIcon ii = null;
         switch (kierunek) {
             case 1: {
-                ii = new ImageIcon(this.getClass().getResource("pociskGora.png"));
+                ii = new ImageIcon(this.getClass().getResource("images/bullet.png"));//tu mozna zrobic inne pociski
                 break;
             }
             case 2: {
-                ii = new ImageIcon(this.getClass().getResource("pociskDol.png"));
+                ii = new ImageIcon(this.getClass().getResource("images/bullet.png"));
                 break;
             }
             case 3: {
-                ii = new ImageIcon(this.getClass().getResource("pociskPrawo.png"));
+                ii = new ImageIcon(this.getClass().getResource("images/bullet.png"));
                 break;
             }
             case 4: {
-                ii = new ImageIcon(this.getClass().getResource("pociskLewo.png"));
+                ii = new ImageIcon(this.getClass().getResource("images/bullet.png"));
                 break;
             }
         }
@@ -62,6 +62,8 @@ public class Pocisk implements ICollidable {
     public int getY() {
         return y;
     }
+    
+
 
     public boolean isVisible() {
         return visible;
