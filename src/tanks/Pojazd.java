@@ -57,7 +57,7 @@ public class Pojazd implements ICollidable {
 
         //System.out.println("x:" + x + " y:" + y + " dx:" + dx + " dy:" + dy + " gridX:" + gridX + " gridY:" + gridY + " ruchWPrawo:" + ruchWPrawo + " ruchWLewo:" + ruchWLewo + " ruchWGore:" + ruchWGore + " ruchWDol:" + ruchWDol);
         if (ruchWLewo) {
-            if (x > Board.getGridValue(gridX - 1)) {
+            if (x > Board.getGridValue(gridX - 1)) {//dodac sprawdzenie warunku czy wcisniety przycisk?
                 dx = -V;
             } else {
                 dx = 0;

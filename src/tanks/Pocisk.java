@@ -20,25 +20,7 @@ public class Pocisk implements ICollidable {
         this.kierunek = p.getKierunek();
         this.strzelajacy = p;
         this.missileSpeed = speed;
-        ImageIcon ii = null;
-        switch (kierunek) {
-            case 1: {
-                ii = new ImageIcon(this.getClass().getResource("images/bullet.png"));//tu mozna zrobic inne pociski
-                break;
-            }
-            case 2: {
-                ii = new ImageIcon(this.getClass().getResource("images/bullet.png"));
-                break;
-            }
-            case 3: {
-                ii = new ImageIcon(this.getClass().getResource("images/bullet.png"));
-                break;
-            }
-            case 4: {
-                ii = new ImageIcon(this.getClass().getResource("images/bullet.png"));
-                break;
-            }
-        }
+        ImageIcon ii = new ImageIcon(this.getClass().getResource("images/bullet.png"));
         this.image = ii.getImage();
         this.visible = true;
         this.width = image.getWidth(null);

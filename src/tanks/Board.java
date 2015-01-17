@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -13,6 +14,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Iterator;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import tanks.kafelki.Kafelek;
 import tanks.kafelki.Krzak;
@@ -27,11 +30,14 @@ public class Board extends JPanel implements ActionListener {
     private int B_HEIGHT;
     private final static int SPACES = 20;
     private static int grid[] = new int[30]; 
-    private Kafelek[][] kafelki;
+    private ArrayList<Kafelek> kafelki;
+    private Image background;
 
     public Board() {
         
         for(int i = 0 ; i < Main.FRAME_WIDTH/SPACES; i++) grid[i] = i * SPACES;
+        ImageIcon ii = new ImageIcon(this.getClass().getResource("images/background.png"));
+        background = ii.getImage();
         addKeyListener(new TAdapter());
         setFocusable(true);
         setBackground(new Color(0,70,0));
@@ -41,24 +47,26 @@ public class Board extends JPanel implements ActionListener {
         pojazd = new Pojazd(2,2,10,4);
         timer = new Timer(5, this);
         timer.start();
-        kafelki = new Kafelek[Main.FRAME_WIDTH/SPACES/2][Main.FRAME_HEIGHT/SPACES/2];   
+        kafelki = new ArrayList();   
+        /*  
         for(int i = 0 ; i < Main.FRAME_WIDTH/SPACES/2; i++){
                 for(int j = 0 ; j < Main.FRAME_WIDTH/SPACES/2; j++){         
                     kafelki[i][j] = new Ziemia(grid[i*2],grid[j*2]);
                 }
             }
-        kafelki[10][10] = new Krzak(grid[10*2],grid[10*2]);
-        kafelki[3][4] = new Krzak(grid[3*2],grid[4*2]);
+        */
+        kafelki.add(new Krzak(grid[10*2],grid[10*2]));
+        kafelki.add(new Krzak(grid[3*2],grid[4*2]));
         
     }
-/*
+
     @Override
     public void addNotify() {
         super.addNotify();
         B_WIDTH = getWidth();
         B_HEIGHT = getHeight();
     }
-*/
+
     
     @Override
     public void paint(Graphics g) {
@@ -66,17 +74,11 @@ public class Board extends JPanel implements ActionListener {
         
         if (ingame) {        
             Graphics2D g2d = (Graphics2D) g;
-            
-            for(int i = 0 ; i < Main.FRAME_WIDTH/SPACES/2; i++){
-                for(int j = 0 ; j < Main.FRAME_WIDTH/SPACES/2; j++){
-                    Kafelek k = kafelki[i][j];
-                    if(!k.getClass().getSimpleName().equals("Krzak"))g2d.drawImage(k.getImage(),k.getGridX(),k.getGridY(),this);
-                }
-            }
 
+            g2d.drawImage(background, 0, 0, this);
+            
             if (pojazd.isVisible()) {
-                g2d.drawImage(pojazd.getImage(), pojazd.getX(), pojazd.getY(),
-                        this);
+                g2d.drawImage(pojazd.getImage(), pojazd.getX(), pojazd.getY(),this);
             }
 
             ArrayList ms = pojazd.getMissiles();
@@ -86,13 +88,14 @@ public class Board extends JPanel implements ActionListener {
                 g2d.drawImage(m.getImage(), m.getX(), m.getY(), this);
             }
             // ten sposob wyswietlania trzeba poprawic na bardziej wydajny najlepiej wyswietlac wszystkie krzaki z Arraylisty
-            for(int i = 0 ; i < Main.FRAME_WIDTH/SPACES/2; i++){
-                for(int j = 0 ; j < Main.FRAME_WIDTH/SPACES/2; j++){
-                    Kafelek k = kafelki[i][j];
-                    if(k.getClass().getSimpleName().equals("Krzak"))g2d.drawImage(k.getImage(),k.getGridX(),k.getGridY(),this);
-                }
+            Iterator it = kafelki.iterator();
+            while (it.hasNext()) {
+                Kafelek k = (Kafelek) it.next();
+                if(k.getClass().getSimpleName().equals("Krzak"))g2d.drawImage(k.getImage(),k.getGridX(),k.getGridY(),this);
+                System.out.println(k.getClass().getSimpleName());
             }
-           
+                    
+
         } else {
             String msg = "Game Over";
             Font small = new Font("Helvetica", Font.BOLD, 14);
