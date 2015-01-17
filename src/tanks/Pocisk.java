@@ -29,11 +29,6 @@ public class Pocisk implements ICollidable {
         this.y = y;
     }
 
-    @Override
-    public void collide(Object x) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     public Image getImage() {
         return image;
     }

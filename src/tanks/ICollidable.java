@@ -1,9 +1,11 @@
 package tanks;
 
+import java.awt.Rectangle;
+
 /**
  *
  * @author Zet
  */
 interface ICollidable {
-    public void collide(Object x);
+    public Rectangle getWymiary();
 }

@@ -19,12 +19,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import tanks.kafelki.Kafelek;
 import tanks.kafelki.Krzak;
-import tanks.kafelki.Ziemia;
 
 public class Board extends JPanel implements ActionListener {
 
     private Timer timer;
-    private Pojazd pojazd;
+    private Gracz pojazd;
     private boolean ingame;
     private int B_WIDTH;
     private int B_HEIGHT;
@@ -44,7 +43,7 @@ public class Board extends JPanel implements ActionListener {
         setDoubleBuffered(true);
         ingame = true;
         setSize(Main.FRAME_WIDTH, Main.FRAME_HEIGHT);
-        pojazd = new Pojazd(2,2,10,4);
+        pojazd = new Gracz(2,2,10,4);
         timer = new Timer(5, this);
         timer.start();
         kafelki = new ArrayList();   
@@ -59,14 +58,14 @@ public class Board extends JPanel implements ActionListener {
         kafelki.add(new Krzak(grid[3*2],grid[4*2]));
         
     }
-
+/* 
     @Override
     public void addNotify() {
         super.addNotify();
         B_WIDTH = getWidth();
         B_HEIGHT = getHeight();
     }
-
+*/
     
     @Override
     public void paint(Graphics g) {
@@ -92,10 +91,7 @@ public class Board extends JPanel implements ActionListener {
             while (it.hasNext()) {
                 Kafelek k = (Kafelek) it.next();
                 if(k.getClass().getSimpleName().equals("Krzak"))g2d.drawImage(k.getImage(),k.getGridX(),k.getGridY(),this);
-                System.out.println(k.getClass().getSimpleName());
             }
-                    
-
         } else {
             String msg = "Game Over";
             Font small = new Font("Helvetica", Font.BOLD, 14);
@@ -125,7 +121,7 @@ public class Board extends JPanel implements ActionListener {
         }
 
         
-        pojazd.move();
+        pojazd.makeMove();
         pojazd.decReloadTimer();
         checkCollisions();
         repaint();
