@@ -12,13 +12,14 @@ public class Pocisk implements ICollidable {
     private int width, height;
     private int kierunek;
     private Pojazd strzelajacy;
-    private final int MISSILE_SPEED = 2;
+    private int missileSpeed;
 
-    public Pocisk(int x, int y, Pojazd p) {
+    public Pocisk(int x, int y, int speed, Pojazd p) {
 
         /*tu bedzie trzeba zmieniac obrazki wraz ze zmiana kierunku albo zmieniac pozycje sprite'a*/
-        kierunek = p.getKierunek();
-        strzelajacy = p;
+        this.kierunek = p.getKierunek();
+        this.strzelajacy = p;
+        this.missileSpeed = speed;
         ImageIcon ii = null;
         switch (kierunek) {
             case 1: {
@@ -38,10 +39,10 @@ public class Pocisk implements ICollidable {
                 break;
             }
         }
-        image = ii.getImage();
-        visible = true;
-        width = image.getWidth(null);
-        height = image.getHeight(null);
+        this.image = ii.getImage();
+        this.visible = true;
+        this.width = image.getWidth(null);
+        this.height = image.getHeight(null);
         this.x = x;
         this.y = y;
     }
@@ -62,8 +63,6 @@ public class Pocisk implements ICollidable {
     public int getY() {
         return y;
     }
-    
-
 
     public boolean isVisible() {
         return visible;
@@ -80,7 +79,7 @@ public class Pocisk implements ICollidable {
     public void move() {
         switch (kierunek) {
             case 1: {
-                y -= MISSILE_SPEED;
+                y -= missileSpeed;
                 if (y < 0) {
                     visible = false; //tu zrobić obsługę przerzucania obiektu na poczatek kolejki pociskow do uzycia na obiekcie strzelajacego
                     //strzelajacy.doKolejki(this);
@@ -88,7 +87,7 @@ public class Pocisk implements ICollidable {
                 break;
             }
             case 2: {
-                y += MISSILE_SPEED;
+                y += missileSpeed;
                 if (y > Main.FRAME_HEIGHT - this.height) {
                     visible = false; //tu zrobić obsługę przerzucania obiektu na poczatek kolejki pociskow do uzycia na obiekcie strzelajacego
                     //strzelajacy.doKolejki(this);
@@ -96,7 +95,7 @@ public class Pocisk implements ICollidable {
                 break;
             }
             case 3: {
-                x += MISSILE_SPEED;
+                x += missileSpeed;
                 if (x > Main.FRAME_WIDTH - this.width) {
                     visible = false; //tu zrobić obsługę przerzucania obiektu na poczatek kolejki pociskow do uzycia na obiekcie strzelajacego
                     //strzelajacy.doKolejki(this);
@@ -104,7 +103,7 @@ public class Pocisk implements ICollidable {
                 break;
             }
             case 4: {
-                x -= MISSILE_SPEED;
+                x -= missileSpeed;
                 if (x < 0) {
                     visible = false; //tu zrobić obsługę przerzucania obiektu na poczatek kolejki pociskow do uzycia na obiekcie strzelajacego
                     //strzelajacy.doKolejki(this);

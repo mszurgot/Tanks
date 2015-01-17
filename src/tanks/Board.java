@@ -38,7 +38,7 @@ public class Board extends JPanel implements ActionListener {
         setDoubleBuffered(true);
         ingame = true;
         setSize(Main.FRAME_WIDTH, Main.FRAME_HEIGHT);
-        pojazd = new Pojazd();
+        pojazd = new Pojazd(2,2,10,4);
         timer = new Timer(5, this);
         timer.start();
         kafelki = new Kafelek[Main.FRAME_WIDTH/SPACES/2][Main.FRAME_HEIGHT/SPACES/2];   
@@ -92,8 +92,7 @@ public class Board extends JPanel implements ActionListener {
                     if(k.getClass().getSimpleName().equals("Krzak"))g2d.drawImage(k.getImage(),k.getGridX(),k.getGridY(),this);
                 }
             }
-            
-
+           
         } else {
             String msg = "Game Over";
             Font small = new Font("Helvetica", Font.BOLD, 14);

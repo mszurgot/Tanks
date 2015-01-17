@@ -8,39 +8,42 @@ import javax.swing.ImageIcon;
 
 public class Pojazd implements ICollidable {
 
-    public static final int GORA = 1;
-    public static final int DOL = 2;
-    public static final int PRAWO = 3;
-    public static final int LEWO = 4;
-    private String[] imageSrc = {"images/tank2up.png", "images/tank2down.png", "images/tank2right.png", "images/tank2left.png"};
+    private static final int GORA = 1;
+    private static final int DOL = 2;
+    private static final int PRAWO = 3;
+    private static final int LEWO = 4;
+    private static final String[] imageSrc = {"images/tank2up.png", "images/tank2down.png", "images/tank2right.png", "images/tank2left.png"};
     private Image[] imageTab = new Image[4];
-    public boolean ruchWPrawo, ruchWLewo, ruchWGore, ruchWDol;
+    private boolean ruchWPrawo, ruchWLewo, ruchWGore, ruchWDol;
     private int kierunek;
     private int dx, dy, x, y, width, height, gridX, gridY;
-    private final static int V = 1;
+    private final static int V = 3;
     private boolean visible;
     private ArrayList missiles;
-    private Image image;
+    private int missileSpeed;
+    private Image displayedImage;
     private int reloadTimer;
-    private final static int RELOAD_TIME = 50;
+    private int reloadTime;
 
-    public Pojazd() {
+    public Pojazd(int gridX, int gridY, int reload, int missileSpeed) {
 
         ImageIcon ii;
         for (int i = 0; i < 4; i++) {
             ii = new ImageIcon(this.getClass().getResource(imageSrc[i]));
             imageTab[i] = ii.getImage();
         }
-        image = imageTab[0];
         width = 40;
         height = 40;
         kierunek = GORA;
+        displayedImage = imageTab[0];
         missiles = new ArrayList();
         visible = true;
-        x = Board.getGridValue(1);
-        y = Board.getGridValue(1);
-        gridX = (x) / 20;
-        gridY = (y) / 20;
+        this.x = Board.getGridValue(gridX);
+        this.y = Board.getGridValue(gridY);
+        this.gridX = gridX;
+        this.gridY = gridY;
+        this.reloadTime = reload;
+        this.missileSpeed = missileSpeed;
     }
 
     // chyba tak zrobimy kolizje
@@ -60,8 +63,7 @@ public class Pojazd implements ICollidable {
                 ruchWLewo = false;
                 gridX = gridX - 1;
             }
-        }
-        if (ruchWPrawo) {
+        } else if (ruchWPrawo) {
             if (x < Board.getGridValue(gridX + 1)) {
                 dx = V;
             } else {
@@ -69,8 +71,7 @@ public class Pojazd implements ICollidable {
                 ruchWPrawo = false;
                 gridX = gridX + 1;
             }
-        }
-        if (ruchWGore) {
+        } else if (ruchWGore) {
             if (y > Board.getGridValue(gridY - 1)) {
                 dy = -V;
             } else {
@@ -78,8 +79,7 @@ public class Pojazd implements ICollidable {
                 ruchWGore = false;
                 gridY = gridY - 1;
             }
-        }
-        if (ruchWDol) {
+        } else if (ruchWDol) {
             if (y < Board.getGridValue(gridY + 1)) {
                 dy = V;
             } else {
@@ -93,14 +93,12 @@ public class Pojazd implements ICollidable {
 
         if (x < 0) {
             x = 0;
+        } else if (x > (Main.FRAME_WIDTH - this.width)) {
+            x = Main.FRAME_WIDTH - this.width;
         }
         if (y < 0) {
             y = 0;
-        }
-        if (x > (Main.FRAME_WIDTH - this.width)) {
-            x = Main.FRAME_WIDTH - this.width;
-        }
-        if (y > (Main.FRAME_HEIGHT - this.height)) {
+        } else if (y > (Main.FRAME_HEIGHT - this.height)) {
             y = Main.FRAME_HEIGHT - this.height;
         }
 
@@ -111,7 +109,7 @@ public class Pojazd implements ICollidable {
     }
 
     public Image getImage() {
-        return image;
+        return displayedImage;
     }
 
     public int getKierunek() {
@@ -155,33 +153,41 @@ public class Pojazd implements ICollidable {
         }
 
         if ((key == KeyEvent.VK_LEFT) && !ruchWGore && !ruchWDol) {
-            kierunek = LEWO;
-            ruchWLewo = true;
-            ruchWPrawo = false;
-            ruchWGore = false;
-            ruchWDol = false;
-            image = imageTab[3];
+            if (kierunek == LEWO) {
+                if (!ruchWLewo) {
+                    ruchWLewo = true;
+                }
+            } else {
+                kierunek = LEWO;
+                displayedImage = imageTab[3];
+            }
         } else if ((key == KeyEvent.VK_RIGHT) && !ruchWGore && !ruchWDol) {
-            kierunek = PRAWO;
-            ruchWLewo = false;
-            ruchWPrawo = true;
-            ruchWGore = false;
-            ruchWDol = false;
-            image = imageTab[2];
+            if (kierunek == PRAWO) {
+                if (!ruchWPrawo) {
+                    ruchWPrawo = true;
+                }
+            } else {
+                kierunek = PRAWO;
+                displayedImage = imageTab[2];
+            }
         } else if ((key == KeyEvent.VK_UP) && !ruchWLewo && !ruchWPrawo) {
-            kierunek = GORA;
-            ruchWLewo = false;
-            ruchWPrawo = false;
-            ruchWGore = true;
-            ruchWDol = false;
-            image = imageTab[0];
-        } else if (key == KeyEvent.VK_DOWN && !ruchWLewo && !ruchWPrawo) {
-            kierunek = DOL;
-            ruchWLewo = false;
-            ruchWPrawo = false;
-            ruchWGore = false;
-            ruchWDol = true;
-            image = imageTab[1];
+            if (kierunek == GORA) {
+                if (!ruchWGore) {
+                    ruchWGore = true;
+                }
+            } else {
+                kierunek = GORA;
+                displayedImage = imageTab[0];
+            }
+        } else if ((key == KeyEvent.VK_DOWN) && !ruchWLewo && !ruchWPrawo) {
+            if (kierunek == DOL) {
+                if (!ruchWDol) {
+                    ruchWDol = true;
+                }
+            } else {
+                kierunek = DOL;
+                displayedImage = imageTab[1];
+            }
         }
     }
 
@@ -189,46 +195,26 @@ public class Pojazd implements ICollidable {
         if (reloadTimer <= 0) {
             switch (kierunek) {
                 case GORA: {
-                    missiles.add(new Pocisk(x + 18, y, this));
-                    reloadTimer = RELOAD_TIME;
+                    missiles.add(new Pocisk(x + 18, y, missileSpeed, this));
+                    reloadTimer = reloadTime;
                     break;
                 }
                 case DOL: {
-                    missiles.add(new Pocisk(x + 18, y + 36, this));
-                    reloadTimer = RELOAD_TIME;
+                    missiles.add(new Pocisk(x + 18, y + 36, missileSpeed, this));
+                    reloadTimer = reloadTime;
                     break;
                 }
                 case PRAWO: {
-                    missiles.add(new Pocisk(x + 36, y + 18, this));
-                    reloadTimer = RELOAD_TIME;
+                    missiles.add(new Pocisk(x + 36, y + 18, missileSpeed, this));
+                    reloadTimer = reloadTime;
                     break;
                 }
                 case LEWO: {
-                    missiles.add(new Pocisk(x, y + 18, this));
-                    reloadTimer = RELOAD_TIME;
+                    missiles.add(new Pocisk(x, y + 18, missileSpeed, this));
+                    reloadTimer = reloadTime;
                     break;
                 }
             }
         }
     }
-    /*
-     public void keyReleased(KeyEvent e) {
-     int key = e.getKeyCode();
-
-     if (key == KeyEvent.VK_LEFT) {
-     dx = 0;
-     }
-
-     if (key == KeyEvent.VK_RIGHT) {
-     dx = 0;
-     }
-
-     if (key == KeyEvent.VK_UP) {
-     dy = 0;
-     }
-
-     if (key == KeyEvent.VK_DOWN) {
-     dy = 0;
-     }
-     }*/
 }
