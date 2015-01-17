@@ -12,7 +12,8 @@ public class Pojazd implements ICollidable {
     private static final int DOL = 2;
     private static final int PRAWO = 3;
     private static final int LEWO = 4;
-    private static final String[] imageSrc = {"images/tank2up.png", "images/tank2down.png", "images/tank2right.png", "images/tank2left.png"};
+    private int tankNumber = 3;
+    private String[] imageSrc = {"images/tank"+tankNumber+"up.png", "images/tank"+tankNumber+"down.png", "images/tank"+tankNumber+"right.png", "images/tank"+tankNumber+"left.png"};
     private Image[] imageTab = new Image[4];
     private boolean ruchWPrawo, ruchWLewo, ruchWGore, ruchWDol;
     private int kierunek;
