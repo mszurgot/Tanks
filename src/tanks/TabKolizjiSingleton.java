@@ -7,6 +7,11 @@ public class TabKolizjiSingleton {
 
     private TabKolizjiSingleton() {
         this.tabKolizji = new boolean[30][30];
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                if (i==0 || j==0 || i==30 || j==30)tabKolizji[i][j]=true;
+            }
+        }
     }
 
     public static TabKolizjiSingleton getInstance() {

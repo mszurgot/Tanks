@@ -22,15 +22,15 @@ public class Wrog extends Pojazd{
     
     @Override
     protected void initImage(){
-        Random rand = new Random(5);
-        this.tankNumber = rand.nextInt()+1;
+        Random rand = new Random();
+        this.tankNumber = rand.nextInt(4)+2;
         ImageIcon ii;
-        this.imageSrc[0]="images/tank" + tankNumber + "up.png";
-        this.imageSrc[1]="images/tank" + tankNumber + "down.png";
-        this.imageSrc[2]="images/tank" + tankNumber + "right.png";
-        this.imageSrc[3]="images/tank" + tankNumber + "left.png";
+        this.imageSrc[0]="images/tank" + this.tankNumber + "up.png";
+        this.imageSrc[1]="images/tank" + this.tankNumber + "down.png";
+        this.imageSrc[2]="images/tank" + this.tankNumber + "right.png";
+        this.imageSrc[3]="images/tank" + this.tankNumber + "left.png";
         for (int i = 0; i < 4; i++) {
-            System.out.println(this.getClass().getResource(imageSrc[i]));
+            System.out.println(imageSrc[i]);
             ii = new ImageIcon(this.getClass().getResource(imageSrc[i]));
             imageTab[i] = ii.getImage();
         }

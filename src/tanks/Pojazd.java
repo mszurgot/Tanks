@@ -63,15 +63,15 @@ public abstract class Pojazd implements IKolizyjne {
         this.imageSrc[2]="images/tank" + tankNumber + "right.png";
         this.imageSrc[3]="images/tank" + tankNumber + "left.png";
         for (int i = 0; i < 4; i++) {
-            System.out.println(this.getClass().getResource(imageSrc[i]));
             ii = new ImageIcon(this.getClass().getResource(imageSrc[i]));
+            System.out.println(imageSrc[i]);
             imageTab[i] = ii.getImage();
         }
         displayedImage = imageTab[0];
     }
 
     public void move() {
-        System.out.println("x:" + x + " y:" + y + " dx:" + dx + " dy:" + dy + " gridX:" + gridX + " gridY:" + gridY + " ruchWPrawo:" + ruchWPrawo + " ruchWLewo:" + ruchWLewo + " ruchWGore:" + ruchWGore + " ruchWDol:" + ruchWDol);
+        //System.out.println("x:" + x + " y:" + y + " dx:" + dx + " dy:" + dy + " gridX:" + gridX + " gridY:" + gridY + " ruchWPrawo:" + ruchWPrawo + " ruchWLewo:" + ruchWLewo + " ruchWGore:" + ruchWGore + " ruchWDol:" + ruchWDol);
         if (ruchWLewo) {
             if (x > Board.getGridValue(gridX - 1)) {
                 //dodac sprawdzenie warunku czy wcisniety przycisk?
