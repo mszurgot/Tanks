@@ -1,25 +1,21 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tanks;
 
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 
 /**
  *
  * @author Zet
  */
 
-public abstract class Pojazd implements ICollidable {
+public abstract class Pojazd implements IKolizyjne {
     protected static final int GORA = 1;
     protected static final int DOL = 2;
     protected static final int PRAWO = 3;
     protected static final int LEWO = 4;
-    protected static final int V = 3;
+    protected static final int V = 1;
     protected int tankNumber = 3;
     protected String[] imageSrc = {"images/tank" + tankNumber + "up.png", "images/tank" + tankNumber + "down.png", "images/tank" + tankNumber + "right.png", "images/tank" + tankNumber + "left.png"};
     protected Image[] imageTab = new Image[4];
@@ -27,6 +23,7 @@ public abstract class Pojazd implements ICollidable {
     protected boolean ruchWLewo;
     protected boolean ruchWGore;
     protected boolean ruchWDol;
+    protected boolean czyKolizjaRuchu;
     protected int kierunek;
     protected int dx;
     protected int dy;
@@ -37,17 +34,35 @@ public abstract class Pojazd implements ICollidable {
     protected int gridX;
     protected int gridY;
     protected boolean visible;
-    protected ArrayList missiles;
+    protected ArrayList<Pocisk> missiles;
     protected int missileSpeed;
     protected Image displayedImage;
     protected int reloadTimer;
     protected int reloadTime;
 
-    public Pojazd() {
+        public Pojazd(int gridX, int gridY, int reload, int missileSpeed){
+
+        ImageIcon ii;
+        for (int i = 0; i < 4; i++) {
+            ii = new ImageIcon(this.getClass().getResource(imageSrc[i]));
+            imageTab[i] = ii.getImage();
+        }
+        width = 40;
+        height = 40;
+        kierunek = GORA;
+        displayedImage = imageTab[0];
+        missiles = new ArrayList();
+        visible = true;
+        this.x = Board.getGridValue(gridX);
+        this.y = Board.getGridValue(gridY);
+        this.gridX = gridX;
+        this.gridY = gridY;
+        this.reloadTime = reload;
+        this.missileSpeed = missileSpeed;
     }
 
     public void move() {
-        //System.out.println("x:" + x + " y:" + y + " dx:" + dx + " dy:" + dy + " gridX:" + gridX + " gridY:" + gridY + " ruchWPrawo:" + ruchWPrawo + " ruchWLewo:" + ruchWLewo + " ruchWGore:" + ruchWGore + " ruchWDol:" + ruchWDol);
+        System.out.println("x:" + x + " y:" + y + " dx:" + dx + " dy:" + dy + " gridX:" + gridX + " gridY:" + gridY + " ruchWPrawo:" + ruchWPrawo + " ruchWLewo:" + ruchWLewo + " ruchWGore:" + ruchWGore + " ruchWDol:" + ruchWDol);
         if (ruchWLewo) {
             if (x > Board.getGridValue(gridX - 1)) {
                 //dodac sprawdzenie warunku czy wcisniety przycisk?
@@ -82,6 +97,7 @@ public abstract class Pojazd implements ICollidable {
                 gridY = gridY + 1;
             }
         }
+        czyKolizjaRuchu=false;
         x += dx;
         y += dy;
         if (x < 0) {
@@ -97,6 +113,13 @@ public abstract class Pojazd implements ICollidable {
     }
     
     public abstract void makeMove();
+    
+    @Override
+    public void kolizja(IKolizyjne p){
+    
+    ////////////
+    
+    }
 
     public void decReloadTimer() {
         --reloadTimer;

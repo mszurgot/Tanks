@@ -2,10 +2,7 @@ package tanks;
 
 import java.awt.Rectangle;
 
-/**
- *
- * @author Zet
- */
-interface ICollidable {
+interface IKolizyjne {
     public Rectangle getWymiary();
+    public void kolizja(IKolizyjne k);
 }

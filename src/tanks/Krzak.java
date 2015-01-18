@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tanks.kafelki;
+package tanks;
 
 import javax.swing.ImageIcon;
 
@@ -11,13 +11,12 @@ import javax.swing.ImageIcon;
  *
  * @author Zet
  */
-public class Ziemia extends Kafelek{
-
-    public Ziemia(int gridX, int gridY) {
+public class Krzak extends Kafelek{
+    
+    public Krzak(int gridX, int gridY) {
         super(gridX, gridY);
-        ImageIcon ii = new ImageIcon(this.getClass().getResource("ground.png"));
+        ImageIcon ii = new ImageIcon(this.getClass().getResource("images/bush.png"));
         image = ii.getImage();
     }
-
     
 }

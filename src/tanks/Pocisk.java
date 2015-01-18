@@ -4,7 +4,7 @@ import java.awt.Image;
 import java.awt.Rectangle;
 import javax.swing.ImageIcon;
 
-public class Pocisk implements ICollidable {
+public class Pocisk implements IKolizyjne {
 
     private int x, y;
     private Image image;
@@ -88,5 +88,10 @@ public class Pocisk implements ICollidable {
                 break;
             }
         }
+    }
+
+    @Override
+    public void kolizja(IKolizyjne k) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

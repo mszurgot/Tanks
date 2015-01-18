@@ -1,14 +1,9 @@
-package tanks.kafelki;
+package tanks;
 
 import java.awt.Image;
-import javax.swing.ImageIcon;
 
-/**
- *
- * @author Zet
- */
 public abstract class Kafelek{
-    protected Image image;
+    protected  Image image;
     protected int gridX, gridY;
 
     public Kafelek(int gridX, int gridY) {

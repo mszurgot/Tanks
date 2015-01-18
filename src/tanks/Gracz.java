@@ -1,31 +1,11 @@
 package tanks;
 
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import javax.swing.ImageIcon;
 
 public class Gracz extends Pojazd {
 
-
     public Gracz(int gridX, int gridY, int reload, int missileSpeed) {
-
-        ImageIcon ii;
-        for (int i = 0; i < 4; i++) {
-            ii = new ImageIcon(this.getClass().getResource(imageSrc[i]));
-            imageTab[i] = ii.getImage();
-        }
-        width = 40;
-        height = 40;
-        kierunek = GORA;
-        displayedImage = imageTab[0];
-        missiles = new ArrayList();
-        visible = true;
-        this.x = Board.getGridValue(gridX);
-        this.y = Board.getGridValue(gridY);
-        this.gridX = gridX;
-        this.gridY = gridY;
-        this.reloadTime = reload;
-        this.missileSpeed = missileSpeed;
+        super(gridX, gridY, reload, missileSpeed);
     }
 
     public void keyPressed(KeyEvent e) {
@@ -79,5 +59,6 @@ public class Gracz extends Pojazd {
     public void makeMove() {
         move();
     }
+
 
 }

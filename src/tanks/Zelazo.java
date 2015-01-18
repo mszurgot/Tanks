@@ -3,20 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tanks.kafelki;
-
-import javax.swing.ImageIcon;
+package tanks;
 
 /**
  *
  * @author Zet
  */
-public class Krzak extends Kafelek{
+public class Zelazo extends KafelekKolizyjny{
 
-    public Krzak(int gridX, int gridY) {
+    public Zelazo(int gridX, int gridY) {
         super(gridX, gridY);
-        ImageIcon ii = new ImageIcon(this.getClass().getResource("bush.png"));
-        image = ii.getImage();
     }
     
 }

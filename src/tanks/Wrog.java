@@ -9,7 +9,11 @@ package tanks;
  *
  * @author Zet
  */
-public class Wróg extends Pojazd{
+public class Wrog extends Pojazd{
+
+    public Wrog(int gridX, int gridY, int reload, int missileSpeed) {
+        super(gridX, gridY, reload, missileSpeed);
+    }
 
     @Override
     public void makeMove() {   
