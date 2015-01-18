@@ -15,4 +15,8 @@ public class Zelazo extends KafelekKolizyjny{
         super(gridX, gridY);
     }
     
+    @Override
+    public void kolizja(IKolizyjne k){
+    ////////////////
+    }
 }

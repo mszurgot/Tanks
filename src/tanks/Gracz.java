@@ -6,6 +6,8 @@ public class Gracz extends Pojazd {
 
     public Gracz(int gridX, int gridY, int reload, int missileSpeed) {
         super(gridX, gridY, reload, missileSpeed);
+        this.tankNumber = 1;
+        initImage();
     }
 
     public void keyPressed(KeyEvent e) {

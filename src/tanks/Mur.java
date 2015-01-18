@@ -6,4 +6,8 @@ public class Mur extends KafelekKolizyjny {
         super(gridX, gridY);
     }
     
+    @Override
+    public void kolizja(IKolizyjne k){
+    ///////////
+    }
 }

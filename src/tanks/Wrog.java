@@ -6,6 +6,8 @@
 package tanks;
 
 import java.awt.event.KeyEvent;
+import java.util.Random;
+import javax.swing.ImageIcon;
 import static tanks.Pojazd.LEWO;
 
 /**
@@ -19,9 +21,21 @@ public class Wrog extends Pojazd{
     }
     
     @Override
-    public void setTankNumber(int tankNumber) {
-        super.setTankNumber(tankNumber); //To change body of generated methods, choose Tools | Templates.
-    }
+    protected void initImage(){
+        Random rand = new Random(5);
+        this.tankNumber = rand.nextInt()+1;
+        ImageIcon ii;
+        this.imageSrc[0]="images/tank" + tankNumber + "up.png";
+        this.imageSrc[1]="images/tank" + tankNumber + "down.png";
+        this.imageSrc[2]="images/tank" + tankNumber + "right.png";
+        this.imageSrc[3]="images/tank" + tankNumber + "left.png";
+        for (int i = 0; i < 4; i++) {
+            System.out.println(this.getClass().getResource(imageSrc[i]));
+            ii = new ImageIcon(this.getClass().getResource(imageSrc[i]));
+            imageTab[i] = ii.getImage();
+        }
+        displayedImage = imageTab[0];
+    };
     
     public void keyPressed(KeyEvent e) {
 

@@ -30,9 +30,10 @@ public class Board extends JPanel implements ActionListener {
     private ArrayList<BrzegiPlanszy> brzegi;
     private ArrayList<Krzak> krzaki;
     private ArrayList<Pojazd> pojazdy;
-    private ArrayList<KafelekKolizyjny> kafelkiKolne;
+    private ArrayList<KafelekKolizyjny> kafelkiKolizyjne;
     private Iterator it;
     private Image background;
+    private boolean[][] tabKolizji;
 
     public Board() {
         
@@ -43,6 +44,7 @@ public class Board extends JPanel implements ActionListener {
         setFocusable(true);
         setBackground(new Color(0,70,0));
         setDoubleBuffered(true);
+        this.tabKolizji = new boolean[30][30];
         ingame = true;
         setSize(Main.FRAME_WIDTH, Main.FRAME_HEIGHT);
         timer = new Timer(5, this);
@@ -57,6 +59,9 @@ public class Board extends JPanel implements ActionListener {
         pojazdy = new ArrayList<>();
         krzaki.add(new Krzak(grid[10*2],grid[10*2]));
         krzaki.add(new Krzak(grid[3*2],grid[4*2]));
+        kafelkiKolizyjne = new ArrayList<KafelekKolizyjny>();
+        kafelkiKolizyjne.add(new Zelazo(10,10));
+        
         //pojazdy.add(gracz);
 
         /*  
@@ -67,6 +72,7 @@ public class Board extends JPanel implements ActionListener {
             }
         */       
     }
+    
 /* 
     @Override
     public void addNotify() {
@@ -156,7 +162,7 @@ public class Board extends JPanel implements ActionListener {
     public static int getGridValue(int i) {
         return grid[i];
     }
-    
+
     private class TAdapter extends KeyAdapter {
 
         public void keyPressed(KeyEvent e) {

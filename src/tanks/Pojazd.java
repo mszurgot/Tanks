@@ -9,15 +9,15 @@ import javax.swing.ImageIcon;
  *
  * @author Zet
  */
-
 public abstract class Pojazd implements IKolizyjne {
+
     protected static final int GORA = 1;
     protected static final int DOL = 2;
     protected static final int PRAWO = 3;
     protected static final int LEWO = 4;
     protected static final int V = 1;
-    protected int tankNumber = 3;
-    protected String[] imageSrc = {"images/tank" + tankNumber + "up.png", "images/tank" + tankNumber + "down.png", "images/tank" + tankNumber + "right.png", "images/tank" + tankNumber + "left.png"};
+    protected int tankNumber;
+    protected String[] imageSrc = new String[4];
     protected Image[] imageTab = new Image[4];
     protected boolean ruchWPrawo;
     protected boolean ruchWLewo;
@@ -40,17 +40,12 @@ public abstract class Pojazd implements IKolizyjne {
     protected int reloadTimer;
     protected int reloadTime;
 
-        public Pojazd(int gridX, int gridY, int reload, int missileSpeed){
-
-        ImageIcon ii;
-        for (int i = 0; i < 4; i++) {
-            ii = new ImageIcon(this.getClass().getResource(imageSrc[i]));
-            imageTab[i] = ii.getImage();
-        }
+    public Pojazd(int gridX, int gridY, int reload, int missileSpeed) {
+        tankNumber = 3;
+        initImage();
         width = 40;
         height = 40;
         kierunek = GORA;
-        displayedImage = imageTab[0];
         missiles = new ArrayList();
         visible = true;
         this.x = Board.getGridValue(gridX);
@@ -59,6 +54,20 @@ public abstract class Pojazd implements IKolizyjne {
         this.gridY = gridY;
         this.reloadTime = reload;
         this.missileSpeed = missileSpeed;
+    }
+
+    protected void initImage() {
+        ImageIcon ii;
+        this.imageSrc[0]="images/tank" + tankNumber + "up.png";
+        this.imageSrc[1]="images/tank" + tankNumber + "down.png";
+        this.imageSrc[2]="images/tank" + tankNumber + "right.png";
+        this.imageSrc[3]="images/tank" + tankNumber + "left.png";
+        for (int i = 0; i < 4; i++) {
+            System.out.println(this.getClass().getResource(imageSrc[i]));
+            ii = new ImageIcon(this.getClass().getResource(imageSrc[i]));
+            imageTab[i] = ii.getImage();
+        }
+        displayedImage = imageTab[0];
     }
 
     public void move() {
@@ -97,7 +106,7 @@ public abstract class Pojazd implements IKolizyjne {
                 gridY = gridY + 1;
             }
         }
-        czyKolizjaRuchu=false;
+        czyKolizjaRuchu = false;
         x += dx;
         y += dy;
         if (x < 0) {
@@ -111,14 +120,13 @@ public abstract class Pojazd implements IKolizyjne {
             y = Main.FRAME_HEIGHT - this.height;
         }
     }
-    
+
     public abstract void makeMove();
-    
+
     @Override
-    public void kolizja(IKolizyjne p){
-    
+    public void kolizja(IKolizyjne p) {
+
     ////////////
-    
     }
 
     public void decReloadTimer() {
@@ -165,32 +173,28 @@ public abstract class Pojazd implements IKolizyjne {
     public void fire(Pojazd p) {
         if (reloadTimer <= 0) {
             switch (kierunek) {
-                case GORA:
-                    {
-                        missiles.add(new Pocisk(x + 18, y, missileSpeed, p));
-                        reloadTimer = reloadTime;
-                        break;
-                    }
-                case DOL:
-                    {
-                        missiles.add(new Pocisk(x + 18, y + 36, missileSpeed, p));
-                        reloadTimer = reloadTime;
-                        break;
-                    }
-                case PRAWO:
-                    {
-                        missiles.add(new Pocisk(x + 36, y + 18, missileSpeed, p));
-                        reloadTimer = reloadTime;
-                        break;
-                    }
-                case LEWO:
-                    {
-                        missiles.add(new Pocisk(x, y + 18, missileSpeed, p));
-                        reloadTimer = reloadTime;
-                        break;
-                    }
+                case GORA: {
+                    missiles.add(new Pocisk(x + 18, y, missileSpeed, p));
+                    reloadTimer = reloadTime;
+                    break;
+                }
+                case DOL: {
+                    missiles.add(new Pocisk(x + 18, y + 36, missileSpeed, p));
+                    reloadTimer = reloadTime;
+                    break;
+                }
+                case PRAWO: {
+                    missiles.add(new Pocisk(x + 36, y + 18, missileSpeed, p));
+                    reloadTimer = reloadTime;
+                    break;
+                }
+                case LEWO: {
+                    missiles.add(new Pocisk(x, y + 18, missileSpeed, p));
+                    reloadTimer = reloadTime;
+                    break;
+                }
             }
         }
     }
-    
+
 }

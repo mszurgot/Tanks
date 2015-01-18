@@ -6,6 +6,7 @@ public abstract class KafelekKolizyjny extends Kafelek implements IKolizyjne{
 
     public KafelekKolizyjny(int gridX, int gridY) {
         super(gridX, gridY);
+            TabKolizjiSingleton.getInstance().setTabKolizji(gridY, gridY, true);
     }
     
     @Override
@@ -14,7 +15,5 @@ public abstract class KafelekKolizyjny extends Kafelek implements IKolizyjne{
     }
     
     @Override
-    public void kolizja(IKolizyjne k){
-    ////////////////
-    }
+    public abstract void kolizja(IKolizyjne k);
 }
