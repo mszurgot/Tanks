@@ -6,10 +6,10 @@ public class TabKolizjiSingleton {
     private boolean[][] tabKolizji;
 
     private TabKolizjiSingleton() {
-        this.tabKolizji = new boolean[30][30];
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
-                if (i==0 || j==0 || i==30 || j==30)tabKolizji[i][j]=true;
+        this.tabKolizji = new boolean[32][32];
+        for (int i = 0; i <= 31; i++) {
+            for (int j = 0; j <= 31; j++) {
+                if (i==0 || j==0 || i==31 || j==31)tabKolizji[j][i]=true;
             }
         }
     }

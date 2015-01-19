@@ -4,5 +4,5 @@ import java.awt.Rectangle;
 
 interface IKolizyjne {
     public Rectangle getWymiary();
-    public void kolizja(IKolizyjne k);
+    public void kolizja(IKolizyjne ths, IKolizyjne that);
 }

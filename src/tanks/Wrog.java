@@ -98,7 +98,7 @@ public class Wrog extends Pojazd{
         W tej klasie wszystkie te akcje będą musiały być generowane przez AI w tym miejscu przed wykonaniem move.
         Ta metoda jest wywolywana co takt.
         */
-        
+         
     }
     
     

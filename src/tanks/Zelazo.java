@@ -5,6 +5,8 @@
  */
 package tanks;
 
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Zet
@@ -13,10 +15,12 @@ public class Zelazo extends KafelekKolizyjny{
 
     public Zelazo(int gridX, int gridY) {
         super(gridX, gridY);
+        ImageIcon ii = new ImageIcon(this.getClass().getResource("images/zelazo.png"));
+        image = ii.getImage();
     }
     
     @Override
-    public void kolizja(IKolizyjne k){
+    public void kolizja(IKolizyjne ths, IKolizyjne that){
     ////////////////
     }
 }

@@ -6,7 +6,7 @@ public class Gracz extends Pojazd {
 
     public Gracz(int gridX, int gridY, int reload, int missileSpeed) {
         super(gridX, gridY, reload, missileSpeed);
-        this.tankNumber = 1;
+        this.tankNumber = 7;
         initImage();
     }
 
@@ -18,36 +18,36 @@ public class Gracz extends Pojazd {
             fire(this);
         }
 
-        if ((key == KeyEvent.VK_LEFT) && !ruchWGore && !ruchWDol) {
+        if ((key == KeyEvent.VK_LEFT) && !ruchWGore ) {
             if (kierunek == LEWO) {
-                if (!ruchWLewo) {
+                if (!ruchWLewo && !ruchWDol && TabKolizjiSingleton.getInstance().getTabKolizji(gridX - 1, gridY)==false && TabKolizjiSingleton.getInstance().getTabKolizji(gridX -1, gridY + 1)==false) {
                     ruchWLewo = true;
                 }
             } else {
                 kierunek = LEWO;
                 displayedImage = imageTab[3];
             }
-        } else if ((key == KeyEvent.VK_RIGHT) && !ruchWGore && !ruchWDol) {
+        } else if ((key == KeyEvent.VK_RIGHT) && !ruchWGore && !ruchWDol ) {
             if (kierunek == PRAWO) {
-                if (!ruchWPrawo) {
+                if (!ruchWPrawo && TabKolizjiSingleton.getInstance().getTabKolizji(gridX +2, gridY)==false && TabKolizjiSingleton.getInstance().getTabKolizji(gridX + 2, gridY + 1)==false) {
                     ruchWPrawo = true;
                 }
             } else {
                 kierunek = PRAWO;
                 displayedImage = imageTab[2];
             }
-        } else if ((key == KeyEvent.VK_UP) && !ruchWLewo && !ruchWPrawo) {
+        } else if ((key == KeyEvent.VK_UP) && !ruchWLewo && !ruchWPrawo ) {
             if (kierunek == GORA) {
-                if (!ruchWGore) {
+                if (!ruchWGore && TabKolizjiSingleton.getInstance().getTabKolizji(gridX, gridY - 1)==false && TabKolizjiSingleton.getInstance().getTabKolizji(gridX +1, gridY - 1)==false) {
                     ruchWGore = true;
                 }
             } else {
                 kierunek = GORA;
                 displayedImage = imageTab[0];
             }
-        } else if ((key == KeyEvent.VK_DOWN) && !ruchWLewo && !ruchWPrawo) {
+        } else if ((key == KeyEvent.VK_DOWN) && !ruchWLewo && !ruchWPrawo ) {
             if (kierunek == DOL) {
-                if (!ruchWDol) {
+                if (!ruchWDol && TabKolizjiSingleton.getInstance().getTabKolizji(gridX, gridY + 2)==false && TabKolizjiSingleton.getInstance().getTabKolizji(gridX +1, gridY + 2)==false) {
                     ruchWDol = true;
                 }
             } else {

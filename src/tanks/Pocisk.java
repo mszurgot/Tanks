@@ -49,6 +49,7 @@ public class Pocisk implements IKolizyjne {
         this.visible = visible;
     }
 
+    @Override
     public Rectangle getWymiary() {
         return new Rectangle(x, y, width, height);
     }
@@ -91,7 +92,7 @@ public class Pocisk implements IKolizyjne {
     }
 
     @Override
-    public void kolizja(IKolizyjne k) {
+    public void kolizja(IKolizyjne ths, IKolizyjne that) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
