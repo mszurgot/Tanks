@@ -34,7 +34,7 @@ public abstract class Pojazd implements IKolizyjne {
     protected int gridX;
     protected int gridY;
     protected boolean visible;
-    protected ArrayList<Pocisk> missiles;
+    protected ArrayList<Pocisk> pociski;
     protected int missileSpeed;
     protected Image displayedImage;
     protected int reloadTimer;
@@ -46,7 +46,7 @@ public abstract class Pojazd implements IKolizyjne {
         width = 40;
         height = 40;
         kierunek = GORA;
-        missiles = new ArrayList();
+        pociski = new ArrayList();
         visible = true;
         this.x = Board.getGridValue(gridX);
         this.y = Board.getGridValue(gridY);
@@ -57,16 +57,6 @@ public abstract class Pojazd implements IKolizyjne {
     }
 
     protected void initImage() {
-        ImageIcon ii;
-        this.imageSrc[0]="images/tank" + tankNumber + "up.png";
-        this.imageSrc[1]="images/tank" + tankNumber + "down.png";
-        this.imageSrc[2]="images/tank" + tankNumber + "right.png";
-        this.imageSrc[3]="images/tank" + tankNumber + "left.png";
-        for (int i = 0; i < 4; i++) {
-            ii = new ImageIcon(this.getClass().getResource(imageSrc[i]));
-            imageTab[i] = ii.getImage();
-        }
-        displayedImage = imageTab[0];
     }
 
     public void move() {
@@ -152,8 +142,8 @@ public abstract class Pojazd implements IKolizyjne {
         return y;
     }
 
-    public ArrayList getMissiles() {
-        return missiles;
+    public ArrayList<Pocisk> getPociski() {
+        return pociski;
     }
 
     public void setVisible(boolean visible) {
@@ -173,22 +163,22 @@ public abstract class Pojazd implements IKolizyjne {
         if (reloadTimer <= 0) {
             switch (kierunek) {
                 case GORA: {
-                    missiles.add(new Pocisk(x + 18, y, missileSpeed, p));
+                    pociski.add(new Pocisk(x + 18, y, missileSpeed, p));
                     reloadTimer = reloadTime;
                     break;
                 }
                 case DOL: {
-                    missiles.add(new Pocisk(x + 18, y + 36, missileSpeed, p));
+                    pociski.add(new Pocisk(x + 18, y + 36, missileSpeed, p));
                     reloadTimer = reloadTime;
                     break;
                 }
                 case PRAWO: {
-                    missiles.add(new Pocisk(x + 36, y + 18, missileSpeed, p));
+                    pociski.add(new Pocisk(x + 36, y + 18, missileSpeed, p));
                     reloadTimer = reloadTime;
                     break;
                 }
                 case LEWO: {
-                    missiles.add(new Pocisk(x, y + 18, missileSpeed, p));
+                    pociski.add(new Pocisk(x, y + 18, missileSpeed, p));
                     reloadTimer = reloadTime;
                     break;
                 }

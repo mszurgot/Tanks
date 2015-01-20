@@ -20,8 +20,8 @@ import javax.swing.JPanel;
 
 public class Board extends JPanel implements ActionListener {
 
-    private Timer timer;
-    private Gracz gracz;
+    private final Timer timer;
+    private final Gracz gracz;
     private boolean ingame;
     private int B_WIDTH;
     private int B_HEIGHT;
@@ -31,7 +31,7 @@ public class Board extends JPanel implements ActionListener {
     private ArrayList<Wrog> wrogowie;
     private ArrayList<KafelekKolizyjny> kafelkiKolizyjne;
     private Iterator it;
-    private Image background;
+    private final Image background;
 
     public Board() {
 
@@ -55,7 +55,7 @@ public class Board extends JPanel implements ActionListener {
         krzaki.add(new Krzak(grid[10 * 2], grid[17]));
         krzaki.add(new Krzak(grid[10 * 2], grid[9 * 2]));
         krzaki.add(new Krzak(grid[10], grid[6]));
-        kafelkiKolizyjne = new ArrayList<KafelekKolizyjny>();
+        kafelkiKolizyjne = new ArrayList<>();
         kafelkiKolizyjne.add(new Zelazo(9, 10));
         kafelkiKolizyjne.add(new Zelazo(10, 9));
         kafelkiKolizyjne.add(new Zelazo(10, 7));
@@ -107,7 +107,7 @@ public class Board extends JPanel implements ActionListener {
 
             if (gracz.isVisible()) {
                 g2d.drawImage(gracz.getImage(), gracz.getX(), gracz.getY(), this);
-                ArrayList ms = gracz.getMissiles();
+                ArrayList<Pocisk> ms = gracz.getPociski();
                 for (int i = 0; i < ms.size(); i++) {
                     Pocisk m = (Pocisk) ms.get(i);
                     g2d.drawImage(m.getImage(), m.getX(), m.getY(), this);
@@ -118,7 +118,7 @@ public class Board extends JPanel implements ActionListener {
                 Wrog wr = (Wrog) it.next();
                 if (wr.isVisible()) {
                     g2d.drawImage(wr.getImage(), wr.getX(), wr.getY(), this);
-                    ArrayList ms = wr.getMissiles();
+                    ArrayList<Pocisk> ms = wr.getPociski();
                     for (int i = 0; i < ms.size(); i++) {
                         Pocisk m = (Pocisk) ms.get(i);
                         g2d.drawImage(m.getImage(), m.getX(), m.getY(), this);
@@ -152,7 +152,7 @@ public class Board extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        ArrayList ms = gracz.getMissiles();
+        ArrayList<Pocisk> ms = gracz.getPociski();
         for (int i = 0; i < ms.size(); i++) {
             Pocisk m = (Pocisk) ms.get(i);
             if (m.isVisible()) {
@@ -165,7 +165,7 @@ public class Board extends JPanel implements ActionListener {
         while (it.hasNext()) {
             Wrog wr = (Wrog) it.next();
             if (wr.isVisible()) {
-                ArrayList mss = wr.getMissiles();
+                ArrayList<Pocisk> mss = wr.getPociski();
                 for (int i = 0; i < mss.size(); i++) {
                     Pocisk m = (Pocisk) mss.get(i);
                     if (m.isVisible()) {
