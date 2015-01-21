@@ -21,7 +21,7 @@ public class Main extends JFrame {
         IMapaBudowniczy budowniczy = new StandardMapaBudowniczy();
         MapaNadzorca nadzorca = new MapaNadzorca(budowniczy);
         nadzorca.buduj();
-        add(new Board());
+        add(budowniczy.pobierzGotowyProdukt());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         wymiaryOkna = new Dimension(Main.FRAME_WIDTH, Main.FRAME_HEIGHT);
         setSize(wymiaryOkna);

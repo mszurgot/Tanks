@@ -20,12 +20,12 @@ import javax.swing.JPanel;
 public class Board extends JPanel implements ActionListener {
 
     private final Timer timer;
-    private final Gracz gracz;
+    private Gracz gracz;
     private boolean ingame;
     private int B_WIDTH;
     private int B_HEIGHT;
     private final static int SPACES = 20;
-    private static int grid[] = new int[30];
+    private static int grid[] = new int[31];
     private ArrayList<Krzak> krzaki;
     private ArrayList<Wrog> wrogowie;
     private ArrayList<KafelekKolizyjny> kafelkiKolizyjne;
@@ -48,28 +48,10 @@ public class Board extends JPanel implements ActionListener {
         timer = new Timer(5, this);
         timer.start();
         krzaki = new ArrayList();
-        gracz = new Gracz(6, 15, 20, 3);    //
         wrogowie = new ArrayList<>();
-        krzaki.add(new Krzak(grid[10 * 2], grid[17]));    //
-        krzaki.add(new Krzak(grid[10 * 2], grid[9 * 2]));    //
-        krzaki.add(new Krzak(grid[10], grid[6]));    //
-        kafelkiKolizyjne = new ArrayList<>();    //
-        kafelkiKolizyjne.add(new Zelazo(9, 10));    //
-        kafelkiKolizyjne.add(new Zelazo(10, 9));    //
-        kafelkiKolizyjne.add(new Zelazo(10, 7));    //
-        kafelkiKolizyjne.add(new Zelazo(10, 10));    //
-        kafelkiKolizyjne.add(new Mur(14, 14));    //
-        kafelkiKolizyjne.add(new Mur(14, 15));    //
-        kafelkiKolizyjne.add(new Mur(15, 14));    //
-        kafelkiKolizyjne.add(new Mur(15, 17));    //
-        /*
-        for (int i = 0; i <= 30; i++) {
-            for (int j = 0; j <= 30; j++) {
-                System.out.print((TabKolizjiSingleton.getInstance().getTabKolizji(i,j))?"T":"F");
-            }
-            System.out.println();
-        }
-        */
+
+        kafelkiKolizyjne = new ArrayList<>();
+
         //pojazdy.add(gracz);
 
         /*  
@@ -89,7 +71,6 @@ public class Board extends JPanel implements ActionListener {
      B_HEIGHT = getHeight();
      }
      */
-    
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -98,7 +79,7 @@ public class Board extends JPanel implements ActionListener {
             Graphics2D g2d = (Graphics2D) g;
 
             g2d.drawImage(background, 0, 0, this);
-            
+
             it = kafelkiKolizyjne.iterator();
             while (it.hasNext()) {
                 KafelekKolizyjny k = (KafelekKolizyjny) it.next();
@@ -131,22 +112,22 @@ public class Board extends JPanel implements ActionListener {
             while (it.hasNext()) {
                 Kafelek k = (Kafelek) it.next();
                 if (k.getClass().getSimpleName().equals("Krzak")) {
-                    g2d.drawImage(k.getImage(), k.getGridX(), k.getGridY(), this);
+                    g2d.drawImage(k.getImage(), grid[k.getGridX()], grid[k.getGridY()], this);
                 }
             }
         } else {
             /*
-            String msg = "Game Over";
-            Font small = new Font("Helvetica", Font.BOLD, 14);
-            FontMetrics metr = this.getFontMetrics(small);
+             String msg = "Game Over";
+             Font small = new Font("Helvetica", Font.BOLD, 14);
+             FontMetrics metr = this.getFontMetrics(small);
 
-            g.setColor(Color.white);
-            g.setFont(small);
-            g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2,
-                    B_HEIGHT / 2);
-            */
+             g.setColor(Color.white);
+             g.setFont(small);
+             g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2,
+             B_HEIGHT / 2);
+             */
         }
-       
+
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
     }
@@ -176,7 +157,7 @@ public class Board extends JPanel implements ActionListener {
                         mss.remove(i);
                     }
                 }
-                
+
             }
         }
 
@@ -187,32 +168,59 @@ public class Board extends JPanel implements ActionListener {
             Wrog tmp = (Wrog) it.next();
             tmp.makeMove();
             tmp.decReloadTimer();
-            if(tmp.czyOdlicza)tmp.decDoRespawnu();
+            if (tmp.czyOdlicza) {
+                tmp.decDoRespawnu();
+            }
         }
         checkCollisions();
         repaint();
     }
 
     public void checkCollisions() {
-     /*   
-        Iterator itr;
-        Rectangle r1;
-        Rectangle r2;
+        /*   
+         Iterator itr;
+         Rectangle r1;
+         Rectangle r2;
 
         
         
-        ArrayList ms = gracz.getMissiles();
-        for (int i = 0; i < ms.size(); i++) {
-            Pocisk m = (Pocisk) ms.get(i);
-            r1 = m.getWymiary();
-            it = 
-            //tu skonczylem pisac bedzie wesolo bo chyba trzeba 2 iteratory na te sama liste
-            //ponadto sprawdzanie dla kazdego gracza, kazdy jego pocisk czy koliduje z kazdym innym pociskiem/ kazdym wrogiem lub graczem(bo przeciez miedzy wrogami nie ma friendlyfire ;d) oraz kazdym kolizyjnym kafelkiem POZDRO 600
-        }*/
+         ArrayList ms = gracz.getMissiles();
+         for (int i = 0; i < ms.size(); i++) {
+         Pocisk m = (Pocisk) ms.get(i);
+         r1 = m.getWymiary();
+         it = 
+         //tu skonczylem pisac bedzie wesolo bo chyba trzeba 2 iteratory na te sama liste
+         //ponadto sprawdzanie dla kazdego gracza, kazdy jego pocisk czy koliduje z kazdym innym pociskiem/ kazdym wrogiem lub graczem(bo przeciez miedzy wrogami nie ma friendlyfire ;d) oraz kazdym kolizyjnym kafelkiem POZDRO 600
+         }*/
     }
 
     public static int getGridValue(int i) {
         return grid[i];
+    }
+
+    public void addKafelekKolizyjny(KafelekKolizyjny kaf) {
+        this.kafelkiKolizyjne.add(kaf);
+    }
+
+    public void addWrog(Wrog wrog) {
+        this.wrogowie.add(wrog);
+    }
+
+    public void addKrzak(Krzak krzak) {
+        this.krzaki.add(krzak);
+    }
+
+    public void setGracz(Gracz gracz) {
+        this.gracz = gracz;
+    }
+
+    public void soutCollisionTable() {
+        for (int i = 0; i <= 31; i++) {
+            for (int j = 0; j <= 31; j++) {
+                System.out.print((TabKolizjiSingleton.getInstance().getTabKolizji(j, i)) ? "T" : ".");
+            }
+            System.out.println();
+        }
     }
 
     private class TAdapter extends KeyAdapter {

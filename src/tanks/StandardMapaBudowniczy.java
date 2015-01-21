@@ -27,38 +27,40 @@ public class StandardMapaBudowniczy implements IMapaBudowniczy {
             for (int j = 0; j <= 30; j++) {
                 switch (tab[j][i]) {
                     case 'S': {
-                        
+                       if((tab[j+1][i] == '.' || (tab[j+1][i] == 'K')) && (tab[j][i+1] == '.' || (tab[j][i+1] == 'K')) && (tab[j+1][i+1] == '.' || (tab[j+1][i+1] == 'K')))
+                           budowanyBoard.addWrog(new Wrog(j+1, i+1, 10, 10));
                         break;
                     }
                     case 'G': {
-                        
+                        if((tab[j+1][i] == '.' || (tab[j+1][i] == 'K')) && (tab[j][i+1] == '.' || (tab[j][i+1] == 'K')) && (tab[j+1][i+1] == '.' || (tab[j+1][i+1] == 'K')))
+                        budowanyBoard.setGracz(new Gracz(j+1, i+1, 20, 3));
                         break;
                     }
                     case 'K': {
-                        
+                        budowanyBoard.addKrzak(new Krzak(j+1,i+1));
                         break;
                     }
                     case 'M': {
-                        
+                        budowanyBoard.addKafelekKolizyjny(new Mur(j+1,i+1));
                         break;
                     }
                     case 'Z': {
+                        budowanyBoard.addKafelekKolizyjny(new Zelazo(j+1,i+1));
                         break;
                     }
-                    case '.': {
-                        
-                        break;
-                    }
-                    case 'O': {
-                        
+                    case 'T': {
+                        if((tab[j+1][i] == '.' || (tab[j+1][i] == 'K')) && (tab[j][i+1] == '.' || (tab[j][i+1] == 'K')) && (tab[j+1][i+1] == '.' || (tab[j+1][i+1] == 'K')))
+                        budowanyBoard.addKafelekKolizyjny(new Totem(j+1,i+1));
                         break;
                     }
                 }
 
             }
         }
+        budowanyBoard.soutCollisionTable();
     }
     
+    @Override
     public Board pobierzGotowyProdukt(){
         if (budowanyBoard != null){
             return budowanyBoard;

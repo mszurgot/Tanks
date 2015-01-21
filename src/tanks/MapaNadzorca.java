@@ -8,6 +8,7 @@ package tanks;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.Arrays;
 
 /**
  *
@@ -37,7 +38,7 @@ public class MapaNadzorca {
 
             }
         } catch (Exception e) {
-            System.out.println(e.getStackTrace().toString());
+            System.out.println(Arrays.toString(e.getStackTrace()));
         }
         for (int i = 0; i <= 30; i++) {
             for (int j = 0; j <= 30; j++) {
