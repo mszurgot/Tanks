@@ -33,14 +33,14 @@ public class Gracz extends Pojazd {
             fire(this);
         }
 
-        if ((key == KeyEvent.VK_LEFT) && !ruchWGore ) {
+        if ((key == KeyEvent.VK_LEFT) && !ruchWGore && !ruchWDol) {
             if (kierunek == LEWO) {
-                if (!ruchWLewo && !ruchWDol && TabKolizjiSingleton.getInstance().getTabKolizji(gridX - 1, gridY)==false && TabKolizjiSingleton.getInstance().getTabKolizji(gridX -1, gridY + 1)==false) {
+                if (!ruchWLewo && TabKolizjiSingleton.getInstance().getTabKolizji(gridX - 1, gridY)==false && TabKolizjiSingleton.getInstance().getTabKolizji(gridX -1, gridY + 1)==false) {
                     ruchWLewo = true;
                 }
             } else {
                 kierunek = LEWO;
-                displayedImage = imageTab[3];
+                displayedImage = imageTab[LEWO];
             }
         } else if ((key == KeyEvent.VK_RIGHT) && !ruchWGore && !ruchWDol ) {
             if (kierunek == PRAWO) {
@@ -49,7 +49,7 @@ public class Gracz extends Pojazd {
                 }
             } else {
                 kierunek = PRAWO;
-                displayedImage = imageTab[2];
+                displayedImage = imageTab[PRAWO];
             }
         } else if ((key == KeyEvent.VK_UP) && !ruchWLewo && !ruchWPrawo ) {
             if (kierunek == GORA) {
@@ -58,7 +58,7 @@ public class Gracz extends Pojazd {
                 }
             } else {
                 kierunek = GORA;
-                displayedImage = imageTab[0];
+                displayedImage = imageTab[GORA];
             }
         } else if ((key == KeyEvent.VK_DOWN) && !ruchWLewo && !ruchWPrawo ) {
             if (kierunek == DOL) {
@@ -67,7 +67,7 @@ public class Gracz extends Pojazd {
                 }
             } else {
                 kierunek = DOL;
-                displayedImage = imageTab[1];
+                displayedImage = imageTab[DOL];
             }
         }
     }

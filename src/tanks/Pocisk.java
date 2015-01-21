@@ -56,7 +56,7 @@ public class Pocisk implements IKolizyjne {
 
     public void move() {
         switch (kierunek) {
-            case 1: {
+            case Pojazd.GORA: {
                 y -= missileSpeed;
                 if (y < 0) {
                     visible = false; //tu zrobić obsługę przerzucania obiektu na poczatek kolejki pociskow do uzycia na obiekcie strzelajacego
@@ -64,7 +64,7 @@ public class Pocisk implements IKolizyjne {
                 }
                 break;
             }
-            case 2: {
+            case Pojazd.DOL: {
                 y += missileSpeed;
                 if (y > Main.FRAME_HEIGHT - this.height) {
                     visible = false; //tu zrobić obsługę przerzucania obiektu na poczatek kolejki pociskow do uzycia na obiekcie strzelajacego
@@ -72,7 +72,7 @@ public class Pocisk implements IKolizyjne {
                 }
                 break;
             }
-            case 3: {
+            case Pojazd.PRAWO: {
                 x += missileSpeed;
                 if (x > Main.FRAME_WIDTH - this.width) {
                     visible = false; //tu zrobić obsługę przerzucania obiektu na poczatek kolejki pociskow do uzycia na obiekcie strzelajacego
@@ -80,7 +80,7 @@ public class Pocisk implements IKolizyjne {
                 }
                 break;
             }
-            case 4: {
+            case Pojazd.LEWO: {
                 x -= missileSpeed;
                 if (x < 0) {
                     visible = false; //tu zrobić obsługę przerzucania obiektu na poczatek kolejki pociskow do uzycia na obiekcie strzelajacego

@@ -11,10 +11,10 @@ import javax.swing.ImageIcon;
  */
 public abstract class Pojazd implements IKolizyjne {
 
-    protected static final int GORA = 1;
-    protected static final int DOL = 2;
-    protected static final int PRAWO = 3;
-    protected static final int LEWO = 4;
+    protected static final int GORA = 0;
+    protected static final int DOL = 1;
+    protected static final int PRAWO = 2;
+    protected static final int LEWO = 3;
     protected static final int V = 1;
     protected int tankNumber;
     protected String[] imageSrc = new String[4];

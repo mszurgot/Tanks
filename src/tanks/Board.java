@@ -80,10 +80,11 @@ public class Board extends JPanel implements ActionListener {
 
             g2d.drawImage(background, 0, 0, this);
 
-            it = kafelkiKolizyjne.iterator();
+            it = kafelkiKolizyjne.listIterator();
+            KafelekKolizyjny ka;
             while (it.hasNext()) {
-                KafelekKolizyjny k = (KafelekKolizyjny) it.next();
-                g2d.drawImage(k.getImage(), grid[k.getGridX()], grid[k.getGridY()], this);
+                ka = (KafelekKolizyjny) it.next();
+                g2d.drawImage(ka.getImage(), grid[ka.getGridX()], grid[ka.getGridY()], this);
             }
 
             if (gracz.isVisible()) {
@@ -228,11 +229,6 @@ public class Board extends JPanel implements ActionListener {
         public void keyPressed(KeyEvent e) {
             gracz.keyPressed(e);
             it = wrogowie.iterator();
-            while (it.hasNext()) {
-                Wrog wr = (Wrog) it.next();
-                wr.keyPressed(e);
-            }
-
         }
 
     }
