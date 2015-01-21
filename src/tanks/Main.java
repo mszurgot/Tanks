@@ -1,6 +1,9 @@
 package tanks;
 
 import java.awt.Dimension;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -13,9 +16,12 @@ public class Main extends JFrame {
     public final static int FRAME_HEIGHT = 600;
     public static Dimension wymiaryOkna;
 
-    public Main() {
-
-        add(new Board());//tu można dać getInstance Singletonu
+    public Main() throws FileNotFoundException {
+        
+        IMapaBudowniczy budowniczy = new StandardMapaBudowniczy();
+        MapaNadzorca nadzorca = new MapaNadzorca(budowniczy);
+        nadzorca.buduj();
+        add(new Board());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         wymiaryOkna = new Dimension(Main.FRAME_WIDTH, Main.FRAME_HEIGHT);
         setSize(wymiaryOkna);
@@ -31,8 +37,14 @@ public class Main extends JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Main main = new Main();
+                Main main = null;
+                try {
+                    main = new Main();
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 main.setSize(FRAME_WIDTH + 5, FRAME_HEIGHT + 28);
+                
             }
         });
     }

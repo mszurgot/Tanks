@@ -7,7 +7,6 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,28 +48,28 @@ public class Board extends JPanel implements ActionListener {
         timer = new Timer(5, this);
         timer.start();
         krzaki = new ArrayList();
-        gracz = new Gracz(6, 15, 20, 3);
+        gracz = new Gracz(6, 15, 20, 3);    //
         wrogowie = new ArrayList<>();
-        wrogowie.add(new Wrog(8, 17, 22, 5));
-        krzaki.add(new Krzak(grid[10 * 2], grid[17]));
-        krzaki.add(new Krzak(grid[10 * 2], grid[9 * 2]));
-        krzaki.add(new Krzak(grid[10], grid[6]));
-        kafelkiKolizyjne = new ArrayList<>();
-        kafelkiKolizyjne.add(new Zelazo(9, 10));
-        kafelkiKolizyjne.add(new Zelazo(10, 9));
-        kafelkiKolizyjne.add(new Zelazo(10, 7));
-        kafelkiKolizyjne.add(new Zelazo(10, 10));
-        kafelkiKolizyjne.add(new Mur(14, 14));
-        kafelkiKolizyjne.add(new Mur(14, 15));
-        kafelkiKolizyjne.add(new Mur(15, 14));
-        kafelkiKolizyjne.add(new Mur(15, 17));
+        krzaki.add(new Krzak(grid[10 * 2], grid[17]));    //
+        krzaki.add(new Krzak(grid[10 * 2], grid[9 * 2]));    //
+        krzaki.add(new Krzak(grid[10], grid[6]));    //
+        kafelkiKolizyjne = new ArrayList<>();    //
+        kafelkiKolizyjne.add(new Zelazo(9, 10));    //
+        kafelkiKolizyjne.add(new Zelazo(10, 9));    //
+        kafelkiKolizyjne.add(new Zelazo(10, 7));    //
+        kafelkiKolizyjne.add(new Zelazo(10, 10));    //
+        kafelkiKolizyjne.add(new Mur(14, 14));    //
+        kafelkiKolizyjne.add(new Mur(14, 15));    //
+        kafelkiKolizyjne.add(new Mur(15, 14));    //
+        kafelkiKolizyjne.add(new Mur(15, 17));    //
+        /*
         for (int i = 0; i <= 30; i++) {
             for (int j = 0; j <= 30; j++) {
                 System.out.print((TabKolizjiSingleton.getInstance().getTabKolizji(i,j))?"T":"F");
             }
             System.out.println();
         }
-        
+        */
         //pojazdy.add(gracz);
 
         /*  
@@ -90,6 +89,7 @@ public class Board extends JPanel implements ActionListener {
      B_HEIGHT = getHeight();
      }
      */
+    
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -135,6 +135,7 @@ public class Board extends JPanel implements ActionListener {
                 }
             }
         } else {
+            /*
             String msg = "Game Over";
             Font small = new Font("Helvetica", Font.BOLD, 14);
             FontMetrics metr = this.getFontMetrics(small);
@@ -143,6 +144,7 @@ public class Board extends JPanel implements ActionListener {
             g.setFont(small);
             g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2,
                     B_HEIGHT / 2);
+            */
         }
        
         Toolkit.getDefaultToolkit().sync();
@@ -174,6 +176,7 @@ public class Board extends JPanel implements ActionListener {
                         mss.remove(i);
                     }
                 }
+                
             }
         }
 
@@ -181,9 +184,10 @@ public class Board extends JPanel implements ActionListener {
         gracz.decReloadTimer();
         it = wrogowie.iterator();
         while (it.hasNext()) {
-            Pojazd tmp = (Pojazd) it.next();
+            Wrog tmp = (Wrog) it.next();
             tmp.makeMove();
             tmp.decReloadTimer();
+            if(tmp.czyOdlicza)tmp.decDoRespawnu();
         }
         checkCollisions();
         repaint();

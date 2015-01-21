@@ -15,11 +15,34 @@ import static tanks.Pojazd.LEWO;
  * @author Zet
  */
 public class Wrog extends Pojazd{
+    static final long RESPAWN_TIME = 1000;
+    long doRespawnu;
+    boolean czyOdlicza;
+    int gridXDoRespawnu, gridYDoRespawnu;
 
     public Wrog(int gridX, int gridY, int reload, int missileSpeed) {
         super(gridX, gridY, reload, missileSpeed);
+        gridXDoRespawnu = gridX;
+        gridYDoRespawnu = gridY; 
     }
     
+    public void odliczajDoRespawnu() {
+        this.visible = false;
+        this.doRespawnu = RESPAWN_TIME;
+        czyOdlicza = true;
+    }
+
+    public void decDoRespawnu() {
+        if (this.doRespawnu > 0) {
+            this.doRespawnu--;
+        }else{
+        czyOdlicza = false;
+        gridX = gridXDoRespawnu;
+        gridY = gridYDoRespawnu;
+        this.visible = true;
+        }
+
+    }
     @Override
     protected void initImage(){
         Random rand = new Random();
