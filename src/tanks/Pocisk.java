@@ -51,7 +51,7 @@ public class Pocisk implements IKolizyjne {
 
     @Override
     public Rectangle getWymiary() {
-        return new Rectangle(x, y, width, height);
+        return new Rectangle(x-9, y-10, 20,  20);
     }
 
     public void move() {

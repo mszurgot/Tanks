@@ -16,6 +16,7 @@ public abstract class Pojazd implements IKolizyjne {
     protected static final int PRAWO = 2;
     protected static final int LEWO = 3;
     protected static final int V = 1;
+    protected int hp =1;
     protected int tankNumber;
     protected String[] imageSrc = new String[4];
     protected Image[] imageTab = new Image[4];
@@ -40,7 +41,7 @@ public abstract class Pojazd implements IKolizyjne {
     protected int reloadTimer;
     protected int reloadTime;
 
-    public Pojazd(int gridX, int gridY, int reload, int missileSpeed) {
+    public Pojazd(int gridX, int gridY, int reload, int missileSpeed, int ileHP) {
         tankNumber = 3;
         initImage();
         width = 40;
@@ -156,7 +157,10 @@ public abstract class Pojazd implements IKolizyjne {
 
     @Override
     public Rectangle getWymiary() {
-        return new Rectangle(x, y, width, height);
+        if(kierunek == GORA || kierunek == DOL)
+        return new Rectangle(x+10, y, 20, 40);
+        else return new Rectangle(x, y+10, 40, 20);
+            
     }
 
     public void fire(Pojazd p) {

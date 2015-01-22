@@ -26,8 +26,8 @@ public class Wrog extends Pojazd {
     boolean odbilSie = true;
     Random random = new Random();
 
-    public Wrog(int gridX, int gridY, int reload, int missileSpeed) {
-        super(gridX, gridY, reload, missileSpeed);
+    public Wrog(int gridX, int gridY, int reload, int missileSpeed, int ileHP) {
+        super(gridX, gridY, reload, missileSpeed,ileHP);
         gridXDoRespawnu = gridX;
         gridYDoRespawnu = gridY;
     }
@@ -125,6 +125,16 @@ public class Wrog extends Pojazd {
                 odbilSie = true;
             }
         }
+    }
+    
+    public boolean decHP(){
+        --hp;
+        if(hp<1){
+            decDoRespawnu();
+            setVisible(false);
+            return true;
+        }
+        return false;
     }
 
 }

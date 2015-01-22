@@ -13,6 +13,10 @@ public class TabKolizjiSingleton {
             }
         }
     }
+    
+    public void wyswietlTablice(){
+    
+    }
 
     public static TabKolizjiSingleton getInstance() {
         if (instance == null) {

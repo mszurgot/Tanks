@@ -5,8 +5,8 @@ import javax.swing.ImageIcon;
 
 public class Gracz extends Pojazd {
 
-    public Gracz(int gridX, int gridY, int reload, int missileSpeed) {
-        super(gridX, gridY, reload, missileSpeed);
+    public Gracz(int gridX, int gridY, int reload, int missileSpeed,int ileHP) {
+        super(gridX, gridY, reload, missileSpeed, ileHP);
         this.tankNumber = 1;
         initImage();
     }

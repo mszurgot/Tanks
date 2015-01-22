@@ -7,6 +7,7 @@ public class StandardMapaBudowniczy implements IMapaBudowniczy {
     
     Board budowanyBoard;
     Random rand = new Random();
+    private final static int ILE_HP_WROGOW = 3;
 
     @Override
     public void budujMape(char[][] tab) {
@@ -17,12 +18,12 @@ public class StandardMapaBudowniczy implements IMapaBudowniczy {
                 switch (tab[j][i]) {
                     case 'S': {
                        if((tab[j+1][i] == '.' || (tab[j+1][i] == 'K')) && (tab[j][i+1] == '.' || (tab[j][i+1] == 'K')) && (tab[j+1][i+1] == '.' || (tab[j+1][i+1] == 'K')))
-                           budowanyBoard.addWrog(new Wrog(j+1, i+1, rand.nextInt(40)+10, rand.nextInt(3)+3));
+                           budowanyBoard.addWrog(new Wrog(j+1, i+1, rand.nextInt(40)+10, rand.nextInt(3)+3,ILE_HP_WROGOW));
                         break;
                     }
                     case 'G': {
                         if((tab[j+1][i] == '.' || (tab[j+1][i] == 'K')) && (tab[j][i+1] == '.' || (tab[j][i+1] == 'K')) && (tab[j+1][i+1] == '.' || (tab[j+1][i+1] == 'K')))
-                        budowanyBoard.setGracz(new Gracz(j+1, i+1, 20, 3));
+                        budowanyBoard.setGracz(new Gracz(j+1, i+1, 20, 3, 1));
                         break;
                     }
                     case 'K': {
@@ -45,7 +46,7 @@ public class StandardMapaBudowniczy implements IMapaBudowniczy {
                 }
             }
         }
-        budowanyBoard.soutCollisionTable();
+        Board.soutCollisionTable();
     }
     
     @Override
