@@ -158,18 +158,21 @@ public class Board extends JPanel implements ActionListener {
             if (tmp.isVisible()) {
                 tmp.makeMove();
                 tmp.decReloadTimer();
-                if (tmp.czyOdlicza) {
-                    tmp.decDoRespawnu();
-                }
+            } else {
+                tmp.decDoRespawnu();
             }
         }
+
+        //respawn (nawet jeżeli ifVisible==false)
         checkCollisions();
         repaint();
     }
 
     public void checkCollisions() {
 
-        Iterator itrGP, itrW, itrWP;
+        Iterator itrGP, itrW, itrWP, itrKol;
+        ArrayList<KafelekKolizyjny> kafelkiDoUsuniecia = new ArrayList();
+        ArrayList<Pocisk> pociskiDoUsuniecia = new ArrayList();
         Rectangle r1;
         Rectangle r2;
         itrW = wrogowie.iterator();
@@ -181,42 +184,51 @@ public class Board extends JPanel implements ActionListener {
                 while (itrW.hasNext()) {
                     Wrog w = (Wrog) itrW.next();
                     if (w.isVisible()) {
-                        itrWP = w.getPociski().iterator();
+                        ArrayList<Pocisk> pociskiW =  w.getPociski();
+                        itrWP = pociskiW.iterator();
                         while (itrWP.hasNext()) {
                             Pocisk p = (Pocisk) itrWP.next();
-                            if (p.isVisible()) {
-                                r2 = p.getWymiary();
-                                if (r1.intersects(r2)) {
-                                    m.setVisible(false);
-                                    //itrWP.remove();
-                                    p.setVisible(false);
-                                    //itrGP.remove();
-                                    System.out.println("delete");
-                                }
+                            r2 = p.getWymiary();
+                            if (r1.intersects(r2)) {
+                                //m.setVisible(false);
+                                pociskiDoUsuniecia.add(m);
+                                p.setVisible(false);
+                                pociskiDoUsuniecia.add(p);
+                                System.out.println("delete pociski");
                             }
                         }
+                        pociskiW.removeAll(pociskiDoUsuniecia);
                         r2 = w.getWymiary();
                         if (r1.intersects(r2)) {
-                            m.setVisible(false);
+                            pociskiDoUsuniecia.add(m);
                             if (w.decHP()) {
                                 System.out.println("deleteGracz");
                             }
                         }
                     }
                 }
-                Iterator itrKol = kafelkiKolizyjne.iterator();
+                itrKol = kafelkiKolizyjne.iterator();
+                KafelekKolizyjny kaf;
                 while (itrKol.hasNext()) {
-                    KafelekKolizyjny kaf = (KafelekKolizyjny) itrKol.next();
-                    if (kaf.isVisible()) {
-                        r2 = kaf.getWymiary();
-                        if (r1.intersects(r2)) {
-                            m.setVisible(false);
-                            kaf.setVisible(false);
-                        }
+                    kaf = (KafelekKolizyjny) itrKol.next();
+                    r2 = kaf.getWymiary();
+                    if (r1.intersects(r2)) {
+                        m.setVisible(false);
+                        kaf.setVisible(false);
+                        if(!kaf.getClass().getSimpleName().equals("Zelazo"))kafelkiDoUsuniecia.add(kaf);
                     }
                 }
             }
         }
+
+        //usunięcie tych do usunięcia
+        kafelkiKolizyjne.removeAll(kafelkiDoUsuniecia);
+        
+        //
+        //
+        //
+        //
+
     }
 
     public static int getGridValue(int i) {

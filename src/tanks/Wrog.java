@@ -5,7 +5,6 @@
  */
 package tanks;
 
-import java.awt.event.KeyEvent;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import static tanks.Pojazd.LEWO;
@@ -27,25 +26,26 @@ public class Wrog extends Pojazd {
     Random random = new Random();
 
     public Wrog(int gridX, int gridY, int reload, int missileSpeed, int ileHP) {
-        super(gridX, gridY, reload, missileSpeed,ileHP);
+        super(gridX, gridY, reload, missileSpeed, ileHP);
         gridXDoRespawnu = gridX;
         gridYDoRespawnu = gridY;
     }
 
-    public void odliczajDoRespawnu() {
-        this.visible = false;
-        this.doRespawnu = RESPAWN_TIME;
-        czyOdlicza = true;
-    }
-
     public void decDoRespawnu() {
+
+        System.out.println(doRespawnu);
         if (this.doRespawnu > 0) {
             this.doRespawnu--;
+            System.out.println("--");
         } else {
-            czyOdlicza = false;
-            gridX = gridXDoRespawnu;
-            gridY = gridYDoRespawnu;
-            this.visible = true;
+
+            this.czyOdlicza = false;
+            this.x = Board.getGridValue(gridXDoRespawnu);
+            this.y = Board.getGridValue(gridYDoRespawnu);
+            this.gridX=gridXDoRespawnu;
+            this.gridY=gridYDoRespawnu;
+            this.setVisible(true);
+                        System.out.println("respawn("+gridXDoRespawnu+", "+gridYDoRespawnu+")");
         }
 
     }
@@ -80,7 +80,7 @@ public class Wrog extends Pojazd {
             fireWylosowana = random.nextInt(50);
             poPierwszymOdliczaniu = true;
         }
-        if(fireWylosowana <1){
+        if (fireWylosowana < 1) {
             this.fire(this);
         }
         fireWylosowana = random.nextInt(50);
@@ -126,15 +126,14 @@ public class Wrog extends Pojazd {
             }
         }
     }
-    
-    public boolean decHP(){
-        --hp;
-        if(hp<1){
-            decDoRespawnu();
-            setVisible(false);
-            return true;
-        }
-        return false;
+
+    @Override
+    protected void delete() {
+        System.out.println("usuwa wroga");
+        this.setVisible(false);
+        this.czyOdlicza = true;
+        this.doRespawnu = RESPAWN_TIME;
+        decDoRespawnu();
     }
 
 }

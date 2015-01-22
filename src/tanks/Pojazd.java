@@ -3,7 +3,6 @@ package tanks;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.ArrayList;
-import javax.swing.ImageIcon;
 
 /**
  *
@@ -55,6 +54,7 @@ public abstract class Pojazd implements IKolizyjne {
         this.gridY = gridY;
         this.reloadTime = reload;
         this.missileSpeed = missileSpeed;
+        this.hp=ileHP;
     }
 
     protected void initImage() {
@@ -118,6 +118,17 @@ public abstract class Pojazd implements IKolizyjne {
 
     ////////////
     }
+    
+    public boolean decHP() {
+        --hp;
+        System.out.println("decHP");
+        if (hp < 1) {
+            delete();
+            setVisible(false);
+            return true;
+        }
+        return false;
+    }
 
     public void decReloadTimer() {
         --reloadTimer;
@@ -145,6 +156,10 @@ public abstract class Pojazd implements IKolizyjne {
 
     public ArrayList<Pocisk> getPociski() {
         return pociski;
+    }
+    
+    public void deletePociski(ArrayList<Pocisk> t){
+        pociski.removeAll(t);
     }
 
     public void setVisible(boolean visible) {
@@ -189,5 +204,7 @@ public abstract class Pojazd implements IKolizyjne {
             }
         }
     }
+
+    protected abstract void delete();
 
 }

@@ -77,5 +77,10 @@ public class Gracz extends Pojazd {
         move();
     }
 
+    @Override
+    protected void delete() {
+        setVisible(false);
+    }
+
 
 }
