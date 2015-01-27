@@ -33,6 +33,7 @@ public abstract class Pojazd implements IKolizyjne {
     protected int height;
     protected int gridX;
     protected int gridY;
+    protected int maxHP;
     protected boolean visible;
     protected ArrayList<Pocisk> pociski;
     protected int missileSpeed;
@@ -55,6 +56,7 @@ public abstract class Pojazd implements IKolizyjne {
         this.reloadTime = reload;
         this.missileSpeed = missileSpeed;
         this.hp=ileHP;
+        this.maxHP = ileHP;
     }
 
     protected void initImage() {
@@ -112,22 +114,15 @@ public abstract class Pojazd implements IKolizyjne {
     }
 
     public abstract void makeMove();
-
-    @Override
-    public void kolizja(IKolizyjne ths, IKolizyjne that) {
-
-    ////////////
-    }
     
-    public boolean decHP() {
+    public void decHP() {
         --hp;
         System.out.println("decHP");
         if (hp < 1) {
             delete();
-            setVisible(false);
-            return true;
+            //setVisible(false);
         }
-        return false;
+
     }
 
     public void decReloadTimer() {

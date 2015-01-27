@@ -25,9 +25,9 @@ public class Board extends JPanel implements ActionListener {
 
     private final Timer timer;
     private Gracz gracz;
-    private boolean ingame;
-    private int B_WIDTH;
-    private int B_HEIGHT;
+    public static boolean ingame;
+    private static final int TEXT_WIDTH = 600;
+    private static final int TEXT_HEIGHT = 600;
     private final static int SPACES = 20;
     private static int grid[] = new int[31];
     private ArrayList<Krzak> krzaki;
@@ -35,38 +35,38 @@ public class Board extends JPanel implements ActionListener {
     private ArrayList<KafelekKolizyjny> kafelkiKolizyjne;
     private Iterator it;
     private final Image background;
-    
-    //-----do tablicy wynikow--------
-//    JLabel jl1 = new JLabel();
-//    JLabel jl2 = new JLabel();
-//    JLabel jl3 = new JLabel();
-//    JLabel jl4 = new JLabel();
-//    JPanel jp = new JPanel();
-//    
-//    public int points = 4123;
-//
-//    public int getPoints() {
-//        return points;
-//    }
-//
-//    public void setPoints(int points) {
-//        this.points = points;
-//    }
-//
-//    public static Integer[] getDigits(int num) {
-//        List<Integer> digits = new ArrayList<Integer>();
-//        collectDigits(num, digits);
-//        return digits.toArray(new Integer[]{});
-//    }
-//
-//    private static void collectDigits(int num, List<Integer> digits) {
-//        if(num / 10 > 0) {
-//            collectDigits(num / 10, digits);
-//        }
-//        digits.add(num % 10);
-//    }
-    //----/do tablicy wynikow--------
 
+    /*//-----do tablicy wynikow--------
+     JLabel jl1 = new JLabel();
+     JLabel jl2 = new JLabel();
+     JLabel jl3 = new JLabel();
+     JLabel jl4 = new JLabel();
+     JPanel jp = new JPanel();
+    
+     public int points = 4123;
+
+     public int getPoints() {
+     return points;
+     }
+
+     public void setPoints(int points) {
+     this.points = points;
+     }
+
+     public static Integer[] getDigits(int num) {
+     List<Integer> digits = new ArrayList<Integer>();
+     collectDigits(num, digits);
+     return digits.toArray(new Integer[]{});
+     }
+
+     private static void collectDigits(int num, List<Integer> digits) {
+     if(num / 10 > 0) {
+     collectDigits(num / 10, digits);
+     }
+     digits.add(num % 10);
+     }
+     //----/do tablicy wynikow--------
+     */
     public Board() {
 
         for (int i = 0; i < Main.FRAME_WIDTH / SPACES; i++) {
@@ -85,32 +85,36 @@ public class Board extends JPanel implements ActionListener {
         krzaki = new ArrayList();
         wrogowie = new ArrayList<>();
         kafelkiKolizyjne = new ArrayList<>();
+
+        /*//-------do tablicy wynikow--------
+         jp.setLayout(null);
+         jl1.setLocation(400, 605);
+         jl1.setBounds(400, 605, 160, 100);
+         jl2.setLocation(400, 605);
+         jl2.setBounds(440, 605, 160, 100);
+         jl3.setLocation(400, 605);
+         jl3.setBounds(480, 605, 160, 100);
+         jl4.setLocation(400, 605);
+         jl4.setBounds(520, 605, 160, 100);
+
+         Integer[] digits = getDigits(getPoints());
+         for(Integer x : digits) {
+         System.out.println(digits[x]);
+         }
         
-        //-------do tablicy wynikow--------
-//        jp.setLayout(null);
-//        jl1.setLocation(400, 605);
-//        jl1.setBounds(400, 605, 160, 100);
-//        jl2.setLocation(400, 605);
-//        jl2.setBounds(440, 605, 160, 100);
-//        jl3.setLocation(400, 605);
-//        jl3.setBounds(480, 605, 160, 100);
-//        jl4.setLocation(400, 605);
-//        jl4.setBounds(520, 605, 160, 100);
-//        
-//        Integer[] digits = getDigits(getPoints());
-//        jl1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("images/"+digits[0]+".png")));
-//        jl2.setIcon(new ImageIcon(getClass().getClassLoader().getResource("images/"+digits[1]+".png")));
-//        jl3.setIcon(new ImageIcon(getClass().getClassLoader().getResource("images/"+digits[2]+".png")));
-//        jl4.setIcon(new ImageIcon(getClass().getClassLoader().getResource("images/"+digits[3]+".png")));
-//              
-//        jp.add(jl1);
-//        jp.add(jl2);
-//        jp.add(jl3);
-//        jp.add(jl4);
-//        add(jp);
-//        validate();
-        //------/do tablicy wynikow--------
-        
+         jl1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("numbers/"+digits[0]+".png")));
+         jl2.setIcon(new ImageIcon(getClass().getClassLoader().getResource("numbers/"+digits[1]+".png")));
+         jl3.setIcon(new ImageIcon(getClass().getClassLoader().getResource("numbers/"+digits[2]+".png")));
+         jl4.setIcon(new ImageIcon(getClass().getClassLoader().getResource("numbers/"+digits[3]+".png")));
+              
+         jp.add(jl1);
+         jp.add(jl2);
+         jp.add(jl3);
+         jp.add(jl4);
+         add(jp);
+         validate();
+         //------/do tablicy wynikow--------
+         */
     }
 
     @Override
@@ -156,7 +160,6 @@ public class Board extends JPanel implements ActionListener {
                 }
             }
 
-            // ten sposob wyswietlania trzeba poprawic na bardziej wydajny najlepiej wyswietlac wszystkie krzaki z Arraylisty
             it = krzaki.iterator();
             while (it.hasNext()) {
                 Kafelek k = (Kafelek) it.next();
@@ -165,16 +168,15 @@ public class Board extends JPanel implements ActionListener {
                 }
             }
         } else {
-            /*
-             String msg = "Game Over";
-             Font small = new Font("Helvetica", Font.BOLD, 14);
-             FontMetrics metr = this.getFontMetrics(small);
 
-             g.setColor(Color.white);
-             g.setFont(small);
-             g.drawString(msg, (B_WIDTH - metr.stringWidth(msg)) / 2,
-             B_HEIGHT / 2);
-             */
+            String msg = "Przegrana";
+            Font small = new Font("Helvetica", Font.BOLD, 22);
+            FontMetrics metr = this.getFontMetrics(small);
+            g.setColor(Color.red);
+            g.setFont(small);
+            g.drawString(msg, (TEXT_WIDTH - metr.stringWidth(msg)) / 2,
+                    TEXT_HEIGHT / 2);
+
         }
 
         Toolkit.getDefaultToolkit().sync();
@@ -236,58 +238,49 @@ public class Board extends JPanel implements ActionListener {
         Rectangle r1;
         Rectangle r2;
         itrW = wrogowie.iterator();
-        itrGP = gracz.getPociski().listIterator();
+        ArrayList<Pocisk> pociskiGracza = gracz.getPociski();
+        itrGP = pociskiGracza.listIterator();
         while (itrGP.hasNext()) {
-            Pocisk m = (Pocisk) itrGP.next();
-            if (m.isVisible()) {
-                r1 = m.getWymiary();
-                while (itrW.hasNext()) {
-                    Wrog w = (Wrog) itrW.next();
-                    if (w.isVisible()) {
-                        ArrayList<Pocisk> pociskiW =  w.getPociski();
-                        itrWP = pociskiW.iterator();
-                        while (itrWP.hasNext()) {
-                            Pocisk p = (Pocisk) itrWP.next();
-                            r2 = p.getWymiary();
-                            if (r1.intersects(r2)) {
-                                //m.setVisible(false);
-                                pociskiDoUsuniecia.add(m);
-                                p.setVisible(false);
-                                pociskiDoUsuniecia.add(p);
-                                System.out.println("delete pociski");
-                            }
-                        }
-                        pociskiW.removeAll(pociskiDoUsuniecia);
-                        r2 = w.getWymiary();
+            Pocisk pociskGracza = (Pocisk) itrGP.next();
+            r1 = pociskGracza.getWymiary();
+            while (itrW.hasNext()) {
+                Wrog pojazdWroga = (Wrog) itrW.next();
+                if (pojazdWroga.isVisible()) {
+                    ArrayList<Pocisk> pociskiW = pojazdWroga.getPociski();
+                    itrWP = pociskiW.iterator();
+                    while (itrWP.hasNext()) {
+                        Pocisk pociskWroga = (Pocisk) itrWP.next();
+                        r2 = pociskWroga.getWymiary();
                         if (r1.intersects(r2)) {
-                            pociskiDoUsuniecia.add(m);
-                            if (w.decHP()) {
-                                System.out.println("deleteGracz");
-                            }
+                            pociskiDoUsuniecia.add(pociskGracza);
+                            pociskiDoUsuniecia.add(pociskWroga);
+                            System.out.println("delete pociski");
                         }
                     }
-                }
-                itrKol = kafelkiKolizyjne.iterator();
-                KafelekKolizyjny kaf;
-                while (itrKol.hasNext()) {
-                    kaf = (KafelekKolizyjny) itrKol.next();
-                    r2 = kaf.getWymiary();
+                    pociskiW.removeAll(pociskiDoUsuniecia);
+                    r2 = pojazdWroga.getWymiary();
                     if (r1.intersects(r2)) {
-                        m.setVisible(false);
+                        pociskiDoUsuniecia.add(pociskGracza);
+                        pojazdWroga.decHP();
+                    }
+                }
+            }
+            itrKol = kafelkiKolizyjne.iterator();
+            KafelekKolizyjny kaf;
+            while (itrKol.hasNext()) {
+                kaf = (KafelekKolizyjny) itrKol.next();
+                r2 = kaf.getWymiary();
+                if (r1.intersects(r2)) {
+                    pociskGracza.setVisible(false);
+                    if (!kaf.getClass().getSimpleName().equals("Zelazo")) {
                         kaf.setVisible(false);
-                        if(!kaf.getClass().getSimpleName().equals("Zelazo"))kafelkiDoUsuniecia.add(kaf);
+                        kafelkiDoUsuniecia.add(kaf);
                     }
                 }
             }
         }
-
-        //usunięcie tych do usunięcia
+        pociskiGracza.removeAll(pociskiDoUsuniecia);
         kafelkiKolizyjne.removeAll(kafelkiDoUsuniecia);
-        
-        //
-        //
-        //
-        //
 
     }
 

@@ -33,10 +33,8 @@ public class Wrog extends Pojazd {
 
     public void decDoRespawnu() {
 
-        System.out.println(doRespawnu);
         if (this.doRespawnu > 0) {
             this.doRespawnu--;
-            System.out.println("--");
         } else {
 
             this.czyOdlicza = false;
@@ -45,7 +43,8 @@ public class Wrog extends Pojazd {
             this.gridX=gridXDoRespawnu;
             this.gridY=gridYDoRespawnu;
             this.setVisible(true);
-                        System.out.println("respawn("+gridXDoRespawnu+", "+gridYDoRespawnu+")");
+            this.hp = 3;
+            System.out.println("respawn("+gridXDoRespawnu+", "+gridYDoRespawnu+")");
         }
 
     }

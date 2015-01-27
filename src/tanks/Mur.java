@@ -9,9 +9,4 @@ public class Mur extends KafelekKolizyjny {
         ImageIcon ii = new ImageIcon(this.getClass().getResource("images/mur.png"));
         image = ii.getImage();
     }
-    
-    @Override
-    public void kolizja(IKolizyjne ths, IKolizyjne that){
-    ///////////
-    }
 }

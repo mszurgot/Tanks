@@ -90,9 +90,4 @@ public class Pocisk implements IKolizyjne {
             }
         }
     }
-
-    @Override
-    public void kolizja(IKolizyjne ths, IKolizyjne that) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

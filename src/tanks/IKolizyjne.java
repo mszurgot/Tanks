@@ -1,8 +1,8 @@
+
 package tanks;
 
 import java.awt.Rectangle;
 
-interface IKolizyjne {
+public interface IKolizyjne {
     public Rectangle getWymiary();
-    public void kolizja(IKolizyjne ths, IKolizyjne that);
 }
