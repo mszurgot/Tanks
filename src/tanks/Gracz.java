@@ -80,7 +80,7 @@ public class Gracz extends Pojazd {
     @Override
     protected void delete() {
         setVisible(false);
-        Board.ingame=false;
+        Board.rozgrywkaTrwa=false;
     }
 
 

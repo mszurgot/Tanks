@@ -15,7 +15,7 @@ public abstract class Pojazd implements IKolizyjne {
     protected static final int PRAWO = 2;
     protected static final int LEWO = 3;
     protected static final int V = 1;
-    protected int hp =1;
+    protected int hp =3;
     protected int tankNumber;
     protected String[] imageSrc = new String[4];
     protected Image[] imageTab = new Image[4];
@@ -117,7 +117,7 @@ public abstract class Pojazd implements IKolizyjne {
     
     public void decHP() {
         --hp;
-        System.out.println("decHP");
+        System.out.println(this.getClass().getSimpleName()+" decHP");
         if (hp < 1) {
             delete();
             //setVisible(false);

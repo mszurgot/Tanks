@@ -6,6 +6,7 @@
 package tanks;
 
 import java.awt.Rectangle;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -15,6 +16,8 @@ public class Totem extends Mur{
 
     public Totem(int gridX, int gridY) {
         super(gridX, gridY);
+        ImageIcon ii = new ImageIcon(this.getClass().getResource("images/totem.png"));
+        image = ii.getImage();
     }
     
     @Override

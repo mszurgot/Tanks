@@ -13,7 +13,7 @@ import javax.swing.JFrame;
 public class Main extends JFrame {
 
     public final static int FRAME_WIDTH = 600;
-    public final static int FRAME_HEIGHT = 650;
+    public final static int FRAME_HEIGHT = 600;
     public static Dimension wymiaryOkna;
 
     public Main() throws FileNotFoundException {

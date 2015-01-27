@@ -28,7 +28,7 @@ public abstract class KafelekKolizyjny extends Kafelek implements IKolizyjne {
     void setVisible(boolean visible) {
         if (visible == false) {
             TabKolizjiSingleton.getInstance().setTabKolizji(this.gridX, this.gridY, visible);
-            Board.soutCollisionTable();
+            //Board.soutCollisionTable();
             visible = false;
         } else {
             this.visible = true;

@@ -25,7 +25,7 @@ public class Board extends JPanel implements ActionListener {
 
     private final Timer timer;
     private Gracz gracz;
-    public static boolean ingame;
+    public static boolean rozgrywkaTrwa;
     private static final int TEXT_WIDTH = 600;
     private static final int TEXT_HEIGHT = 600;
     private final static int SPACES = 20;
@@ -76,9 +76,9 @@ public class Board extends JPanel implements ActionListener {
         background = ii.getImage();
         addKeyListener(new TAdapter());
         setFocusable(true);
-        setBackground(new Color(0, 70, 0));
+        setBackground(new Color(0, 30, 0));
         setDoubleBuffered(true);
-        ingame = true;
+        rozgrywkaTrwa = true;
         setSize(Main.FRAME_WIDTH, Main.FRAME_HEIGHT);
         timer = new Timer(5, this);
         timer.start();
@@ -121,7 +121,7 @@ public class Board extends JPanel implements ActionListener {
     public void paint(Graphics g) {
         super.paint(g);
 
-        if (ingame) {
+        if (rozgrywkaTrwa) {
             Graphics2D g2d = (Graphics2D) g;
 
             g2d.drawImage(background, 0, 0, this);
@@ -174,8 +174,7 @@ public class Board extends JPanel implements ActionListener {
             FontMetrics metr = this.getFontMetrics(small);
             g.setColor(Color.red);
             g.setFont(small);
-            g.drawString(msg, (TEXT_WIDTH - metr.stringWidth(msg)) / 2,
-                    TEXT_HEIGHT / 2);
+            g.drawString(msg, (TEXT_WIDTH - metr.stringWidth(msg)) / 2, TEXT_HEIGHT / 2);
 
         }
 
@@ -185,7 +184,7 @@ public class Board extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
+        if(rozgrywkaTrwa){
         ArrayList<Pocisk> ms = gracz.getPociski();
         for (int i = 0; i < ms.size(); i++) {
             Pocisk m = (Pocisk) ms.get(i);
@@ -228,6 +227,7 @@ public class Board extends JPanel implements ActionListener {
         //respawn (nawet jeżeli ifVisible==false)
         checkCollisions();
         repaint();
+        }
     }
 
     public void checkCollisions() {
@@ -235,14 +235,13 @@ public class Board extends JPanel implements ActionListener {
         Iterator itrGP, itrW, itrWP, itrKol;
         ArrayList<KafelekKolizyjny> kafelkiDoUsuniecia = new ArrayList();
         ArrayList<Pocisk> pociskiDoUsuniecia = new ArrayList();
-        Rectangle r1;
-        Rectangle r2;
-        itrW = wrogowie.iterator();
+        Rectangle r1, r2, r3, r4;
         ArrayList<Pocisk> pociskiGracza = gracz.getPociski();
         itrGP = pociskiGracza.listIterator();
         while (itrGP.hasNext()) {
             Pocisk pociskGracza = (Pocisk) itrGP.next();
             r1 = pociskGracza.getWymiary();
+            itrW = wrogowie.iterator();
             while (itrW.hasNext()) {
                 Wrog pojazdWroga = (Wrog) itrW.next();
                 if (pojazdWroga.isVisible()) {
@@ -254,7 +253,7 @@ public class Board extends JPanel implements ActionListener {
                         if (r1.intersects(r2)) {
                             pociskiDoUsuniecia.add(pociskGracza);
                             pociskiDoUsuniecia.add(pociskWroga);
-                            System.out.println("delete pociski");
+                            //System.out.println("delete pociski");
                         }
                     }
                     pociskiW.removeAll(pociskiDoUsuniecia);
@@ -282,6 +281,43 @@ public class Board extends JPanel implements ActionListener {
         pociskiGracza.removeAll(pociskiDoUsuniecia);
         kafelkiKolizyjne.removeAll(kafelkiDoUsuniecia);
 
+        //kolizje wrogów
+        itrW = wrogowie.iterator();
+        while (itrW.hasNext()) {
+            Wrog pojazdWroga = (Wrog) itrW.next();
+            if (pojazdWroga.isVisible()) {
+                ArrayList<Pocisk> pociskiW = pojazdWroga.getPociski();
+                itrWP = pociskiW.iterator();
+                while (itrWP.hasNext()) {
+                    Pocisk pociskWroga = (Pocisk) itrWP.next();
+                    r2 = pociskWroga.getWymiary();
+                    r4 = gracz.getWymiary();
+                    if (r2.intersects(r4)) {
+                        pociskiDoUsuniecia.add(pociskWroga);
+                        gracz.decHP();
+                    }
+                    itrKol = kafelkiKolizyjne.iterator();
+                    KafelekKolizyjny kaf;
+                    while (itrKol.hasNext()) {
+                        kaf = (KafelekKolizyjny) itrKol.next();
+                        r3 = kaf.getWymiary();
+                        if (r2.intersects(r3)) {
+                            pociskWroga.setVisible(false);
+                            if (!kaf.getClass().getSimpleName().equals("Zelazo")) {
+                                kaf.setVisible(false);
+                                kafelkiDoUsuniecia.add(kaf);
+                            }
+                            if (kaf.getClass().getSimpleName().equals("Totem")) {
+                                kaf.setVisible(false);
+                                Board.rozgrywkaTrwa =false;
+                            }
+                        }
+                    }
+                }
+                pociskiW.removeAll(pociskiDoUsuniecia);
+            }
+        }
+        kafelkiKolizyjne.removeAll(kafelkiDoUsuniecia);
     }
 
     public static int getGridValue(int i) {
@@ -315,6 +351,7 @@ public class Board extends JPanel implements ActionListener {
 
     private class TAdapter extends KeyAdapter {
 
+        @Override
         public void keyPressed(KeyEvent e) {
             gracz.keyPressed(e);
             it = wrogowie.iterator();

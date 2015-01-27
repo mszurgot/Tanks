@@ -44,6 +44,8 @@ public class Wrog extends Pojazd {
             this.gridY=gridYDoRespawnu;
             this.setVisible(true);
             this.hp = 3;
+            kierunek = DOL;
+            ruchWDol = true;
             System.out.println("respawn("+gridXDoRespawnu+", "+gridYDoRespawnu+")");
         }
 

@@ -46,7 +46,7 @@ public class StandardMapaBudowniczy implements IMapaBudowniczy {
                 }
             }
         }
-        Board.soutCollisionTable();
+        //Board.soutCollisionTable();
     }
     
     @Override
