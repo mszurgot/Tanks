@@ -35,7 +35,6 @@ public class MapaNadzorca {
                     tab[i][j] = tmp.charAt(i);
                 }
                 j++;
-
             }
         } catch (Exception e) {
             System.out.println(Arrays.toString(e.getStackTrace()));

@@ -66,7 +66,7 @@ public class Pocisk implements IKolizyjne {
             }
             case Pojazd.DOL: {
                 y += missileSpeed;
-                if (y > Main.FRAME_HEIGHT - this.height) {
+                if (y > Main. getInstance().getFrameWidth() - this.height) {
                     visible = false; //tu zrobić obsługę przerzucania obiektu na poczatek kolejki pociskow do uzycia na obiekcie strzelajacego
                     //strzelajacy.doKolejki(this);
                 }
@@ -74,7 +74,7 @@ public class Pocisk implements IKolizyjne {
             }
             case Pojazd.PRAWO: {
                 x += missileSpeed;
-                if (x > Main.FRAME_WIDTH - this.width) {
+                if (x > Main. getInstance().getFrameHeight() - this.width) {
                     visible = false; //tu zrobić obsługę przerzucania obiektu na poczatek kolejki pociskow do uzycia na obiekcie strzelajacego
                     //strzelajacy.doKolejki(this);
                 }

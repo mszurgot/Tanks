@@ -15,10 +15,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import javax.swing.ImageIcon;
-import static javax.swing.JFrame.EXIT_ON_CLOSE;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Board extends JPanel implements ActionListener {
@@ -36,40 +33,9 @@ public class Board extends JPanel implements ActionListener {
     private Iterator it;
     private final Image background;
 
-    /*//-----do tablicy wynikow--------
-     JLabel jl1 = new JLabel();
-     JLabel jl2 = new JLabel();
-     JLabel jl3 = new JLabel();
-     JLabel jl4 = new JLabel();
-     JPanel jp = new JPanel();
-    
-     public int points = 4123;
-
-     public int getPoints() {
-     return points;
-     }
-
-     public void setPoints(int points) {
-     this.points = points;
-     }
-
-     public static Integer[] getDigits(int num) {
-     List<Integer> digits = new ArrayList<Integer>();
-     collectDigits(num, digits);
-     return digits.toArray(new Integer[]{});
-     }
-
-     private static void collectDigits(int num, List<Integer> digits) {
-     if(num / 10 > 0) {
-     collectDigits(num / 10, digits);
-     }
-     digits.add(num % 10);
-     }
-     //----/do tablicy wynikow--------
-     */
     public Board() {
-
-        for (int i = 0; i < Main.FRAME_WIDTH / SPACES; i++) {
+        if(Main. getInstance()!=null)
+        for (int i = 0; i < Main. getInstance().getFrameWidth() / SPACES; i++) {
             grid[i] = (i - 1) * SPACES;
         }
         ImageIcon ii = new ImageIcon(this.getClass().getResource("images/background.png"));
@@ -79,42 +45,12 @@ public class Board extends JPanel implements ActionListener {
         setBackground(new Color(0, 30, 0));
         setDoubleBuffered(true);
         rozgrywkaTrwa = true;
-        setSize(Main.FRAME_WIDTH, Main.FRAME_HEIGHT);
+        setSize(Main. getInstance().getFrameWidth(), Main. getInstance().getFrameHeight());
         timer = new Timer(5, this);
         timer.start();
         krzaki = new ArrayList();
         wrogowie = new ArrayList<>();
         kafelkiKolizyjne = new ArrayList<>();
-
-        /*//-------do tablicy wynikow--------
-         jp.setLayout(null);
-         jl1.setLocation(400, 605);
-         jl1.setBounds(400, 605, 160, 100);
-         jl2.setLocation(400, 605);
-         jl2.setBounds(440, 605, 160, 100);
-         jl3.setLocation(400, 605);
-         jl3.setBounds(480, 605, 160, 100);
-         jl4.setLocation(400, 605);
-         jl4.setBounds(520, 605, 160, 100);
-
-         Integer[] digits = getDigits(getPoints());
-         for(Integer x : digits) {
-         System.out.println(digits[x]);
-         }
-        
-         jl1.setIcon(new ImageIcon(getClass().getClassLoader().getResource("numbers/"+digits[0]+".png")));
-         jl2.setIcon(new ImageIcon(getClass().getClassLoader().getResource("numbers/"+digits[1]+".png")));
-         jl3.setIcon(new ImageIcon(getClass().getClassLoader().getResource("numbers/"+digits[2]+".png")));
-         jl4.setIcon(new ImageIcon(getClass().getClassLoader().getResource("numbers/"+digits[3]+".png")));
-              
-         jp.add(jl1);
-         jp.add(jl2);
-         jp.add(jl3);
-         jp.add(jl4);
-         add(jp);
-         validate();
-         //------/do tablicy wynikow--------
-         */
     }
 
     @Override

@@ -103,13 +103,13 @@ public abstract class Pojazd implements IKolizyjne {
         y += dy;
         if (x < 0) {
             x = 0;
-        } else if (x > (Main.FRAME_WIDTH - this.width)) {
-            x = Main.FRAME_WIDTH - this.width;
+        } else if (x > (Main. getInstance().getFrameWidth() - this.width)) {
+            x = Main. getInstance().getFrameWidth() - this.width;
         }
         if (y < 0) {
             y = 0;
-        } else if (y > (Main.FRAME_HEIGHT - this.height)) {
-            y = Main.FRAME_HEIGHT - this.height;
+        } else if (y > (Main. getInstance().getFrameHeight() - this.height)) {
+            y = Main. getInstance().getFrameHeight() - this.height;
         }
     }
 
