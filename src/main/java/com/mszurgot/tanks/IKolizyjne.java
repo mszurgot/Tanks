@@ -1,5 +1,5 @@
 
-package tanks;
+package com.mszurgot.tanks;
 
 import java.awt.Rectangle;
 

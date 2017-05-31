@@ -1,4 +1,4 @@
-package tanks;
+package com.mszurgot.tanks;
 
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
@@ -14,10 +14,10 @@ public class Gracz extends Pojazd {
     @Override
     protected void initImage() {
         ImageIcon ii;
-        this.imageSrc[0]="images/tank" + this.tankNumber + "up.png";
-        this.imageSrc[1]="images/tank" + this.tankNumber + "down.png";
-        this.imageSrc[2]="images/tank" + this.tankNumber + "right.png";
-        this.imageSrc[3]="images/tank" + this.tankNumber + "left.png";
+        this.imageSrc[0]="/images/tank" + this.tankNumber + "up.png";
+        this.imageSrc[1]="/images/tank" + this.tankNumber + "down.png";
+        this.imageSrc[2]="/images/tank" + this.tankNumber + "right.png";
+        this.imageSrc[3]="/images/tank" + this.tankNumber + "left.png";
         for (int i = 0; i < 4; i++) {
             ii = new ImageIcon(this.getClass().getResource(imageSrc[i]).getPath());
             

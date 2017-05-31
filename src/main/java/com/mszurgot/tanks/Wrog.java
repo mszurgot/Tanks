@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tanks;
+package com.mszurgot.tanks;
 
 import java.util.Random;
 import javax.swing.ImageIcon;
-import static tanks.Pojazd.LEWO;
+
 
 /**
  *
@@ -56,10 +56,10 @@ public class Wrog extends Pojazd {
         Random rand = new Random();
         this.tankNumber = rand.nextInt(4) + 2;
         ImageIcon ii;
-        this.imageSrc[0] = "images/tank" + this.tankNumber + "up.png";
-        this.imageSrc[1] = "images/tank" + this.tankNumber + "down.png";
-        this.imageSrc[2] = "images/tank" + this.tankNumber + "right.png";
-        this.imageSrc[3] = "images/tank" + this.tankNumber + "left.png";
+        this.imageSrc[0] = "/images/tank" + this.tankNumber + "up.png";
+        this.imageSrc[1] = "/images/tank" + this.tankNumber + "down.png";
+        this.imageSrc[2] = "/images/tank" + this.tankNumber + "right.png";
+        this.imageSrc[3] = "/images/tank" + this.tankNumber + "left.png";
         for (int i = 0; i < 4; i++) {
             System.out.println(imageSrc[i]);
             ii = new ImageIcon(this.getClass().getResource(imageSrc[i]));

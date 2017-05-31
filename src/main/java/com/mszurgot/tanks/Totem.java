@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tanks;
+package com.mszurgot.tanks;
 
 import java.awt.Rectangle;
 import javax.swing.ImageIcon;
@@ -16,7 +16,7 @@ public class Totem extends Mur{
 
     public Totem(int gridX, int gridY) {
         super(gridX, gridY);
-        ImageIcon ii = new ImageIcon(this.getClass().getResource("images/totem.png"));
+        ImageIcon ii = new ImageIcon(this.getClass().getResource("/images/totem.png"));
         image = ii.getImage();
     }
     

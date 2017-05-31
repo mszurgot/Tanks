@@ -1,4 +1,4 @@
-package tanks;
+package com.mszurgot.tanks;
 
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -20,7 +20,7 @@ public class Pocisk implements IKolizyjne {
         this.kierunek = p.getKierunek();
         this.strzelajacy = p;
         this.missileSpeed = speed;
-        ImageIcon ii = new ImageIcon(this.getClass().getResource("images/bullet.png"));
+        ImageIcon ii = new ImageIcon(this.getClass().getResource("/images/bullet.png"));
         this.image = ii.getImage();
         this.visible = true;
         this.width = image.getWidth(null);
@@ -66,7 +66,7 @@ public class Pocisk implements IKolizyjne {
             }
             case Pojazd.DOL: {
                 y += missileSpeed;
-                if (y > Main. getInstance().getFrameWidth() - this.height) {
+                if (y > WindowFrame.DEFAULT_WINDOW_WIDTH - this.height) {
                     visible = false; //tu zrobić obsługę przerzucania obiektu na poczatek kolejki pociskow do uzycia na obiekcie strzelajacego
                     //strzelajacy.doKolejki(this);
                 }
@@ -74,7 +74,7 @@ public class Pocisk implements IKolizyjne {
             }
             case Pojazd.PRAWO: {
                 x += missileSpeed;
-                if (x > Main. getInstance().getFrameHeight() - this.width) {
+                if (x > WindowFrame.DEFAULT_WINDOW_HEIGHT - this.width) {
                     visible = false; //tu zrobić obsługę przerzucania obiektu na poczatek kolejki pociskow do uzycia na obiekcie strzelajacego
                     //strzelajacy.doKolejki(this);
                 }

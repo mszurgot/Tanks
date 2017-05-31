@@ -1,8 +1,9 @@
-package tanks;
+package com.mszurgot.tanks;
 
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -62,6 +63,18 @@ public abstract class Pojazd implements IKolizyjne {
     protected void initImage() {
     }
 
+    public void moveBullets(){
+        Iterator<Pocisk> ms = this.getPociski().iterator();
+        while (ms.hasNext()){
+            Pocisk m = ms.next();
+            if (m.isVisible()) {
+                m.move();
+            } else {
+                ms.remove();
+            }
+        }
+    }
+
     public void move() {
         //System.out.println("x:" + x + " y:" + y + " dx:" + dx + " dy:" + dy + " gridX:" + gridX + " gridY:" + gridY + " ruchWPrawo:" + ruchWPrawo + " ruchWLewo:" + ruchWLewo + " ruchWGore:" + ruchWGore + " ruchWDol:" + ruchWDol);
         if (ruchWLewo) {
@@ -103,13 +116,13 @@ public abstract class Pojazd implements IKolizyjne {
         y += dy;
         if (x < 0) {
             x = 0;
-        } else if (x > (Main. getInstance().getFrameWidth() - this.width)) {
-            x = Main. getInstance().getFrameWidth() - this.width;
+        } else if (x > (WindowFrame.DEFAULT_WINDOW_WIDTH - this.width)) {
+            x = WindowFrame.DEFAULT_WINDOW_WIDTH - this.width;
         }
         if (y < 0) {
             y = 0;
-        } else if (y > (Main. getInstance().getFrameHeight() - this.height)) {
-            y = Main. getInstance().getFrameHeight() - this.height;
+        } else if (y > (WindowFrame.DEFAULT_WINDOW_HEIGHT - this.height)) {
+            y = WindowFrame.DEFAULT_WINDOW_HEIGHT - this.height;
         }
     }
 

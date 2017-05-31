@@ -1,4 +1,4 @@
-package tanks;
+package com.mszurgot.tanks;
 
 import javax.swing.Timer;
 import java.awt.Color;
@@ -34,18 +34,18 @@ public class Board extends JPanel implements ActionListener {
     private final Image background;
 
     public Board() {
-        if(Main. getInstance()!=null)
-        for (int i = 0; i < Main. getInstance().getFrameWidth() / SPACES; i++) {
+
+        for (int i = 0; i < WindowFrame.DEFAULT_WINDOW_WIDTH / SPACES; i++) {
             grid[i] = (i - 1) * SPACES;
         }
-        ImageIcon ii = new ImageIcon(this.getClass().getResource("images/background.png"));
+        ImageIcon ii = new ImageIcon(this.getClass().getResource("/images/background.png"));
         background = ii.getImage();
         addKeyListener(new TAdapter());
         setFocusable(true);
         setBackground(new Color(0, 30, 0));
         setDoubleBuffered(true);
         rozgrywkaTrwa = true;
-        setSize(Main. getInstance().getFrameWidth(), Main. getInstance().getFrameHeight());
+        setSize(WindowFrame.DEFAULT_WINDOW_WIDTH, WindowFrame.DEFAULT_WINDOW_HEIGHT);
         timer = new Timer(5, this);
         timer.start();
         krzaki = new ArrayList();
@@ -120,49 +120,32 @@ public class Board extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(rozgrywkaTrwa){
-        ArrayList<Pocisk> ms = gracz.getPociski();
-        for (int i = 0; i < ms.size(); i++) {
-            Pocisk m = (Pocisk) ms.get(i);
-            if (m.isVisible()) {
-                m.move();
-            } else {
-                ms.remove(i);
-            }
-        }
-        it = wrogowie.iterator();
-        while (it.hasNext()) {
-            Wrog wr = (Wrog) it.next();
-            if (wr.isVisible()) {
-                ArrayList<Pocisk> mss = wr.getPociski();
+        if (rozgrywkaTrwa) {
+            gracz.moveBullets();
 
-                for (int i = 0; i < mss.size(); i++) {
-                    Pocisk m = (Pocisk) mss.get(i);
-                    if (m.isVisible()) {
-                        m.move();
-                    } else {
-                        mss.remove(i);
-                    }
+            it = wrogowie.iterator();
+            while (it.hasNext()) {
+                Wrog wr = (Wrog) it.next();
+                if (wr.isVisible()) wr.moveBullets();
+
+            }
+
+            gracz.makeMove();
+            gracz.decReloadTimer();
+            it = wrogowie.iterator();
+            while (it.hasNext()) {
+                Wrog tmp = (Wrog) it.next();
+                if (tmp.isVisible()) {
+                    tmp.makeMove();
+                    tmp.decReloadTimer();
+                } else {
+                    tmp.decDoRespawnu();
                 }
             }
-        }
 
-        gracz.makeMove();
-        gracz.decReloadTimer();
-        it = wrogowie.iterator();
-        while (it.hasNext()) {
-            Wrog tmp = (Wrog) it.next();
-            if (tmp.isVisible()) {
-                tmp.makeMove();
-                tmp.decReloadTimer();
-            } else {
-                tmp.decDoRespawnu();
-            }
-        }
-
-        //respawn (nawet jeżeli ifVisible==false)
-        checkCollisions();
-        repaint();
+            //respawn (nawet jeżeli ifVisible==false)
+            checkCollisions();
+            repaint();
         }
     }
 
@@ -245,7 +228,7 @@ public class Board extends JPanel implements ActionListener {
                             }
                             if (kaf.getClass().getSimpleName().equals("Totem")) {
                                 kaf.setVisible(false);
-                                Board.rozgrywkaTrwa =false;
+                                Board.rozgrywkaTrwa = false;
                             }
                         }
                     }
@@ -279,7 +262,7 @@ public class Board extends JPanel implements ActionListener {
     public static void soutCollisionTable() {
         for (int i = 0; i <= 31; i++) {
             for (int j = 0; j <= 31; j++) {
-                System.out.print((TabKolizjiSingleton.getInstance().getTabKolizji(j, i)) ? "T" : ".");
+                System.out.print((TabKolizjiSingleton.getInstance().getTabKolizji(j, i)) ? "T" : "");
             }
             System.out.println();
         }

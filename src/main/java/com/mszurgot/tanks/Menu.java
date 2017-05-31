@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tanks;
+package com.mszurgot.tanks;
 
 /**
  *
@@ -102,7 +102,7 @@ public class Menu extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void quitKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_quitKeyPressed
-        Main. getInstance().dispose();
+//        Main.getInstance().dispose();
     }//GEN-LAST:event_quitKeyPressed
 
 
