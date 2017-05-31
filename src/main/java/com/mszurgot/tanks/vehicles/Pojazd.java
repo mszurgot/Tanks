@@ -1,4 +1,9 @@
-package com.mszurgot.tanks;
+package com.mszurgot.tanks.vehicles;
+
+import com.mszurgot.tanks.Board;
+import com.mszurgot.tanks.collision.IKolizyjne;
+import com.mszurgot.tanks.collision.Pocisk;
+import com.mszurgot.tanks.WindowFrame;
 
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -11,10 +16,10 @@ import java.util.Iterator;
  */
 public abstract class Pojazd implements IKolizyjne {
 
-    protected static final int GORA = 0;
-    protected static final int DOL = 1;
-    protected static final int PRAWO = 2;
-    protected static final int LEWO = 3;
+    public static final int GORA = 0;
+    public static final int DOL = 1;
+    public static final int PRAWO = 2;
+    public static final int LEWO = 3;
     protected static final int V = 1;
     protected int hp =3;
     protected int tankNumber;

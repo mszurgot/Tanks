@@ -3,7 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mszurgot.tanks;
+package com.mszurgot.tanks.vehicles;
+
+import com.mszurgot.tanks.Board;
+import com.mszurgot.tanks.collision.TabKolizjiSingleton;
 
 import java.util.Random;
 import javax.swing.ImageIcon;

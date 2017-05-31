@@ -1,5 +1,13 @@
 package com.mszurgot.tanks;
 
+import com.mszurgot.tanks.collision.KafelekKolizyjny;
+import com.mszurgot.tanks.collision.Pocisk;
+import com.mszurgot.tanks.collision.TabKolizjiSingleton;
+import com.mszurgot.tanks.components.Kafelek;
+import com.mszurgot.tanks.components.Krzak;
+import com.mszurgot.tanks.vehicles.Gracz;
+import com.mszurgot.tanks.vehicles.Wrog;
+
 import javax.swing.Timer;
 import java.awt.Color;
 import java.awt.Font;

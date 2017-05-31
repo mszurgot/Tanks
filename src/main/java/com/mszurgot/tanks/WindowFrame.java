@@ -5,6 +5,10 @@
  */
 package com.mszurgot.tanks;
 
+import com.mszurgot.tanks.gamemap.IMapaBudowniczy;
+import com.mszurgot.tanks.gamemap.MapaNadzorca;
+import com.mszurgot.tanks.gamemap.StandardMapaBudowniczy;
+
 import java.awt.*;
 import java.io.IOException;
 import java.util.logging.Level;

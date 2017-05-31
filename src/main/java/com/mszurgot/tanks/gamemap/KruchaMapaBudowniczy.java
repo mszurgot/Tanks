@@ -1,5 +1,12 @@
 
-package com.mszurgot.tanks;
+package com.mszurgot.tanks.gamemap;
+
+import com.mszurgot.tanks.*;
+import com.mszurgot.tanks.components.Krzak;
+import com.mszurgot.tanks.components.Mur;
+import com.mszurgot.tanks.components.Totem;
+import com.mszurgot.tanks.vehicles.Gracz;
+import com.mszurgot.tanks.vehicles.Wrog;
 
 import java.util.Random;
 

@@ -1,4 +1,4 @@
-package com.mszurgot.tanks;
+package com.mszurgot.tanks.components;
 
 import java.awt.Image;
 

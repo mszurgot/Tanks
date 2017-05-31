@@ -1,4 +1,4 @@
-package com.mszurgot.tanks;
+package com.mszurgot.tanks.collision;
 
 public class TabKolizjiSingleton {
 

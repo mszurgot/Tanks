@@ -1,4 +1,7 @@
-package com.mszurgot.tanks;
+package com.mszurgot.tanks.vehicles;
+
+import com.mszurgot.tanks.Board;
+import com.mszurgot.tanks.collision.TabKolizjiSingleton;
 
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;

@@ -1,5 +1,5 @@
 
-package com.mszurgot.tanks;
+package com.mszurgot.tanks.collision;
 
 import java.awt.Rectangle;
 

@@ -1,4 +1,6 @@
-package com.mszurgot.tanks;
+package com.mszurgot.tanks.components;
+
+import com.mszurgot.tanks.collision.KafelekKolizyjny;
 
 import javax.swing.ImageIcon;
 

@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.mszurgot.tanks;
+package com.mszurgot.tanks.components;
+
+import com.mszurgot.tanks.Board;
 
 import java.awt.Rectangle;
 import javax.swing.ImageIcon;

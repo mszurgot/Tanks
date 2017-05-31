@@ -1,4 +1,7 @@
-package com.mszurgot.tanks;
+package com.mszurgot.tanks.collision;
+
+import com.mszurgot.tanks.Board;
+import com.mszurgot.tanks.components.Kafelek;
 
 import java.awt.Rectangle;
 
@@ -25,7 +28,7 @@ public abstract class KafelekKolizyjny extends Kafelek implements IKolizyjne {
         return visible;
     }
 
-    void setVisible(boolean visible) {
+    public void setVisible(boolean visible) {
         if (visible == false) {
             TabKolizjiSingleton.getInstance().setTabKolizji(this.gridX, this.gridY, visible);
             //Board.soutCollisionTable();

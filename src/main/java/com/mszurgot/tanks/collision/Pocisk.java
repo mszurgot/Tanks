@@ -1,4 +1,8 @@
-package com.mszurgot.tanks;
+package com.mszurgot.tanks.collision;
+
+import com.mszurgot.tanks.WindowFrame;
+import com.mszurgot.tanks.collision.IKolizyjne;
+import com.mszurgot.tanks.vehicles.Pojazd;
 
 import java.awt.Image;
 import java.awt.Rectangle;
