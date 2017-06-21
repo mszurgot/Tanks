@@ -17,11 +17,9 @@ public abstract class KafelekKolizyjny extends Kafelek implements IKolizyjne {
 
     @Override
     public Rectangle getWymiary() {
-        if (this.isVisible()) {
-            return new Rectangle(Board.getGridValue(gridX), Board.getGridValue(gridY), 20, 20);
-        } else {
-            return new Rectangle(0, 0, 0, 0);
-        }
+        return this.isVisible()
+                ? new Rectangle(Board.getGridValue(gridX), Board.getGridValue(gridY), 20, 20)
+                : new Rectangle(0, 0, 0, 0);
     }
 
     public boolean isVisible() {

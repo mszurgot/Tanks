@@ -33,13 +33,15 @@ public class Gracz extends Pojazd {
         int key = e.getKeyCode();
 
         if (key == KeyEvent.VK_SPACE) {
-            fire(this);
+            fire();
         }
+        System.out.println(kierunek);//TODO do usunięcia
 
         if ((key == KeyEvent.VK_LEFT) && !ruchWGore && !ruchWDol) {
             if (kierunek == LEWO) {
                 if (!ruchWLewo && TabKolizjiSingleton.getInstance().getTabKolizji(gridX - 1, gridY)==false && TabKolizjiSingleton.getInstance().getTabKolizji(gridX -1, gridY + 1)==false) {
                     ruchWLewo = true;
+
                 }
             } else {
                 kierunek = LEWO;

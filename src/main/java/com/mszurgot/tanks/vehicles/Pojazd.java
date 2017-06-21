@@ -191,30 +191,28 @@ public abstract class Pojazd implements IKolizyjne {
             
     }
 
-    public void fire(Pojazd p) {
+    public void fire() {
         if (reloadTimer <= 0) {
             switch (kierunek) {
                 case GORA: {
-                    pociski.add(new Pocisk(x + 18, y, missileSpeed, p));
-                    reloadTimer = reloadTime;
+                    pociski.add(new Pocisk(x + 18, y, missileSpeed, this));
                     break;
                 }
                 case DOL: {
-                    pociski.add(new Pocisk(x + 18, y + 36, missileSpeed, p));
-                    reloadTimer = reloadTime;
+                    pociski.add(new Pocisk(x + 18, y + 36, missileSpeed, this));
                     break;
                 }
                 case PRAWO: {
-                    pociski.add(new Pocisk(x + 36, y + 18, missileSpeed, p));
-                    reloadTimer = reloadTime;
+                    pociski.add(new Pocisk(x + 36, y + 18, missileSpeed, this));
                     break;
                 }
                 case LEWO: {
-                    pociski.add(new Pocisk(x, y + 18, missileSpeed, p));
-                    reloadTimer = reloadTime;
+                    pociski.add(new Pocisk(x, y + 18, missileSpeed, this));
                     break;
                 }
             }
+            reloadTimer = reloadTime;
+
         }
     }
 

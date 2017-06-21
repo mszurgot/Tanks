@@ -46,9 +46,13 @@ public class Board extends JPanel implements ActionListener {
         for (int i = 0; i < WindowFrame.DEFAULT_WINDOW_WIDTH / SPACES; i++) {
             grid[i] = (i - 1) * SPACES;
         }
-        ImageIcon ii = new ImageIcon(this.getClass().getResource("/images/background.png"));
-        background = ii.getImage();
-        addKeyListener(new TAdapter());
+        background =  new ImageIcon(this.getClass().getResource("/images/background.png")).getImage();
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                gracz.keyPressed(e);
+            }
+        });
         setFocusable(true);
         setBackground(new Color(0, 30, 0));
         setDoubleBuffered(true);
@@ -71,12 +75,11 @@ public class Board extends JPanel implements ActionListener {
             g2d.drawImage(background, 0, 0, this);
 
             it = kafelkiKolizyjne.listIterator();
-            KafelekKolizyjny ka;
             while (it.hasNext()) {
-                ka = (KafelekKolizyjny) it.next();
+                KafelekKolizyjny ka = (KafelekKolizyjny) it.next();
                 if (ka.isVisible()) {
                     g2d.drawImage(ka.getImage(), grid[ka.getGridX()], grid[ka.getGridY()], this);
-                }
+                } else it.remove();
             }
 
             if (gracz.isVisible()) {
@@ -276,13 +279,13 @@ public class Board extends JPanel implements ActionListener {
         }
     }
 
-    private class TAdapter extends KeyAdapter {
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-            gracz.keyPressed(e);
-            it = wrogowie.iterator();
-        }
-
-    }
+//    private class TAdapter extends KeyAdapter {
+//
+//        @Override
+//        public void keyPressed(KeyEvent e) {
+//            gracz.keyPressed(e);
+////            it = wrogowie.iterator();
+//        }
+//
+//    }
 }

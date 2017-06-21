@@ -85,7 +85,7 @@ public class Wrog extends Pojazd {
             poPierwszymOdliczaniu = true;
         }
         if (fireWylosowana < 1) {
-            this.fire(this);
+            this.fire();
         }
         fireWylosowana = random.nextInt(50);
         if (odbilSie) {
