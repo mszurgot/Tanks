@@ -273,7 +273,7 @@ public class Board extends JPanel implements ActionListener {
     public static void soutCollisionTable() {
         for (int i = 0; i <= 31; i++) {
             for (int j = 0; j <= 31; j++) {
-                System.out.print((TabKolizjiSingleton.getInstance().getTabKolizji(j, i)) ? "T" : "");
+                System.out.print((TabKolizjiSingleton.getTabKolizji(j, i)) ? "T" : "");
             }
             System.out.println();
         }

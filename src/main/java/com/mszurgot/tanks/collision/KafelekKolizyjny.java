@@ -11,7 +11,7 @@ public abstract class KafelekKolizyjny extends Kafelek implements IKolizyjne {
 
     public KafelekKolizyjny(int gridX, int gridY) {
         super(gridX, gridY);
-        TabKolizjiSingleton.getInstance().setTabKolizji(gridX, gridY, true);
+        TabKolizjiSingleton.setTabKolizji(gridX, gridY, true);
         setVisible(true);
     }
 
@@ -28,12 +28,12 @@ public abstract class KafelekKolizyjny extends Kafelek implements IKolizyjne {
 
     public void setVisible(boolean visible) {
         if (visible == false) {
-            TabKolizjiSingleton.getInstance().setTabKolizji(this.gridX, this.gridY, visible);
+            TabKolizjiSingleton.setTabKolizji(this.gridX, this.gridY, visible);
             //Board.soutCollisionTable();
             visible = false;
         } else {
             this.visible = true;
-            TabKolizjiSingleton.getInstance().setTabKolizji(this.gridX, this.gridY, visible);
+            TabKolizjiSingleton.setTabKolizji(this.gridX, this.gridY, visible);
         }
     }
 

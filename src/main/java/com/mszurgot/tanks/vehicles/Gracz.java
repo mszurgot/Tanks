@@ -39,7 +39,7 @@ public class Gracz extends Pojazd {
 
         if ((key == KeyEvent.VK_LEFT) && !ruchWGore && !ruchWDol) {
             if (kierunek == LEWO) {
-                if (!ruchWLewo && TabKolizjiSingleton.getInstance().getTabKolizji(gridX - 1, gridY)==false && TabKolizjiSingleton.getInstance().getTabKolizji(gridX -1, gridY + 1)==false) {
+                if (!ruchWLewo && TabKolizjiSingleton.getTabKolizji(gridX - 1, gridY)==false && TabKolizjiSingleton.getTabKolizji(gridX -1, gridY + 1)==false) {
                     ruchWLewo = true;
 
                 }
@@ -49,7 +49,7 @@ public class Gracz extends Pojazd {
             }
         } else if ((key == KeyEvent.VK_RIGHT) && !ruchWGore && !ruchWDol ) {
             if (kierunek == PRAWO) {
-                if (!ruchWPrawo && TabKolizjiSingleton.getInstance().getTabKolizji(gridX +2, gridY)==false && TabKolizjiSingleton.getInstance().getTabKolizji(gridX + 2, gridY + 1)==false) {
+                if (!ruchWPrawo && TabKolizjiSingleton.getTabKolizji(gridX +2, gridY)==false && TabKolizjiSingleton.getTabKolizji(gridX + 2, gridY + 1)==false) {
                     ruchWPrawo = true;
                 }
             } else {
@@ -58,7 +58,7 @@ public class Gracz extends Pojazd {
             }
         } else if ((key == KeyEvent.VK_UP) && !ruchWLewo && !ruchWPrawo ) {
             if (kierunek == GORA) {
-                if (!ruchWGore && TabKolizjiSingleton.getInstance().getTabKolizji(gridX, gridY - 1)==false && TabKolizjiSingleton.getInstance().getTabKolizji(gridX +1, gridY - 1)==false) {
+                if (!ruchWGore && TabKolizjiSingleton.getTabKolizji(gridX, gridY - 1)==false && TabKolizjiSingleton.getTabKolizji(gridX +1, gridY - 1)==false) {
                     ruchWGore = true;
                 }
             } else {
@@ -67,7 +67,7 @@ public class Gracz extends Pojazd {
             }
         } else if ((key == KeyEvent.VK_DOWN) && !ruchWLewo && !ruchWPrawo ) {
             if (kierunek == DOL) {
-                if (!ruchWDol && TabKolizjiSingleton.getInstance().getTabKolizji(gridX, gridY + 2)==false && TabKolizjiSingleton.getInstance().getTabKolizji(gridX +1, gridY + 2)==false) {
+                if (!ruchWDol && TabKolizjiSingleton.getTabKolizji(gridX, gridY + 2)==false && TabKolizjiSingleton.getTabKolizji(gridX +1, gridY + 2)==false) {
                     ruchWDol = true;
                 }
             } else {

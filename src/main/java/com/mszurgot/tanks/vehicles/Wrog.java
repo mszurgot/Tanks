@@ -95,7 +95,7 @@ public class Wrog extends Pojazd {
             odbilSie = false;
             kierunek = LEWO;
             displayedImage = imageTab[LEWO];
-            if (TabKolizjiSingleton.getInstance().getTabKolizji(gridX - 1, gridY) == false && TabKolizjiSingleton.getInstance().getTabKolizji(gridX - 1, gridY + 1) == false) {
+            if (TabKolizjiSingleton.getTabKolizji(gridX - 1, gridY) == false && TabKolizjiSingleton.getTabKolizji(gridX - 1, gridY + 1) == false) {
                 ruchWLewo = true;
             } else {
                 odbilSie = true;
@@ -105,7 +105,7 @@ public class Wrog extends Pojazd {
             odbilSie = false;
             kierunek = PRAWO;
             displayedImage = imageTab[PRAWO];
-            if (TabKolizjiSingleton.getInstance().getTabKolizji(gridX + 2, gridY) == false && TabKolizjiSingleton.getInstance().getTabKolizji(gridX + 2, gridY + 1) == false) {
+            if (TabKolizjiSingleton.getTabKolizji(gridX + 2, gridY) == false && TabKolizjiSingleton.getTabKolizji(gridX + 2, gridY + 1) == false) {
                 ruchWPrawo = true;
             } else {
                 odbilSie = true;
@@ -114,7 +114,7 @@ public class Wrog extends Pojazd {
             odbilSie = false;
             kierunek = GORA;
             displayedImage = imageTab[GORA];
-            if (TabKolizjiSingleton.getInstance().getTabKolizji(gridX, gridY - 1) == false && TabKolizjiSingleton.getInstance().getTabKolizji(gridX + 1, gridY - 1) == false) {
+            if (TabKolizjiSingleton.getTabKolizji(gridX, gridY - 1) == false && TabKolizjiSingleton.getTabKolizji(gridX + 1, gridY - 1) == false) {
                 ruchWGore = true;
             } else {
                 odbilSie = true;
@@ -123,7 +123,7 @@ public class Wrog extends Pojazd {
             odbilSie = false;
             kierunek = DOL;
             displayedImage = imageTab[DOL];
-            if (TabKolizjiSingleton.getInstance().getTabKolizji(gridX, gridY + 2) == false && TabKolizjiSingleton.getInstance().getTabKolizji(gridX + 1, gridY + 2) == false) {
+            if (TabKolizjiSingleton.getTabKolizji(gridX, gridY + 2) == false && TabKolizjiSingleton.getTabKolizji(gridX + 1, gridY + 2) == false) {
                 ruchWDol = true;
             } else {
                 odbilSie = true;
