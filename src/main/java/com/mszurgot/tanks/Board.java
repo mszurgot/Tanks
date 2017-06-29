@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -37,16 +38,18 @@ public class Board extends JPanel implements ActionListener {
     private static int grid[] = new int[31];
     private ArrayList<Krzak> krzaki;
     private ArrayList<Wrog> wrogowie;
-    private ArrayList<KafelekKolizyjny> kafelkiKolizyjne;
+    private Collection<KafelekKolizyjny> kafelkiKolizyjne;
     private Iterator it;
     private final Image background;
 
-    public Board() {
-
+    static {
         for (int i = 0; i < WindowFrame.DEFAULT_WINDOW_WIDTH / SPACES; i++) {
             grid[i] = (i - 1) * SPACES;
         }
-        background =  new ImageIcon(this.getClass().getResource("/images/background.png")).getImage();
+    }
+
+    public Board() {
+        background = new ImageIcon(this.getClass().getResource("/images/background.png")).getImage();
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -65,6 +68,13 @@ public class Board extends JPanel implements ActionListener {
         kafelkiKolizyjne = new ArrayList<>();
     }
 
+    private <T extends IDrawable> void drawDrawableCollection(Collection<T> collection, Graphics2D graphicsContext){
+        Iterator<T> iterator = collection.iterator();
+        while(iterator.hasNext()){
+            iterator.next().draw(graphicsContext, iterator);
+        }
+    }
+
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -74,7 +84,7 @@ public class Board extends JPanel implements ActionListener {
 
             g2d.drawImage(background, 0, 0, this);
 
-            it = kafelkiKolizyjne.listIterator();
+            it = kafelkiKolizyjne.iterator();
             while (it.hasNext()) {
                 KafelekKolizyjny ka = (KafelekKolizyjny) it.next();
                 if (ka.isVisible()) {
@@ -82,11 +92,13 @@ public class Board extends JPanel implements ActionListener {
                 } else it.remove();
             }
 
+//            drawDrawableCollection(kafelkiKolizyjne, g2d);
+
             if (gracz.isVisible()) {
                 g2d.drawImage(gracz.getImage(), gracz.getX(), gracz.getY(), this);
                 ArrayList<Pocisk> ms = gracz.getPociski();
                 for (int i = 0; i < ms.size(); i++) {
-                    Pocisk m = (Pocisk) ms.get(i);
+                    Pocisk m =  ms.get(i);
                     if (m.isVisible()) {
                         g2d.drawImage(m.getImage(), m.getX(), m.getY(), this);
                     }
@@ -99,7 +111,7 @@ public class Board extends JPanel implements ActionListener {
                     g2d.drawImage(wr.getImage(), wr.getX(), wr.getY(), this);
                     ArrayList<Pocisk> ms = wr.getPociski();
                     for (int i = 0; i < ms.size(); i++) {
-                        Pocisk m = (Pocisk) ms.get(i);
+                        Pocisk m = ms.get(i);
                         if (m.isVisible()) {
                             g2d.drawImage(m.getImage(), m.getX(), m.getY(), this);
                         }
@@ -162,24 +174,23 @@ public class Board extends JPanel implements ActionListener {
 
     public void checkCollisions() {
 
-        Iterator itrGP, itrW, itrWP, itrKol;
         ArrayList<KafelekKolizyjny> kafelkiDoUsuniecia = new ArrayList();
         ArrayList<Pocisk> pociskiDoUsuniecia = new ArrayList();
-        Rectangle r1, r2, r3, r4;
         ArrayList<Pocisk> pociskiGracza = gracz.getPociski();
-        itrGP = pociskiGracza.listIterator();
+        Iterator<Pocisk> itrGP = pociskiGracza.listIterator();
         while (itrGP.hasNext()) {
-            Pocisk pociskGracza = (Pocisk) itrGP.next();
-            r1 = pociskGracza.getWymiary();
-            itrW = wrogowie.iterator();
+            Pocisk pociskGracza = itrGP.next();
+            Rectangle r1 = pociskGracza.getWymiary();
+            Iterator<Wrog> itrW = wrogowie.iterator();
+
             while (itrW.hasNext()) {
-                Wrog pojazdWroga = (Wrog) itrW.next();
+                Wrog pojazdWroga = itrW.next();
                 if (pojazdWroga.isVisible()) {
                     ArrayList<Pocisk> pociskiW = pojazdWroga.getPociski();
-                    itrWP = pociskiW.iterator();
+                    Iterator<Pocisk> itrWP = pociskiW.iterator();
                     while (itrWP.hasNext()) {
-                        Pocisk pociskWroga = (Pocisk) itrWP.next();
-                        r2 = pociskWroga.getWymiary();
+                        Pocisk pociskWroga = itrWP.next();
+                        Rectangle r2 = pociskWroga.getWymiary();
                         if (r1.intersects(r2)) {
                             pociskiDoUsuniecia.add(pociskGracza);
                             pociskiDoUsuniecia.add(pociskWroga);
@@ -187,18 +198,19 @@ public class Board extends JPanel implements ActionListener {
                         }
                     }
                     pociskiW.removeAll(pociskiDoUsuniecia);
-                    r2 = pojazdWroga.getWymiary();
+                    Rectangle r2 = pojazdWroga.getWymiary();
                     if (r1.intersects(r2)) {
                         pociskiDoUsuniecia.add(pociskGracza);
                         pojazdWroga.decHP();
                     }
                 }
             }
-            itrKol = kafelkiKolizyjne.iterator();
+
+            Iterator<KafelekKolizyjny> itrKol = kafelkiKolizyjne.iterator();
             KafelekKolizyjny kaf;
             while (itrKol.hasNext()) {
-                kaf = (KafelekKolizyjny) itrKol.next();
-                r2 = kaf.getWymiary();
+                kaf = itrKol.next();
+                Rectangle r2 = kaf.getWymiary();
                 if (r1.intersects(r2)) {
                     pociskGracza.setVisible(false);
                     if (!kaf.getClass().getSimpleName().equals("Zelazo")) {
@@ -212,25 +224,25 @@ public class Board extends JPanel implements ActionListener {
         kafelkiKolizyjne.removeAll(kafelkiDoUsuniecia);
 
         //kolizje wrogów
-        itrW = wrogowie.iterator();
+        Iterator<Wrog> itrW = wrogowie.iterator();
         while (itrW.hasNext()) {
-            Wrog pojazdWroga = (Wrog) itrW.next();
+            Wrog pojazdWroga = itrW.next();
             if (pojazdWroga.isVisible()) {
                 ArrayList<Pocisk> pociskiW = pojazdWroga.getPociski();
-                itrWP = pociskiW.iterator();
+                Iterator<Pocisk> itrWP = pociskiW.iterator();
                 while (itrWP.hasNext()) {
-                    Pocisk pociskWroga = (Pocisk) itrWP.next();
-                    r2 = pociskWroga.getWymiary();
-                    r4 = gracz.getWymiary();
+                    Pocisk pociskWroga = itrWP.next();
+                    Rectangle r2 = pociskWroga.getWymiary();
+                    Rectangle r4 = gracz.getWymiary();
                     if (r2.intersects(r4)) {
                         pociskiDoUsuniecia.add(pociskWroga);
                         gracz.decHP();
                     }
-                    itrKol = kafelkiKolizyjne.iterator();
+                    Iterator<KafelekKolizyjny> itrKol = kafelkiKolizyjne.iterator();
                     KafelekKolizyjny kaf;
                     while (itrKol.hasNext()) {
-                        kaf = (KafelekKolizyjny) itrKol.next();
-                        r3 = kaf.getWymiary();
+                        kaf = itrKol.next();
+                        Rectangle r3 = kaf.getWymiary();
                         if (r2.intersects(r3)) {
                             pociskWroga.setVisible(false);
                             if (!kaf.getClass().getSimpleName().equals("Zelazo")) {

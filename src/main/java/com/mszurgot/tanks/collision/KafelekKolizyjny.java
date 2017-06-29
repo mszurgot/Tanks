@@ -1,13 +1,15 @@
 package com.mszurgot.tanks.collision;
 
 import com.mszurgot.tanks.Board;
+import com.mszurgot.tanks.IDrawable;
 import com.mszurgot.tanks.components.Kafelek;
 
-import java.awt.Rectangle;
+import java.awt.*;
+import java.util.Iterator;
 
-public abstract class KafelekKolizyjny extends Kafelek implements IKolizyjne {
+public abstract class KafelekKolizyjny extends Kafelek implements IKolizyjne{
 
-    private boolean visible;
+    private boolean visible = true;
 
     public KafelekKolizyjny(int gridX, int gridY) {
         super(gridX, gridY);

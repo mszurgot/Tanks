@@ -1,6 +1,7 @@
 package com.mszurgot.tanks.vehicles;
 
 import com.mszurgot.tanks.Board;
+import com.mszurgot.tanks.IDrawable;
 import com.mszurgot.tanks.collision.IKolizyjne;
 import com.mszurgot.tanks.collision.Pocisk;
 import com.mszurgot.tanks.WindowFrame;
@@ -14,7 +15,7 @@ import java.util.Iterator;
  *
  * @author Zet
  */
-public abstract class Pojazd implements IKolizyjne {
+public abstract class Pojazd implements IKolizyjne/*, IDrawable*/ {
 
     public static final int GORA = 0;
     public static final int DOL = 1;

@@ -1,14 +1,15 @@
 package com.mszurgot.tanks.collision;
 
+import com.mszurgot.tanks.IDrawable;
 import com.mszurgot.tanks.WindowFrame;
 import com.mszurgot.tanks.collision.IKolizyjne;
 import com.mszurgot.tanks.vehicles.Pojazd;
 
-import java.awt.Image;
-import java.awt.Rectangle;
+import java.awt.*;
+import java.util.Iterator;
 import javax.swing.ImageIcon;
 
-public class Pocisk implements IKolizyjne {
+public class Pocisk implements IKolizyjne/*, IDrawable*/ {
 
     private int x, y;
     private Image image;
