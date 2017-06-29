@@ -2,19 +2,20 @@
 package com.mszurgot.tanks.gamemap;
 
 import com.mszurgot.tanks.*;
-import com.mszurgot.tanks.components.Krzak;
-import com.mszurgot.tanks.components.Mur;
+import com.mszurgot.tanks.components.BushTile;
+import com.mszurgot.tanks.components.SteelTile;
+import com.mszurgot.tanks.components.WallTile;
 import com.mszurgot.tanks.components.Totem;
-import com.mszurgot.tanks.vehicles.Gracz;
-import com.mszurgot.tanks.vehicles.Wrog;
+import com.mszurgot.tanks.vehicles.Player;
+import com.mszurgot.tanks.vehicles.AIVehicle;
 
 import java.util.Random;
 
-public class KruchaMapaBudowniczy implements IMapaBudowniczy {
+public class DefaultMapBuilder implements MapBuilder {
     
     Board budowanyBoard;
     Random rand = new Random();
-    private final static int ILE_HP_WROGOW = 1;
+    private final static int ILE_HP_WROGOW = 3;
 
     @Override
     public void budujMape(char[][] tab) {
@@ -25,24 +26,24 @@ public class KruchaMapaBudowniczy implements IMapaBudowniczy {
                 switch (tab[j][i]) {
                     case 'S': {
                        if((tab[j+1][i] == '.' || (tab[j+1][i] == 'K')) && (tab[j][i+1] == '.' || (tab[j][i+1] == 'K')) && (tab[j+1][i+1] == '.' || (tab[j+1][i+1] == 'K')))
-                           budowanyBoard.addWrog(new Wrog(j+1, i+1, rand.nextInt(40)+10, rand.nextInt(3)+3,ILE_HP_WROGOW));
+                           budowanyBoard.addWrog(new AIVehicle(j+1, i+1, rand.nextInt(40)+10, rand.nextInt(3)+3,ILE_HP_WROGOW));
                         break;
                     }
                     case 'G': {
                         if((tab[j+1][i] == '.' || (tab[j+1][i] == 'K')) && (tab[j][i+1] == '.' || (tab[j][i+1] == 'K')) && (tab[j+1][i+1] == '.' || (tab[j+1][i+1] == 'K')))
-                        budowanyBoard.setGracz(new Gracz(j+1, i+1, 20, 3, 1));
+                        budowanyBoard.setPlayer(new Player(j+1, i+1, 20, 3, 1));
                         break;
                     }
                     case 'K': {
-                        budowanyBoard.addKrzak(new Krzak(j+1,i+1));
+                        budowanyBoard.addKrzak(new BushTile(j+1,i+1));
                         break;
                     }
                     case 'M': {
-                        budowanyBoard.addKafelekKolizyjny(new Mur(j+1,i+1));
+                        budowanyBoard.addKafelekKolizyjny(new WallTile(j+1,i+1));
                         break;
                     }
                     case 'Z': {
-                        budowanyBoard.addKafelekKolizyjny(new Mur(j+1,i+1));//zastepowanie żelaznych murem
+                        budowanyBoard.addKafelekKolizyjny(new SteelTile(j+1,i+1));
                         break;
                     }
                     case 'T': {

@@ -2,11 +2,11 @@ package com.mszurgot.tanks.components;
 
 import java.awt.Image;
 
-public abstract class Kafelek{
+public abstract class Tile {
     protected  Image image;
     protected int gridX, gridY;
 
-    public Kafelek(int gridX, int gridY) {
+    public Tile(int gridX, int gridY) {
          this.gridX = gridX;
          this.gridY = gridY;
     }

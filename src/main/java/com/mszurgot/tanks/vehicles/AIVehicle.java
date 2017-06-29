@@ -6,7 +6,6 @@
 package com.mszurgot.tanks.vehicles;
 
 import com.mszurgot.tanks.Board;
-import com.mszurgot.tanks.collision.TabKolizjiSingleton;
 
 import java.util.Random;
 import javax.swing.ImageIcon;
@@ -16,7 +15,7 @@ import javax.swing.ImageIcon;
  *
  * @author Zet
  */
-public class Wrog extends Pojazd {
+public class AIVehicle extends Vehicle {
 
     static final long RESPAWN_TIME = 1000;
     long doRespawnu;
@@ -28,7 +27,7 @@ public class Wrog extends Pojazd {
     boolean odbilSie = true;
     Random random = new Random();
 
-    public Wrog(int gridX, int gridY, int reload, int missileSpeed, int ileHP) {
+    public AIVehicle(int gridX, int gridY, int reload, int missileSpeed, int ileHP) {
         super(gridX, gridY, reload, missileSpeed, ileHP);
         gridXDoRespawnu = gridX;
         gridYDoRespawnu = gridY;
@@ -95,7 +94,7 @@ public class Wrog extends Pojazd {
             odbilSie = false;
             kierunek = LEWO;
             displayedImage = imageTab[LEWO];
-            if (TabKolizjiSingleton.getTabKolizji(gridX - 1, gridY) == false && TabKolizjiSingleton.getTabKolizji(gridX - 1, gridY + 1) == false) {
+            if (Board.getBoundsMatrixValue(gridX - 1, gridY) == false && Board.getBoundsMatrixValue(gridX - 1, gridY + 1) == false) {
                 ruchWLewo = true;
             } else {
                 odbilSie = true;
@@ -105,7 +104,7 @@ public class Wrog extends Pojazd {
             odbilSie = false;
             kierunek = PRAWO;
             displayedImage = imageTab[PRAWO];
-            if (TabKolizjiSingleton.getTabKolizji(gridX + 2, gridY) == false && TabKolizjiSingleton.getTabKolizji(gridX + 2, gridY + 1) == false) {
+            if (Board.getBoundsMatrixValue(gridX + 2, gridY) == false && Board.getBoundsMatrixValue(gridX + 2, gridY + 1) == false) {
                 ruchWPrawo = true;
             } else {
                 odbilSie = true;
@@ -114,7 +113,7 @@ public class Wrog extends Pojazd {
             odbilSie = false;
             kierunek = GORA;
             displayedImage = imageTab[GORA];
-            if (TabKolizjiSingleton.getTabKolizji(gridX, gridY - 1) == false && TabKolizjiSingleton.getTabKolizji(gridX + 1, gridY - 1) == false) {
+            if (Board.getBoundsMatrixValue(gridX, gridY - 1) == false && Board.getBoundsMatrixValue(gridX + 1, gridY - 1) == false) {
                 ruchWGore = true;
             } else {
                 odbilSie = true;
@@ -123,7 +122,7 @@ public class Wrog extends Pojazd {
             odbilSie = false;
             kierunek = DOL;
             displayedImage = imageTab[DOL];
-            if (TabKolizjiSingleton.getTabKolizji(gridX, gridY + 2) == false && TabKolizjiSingleton.getTabKolizji(gridX + 1, gridY + 2) == false) {
+            if (Board.getBoundsMatrixValue(gridX, gridY + 2) == false && Board.getBoundsMatrixValue(gridX + 1, gridY + 2) == false) {
                 ruchWDol = true;
             } else {
                 odbilSie = true;

@@ -5,9 +5,9 @@
  */
 package com.mszurgot.tanks;
 
-import com.mszurgot.tanks.gamemap.IMapaBudowniczy;
-import com.mszurgot.tanks.gamemap.MapaNadzorca;
-import com.mszurgot.tanks.gamemap.StandardMapaBudowniczy;
+import com.mszurgot.tanks.gamemap.MapBuilder;
+import com.mszurgot.tanks.gamemap.MapProvider;
+import com.mszurgot.tanks.gamemap.DefaultMapBuilder;
 
 import java.awt.*;
 import java.io.IOException;
@@ -39,8 +39,8 @@ public class WindowFrame extends JFrame {
     }
 
     private void init() throws IOException {
-        IMapaBudowniczy budowniczy = new StandardMapaBudowniczy();
-        MapaNadzorca nadzorca = new MapaNadzorca(budowniczy);
+        MapBuilder budowniczy = new DefaultMapBuilder();
+        MapProvider nadzorca = new MapProvider(budowniczy);
 
         nadzorca.buduj();
 

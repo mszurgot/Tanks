@@ -14,7 +14,7 @@ import javax.swing.ImageIcon;
  *
  * @author Zet
  */
-public class Totem extends Mur{
+public class Totem extends WallTile {
 
     public Totem(int gridX, int gridY) {
         super(gridX, gridY);
@@ -23,7 +23,7 @@ public class Totem extends Mur{
     }
     
     @Override
-    public Rectangle getWymiary(){
+    public Rectangle getDimension(){
         return new Rectangle(Board.getGridValue(gridX), Board.getGridValue(gridY), 40, 40);
     }
 }

@@ -10,12 +10,12 @@ import java.io.*;
 /**
  * @author Zet
  */
-public class MapaNadzorca {
+public class MapProvider {
 
     private char[][] tab;
-    private IMapaBudowniczy budowniczy;
+    private MapBuilder budowniczy;
 
-    public MapaNadzorca(IMapaBudowniczy budowniczy) {
+    public MapProvider(MapBuilder budowniczy) {
         this.tab = new char[31][31];
         this.budowniczy = budowniczy;
     }
@@ -27,7 +27,7 @@ public class MapaNadzorca {
     }
 
     private void fillTab(String filename) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(MapaNadzorca.class.getResourceAsStream(filename)));
+        BufferedReader br = new BufferedReader(new InputStreamReader(MapProvider.class.getResourceAsStream(filename)));
         String tmp;
         int j = 0;
         while (br.ready()) {

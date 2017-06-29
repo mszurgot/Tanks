@@ -1,9 +1,8 @@
 package com.mszurgot.tanks.vehicles;
 
 import com.mszurgot.tanks.Board;
-import com.mszurgot.tanks.IDrawable;
-import com.mszurgot.tanks.collision.IKolizyjne;
-import com.mszurgot.tanks.collision.Pocisk;
+import com.mszurgot.tanks.collision.Collidable;
+import com.mszurgot.tanks.collision.Bullet;
 import com.mszurgot.tanks.WindowFrame;
 
 import java.awt.Image;
@@ -15,7 +14,7 @@ import java.util.Iterator;
  *
  * @author Zet
  */
-public abstract class Pojazd implements IKolizyjne/*, IDrawable*/ {
+public abstract class Vehicle implements Collidable/*, IDrawable*/ {
 
     public static final int GORA = 0;
     public static final int DOL = 1;
@@ -42,13 +41,13 @@ public abstract class Pojazd implements IKolizyjne/*, IDrawable*/ {
     protected int gridY;
     protected int maxHP;
     protected boolean visible;
-    protected ArrayList<Pocisk> pociski;
+    protected ArrayList<Bullet> pociski;
     protected int missileSpeed;
     protected Image displayedImage;
     protected int reloadTimer;
     protected int reloadTime;
 
-    public Pojazd(int gridX, int gridY, int reload, int missileSpeed, int ileHP) {
+    public Vehicle(int gridX, int gridY, int reload, int missileSpeed, int ileHP) {
         tankNumber = 3;
         initImage();
         width = 40;
@@ -70,9 +69,9 @@ public abstract class Pojazd implements IKolizyjne/*, IDrawable*/ {
     }
 
     public void moveBullets(){
-        Iterator<Pocisk> ms = this.getPociski().iterator();
+        Iterator<Bullet> ms = this.getPociski().iterator();
         while (ms.hasNext()){
-            Pocisk m = ms.next();
+            Bullet m = ms.next();
             if (m.isVisible()) {
                 m.move();
             } else {
@@ -168,11 +167,11 @@ public abstract class Pojazd implements IKolizyjne/*, IDrawable*/ {
         return y;
     }
 
-    public ArrayList<Pocisk> getPociski() {
+    public ArrayList<Bullet> getPociski() {
         return pociski;
     }
     
-    public void deletePociski(ArrayList<Pocisk> t){
+    public void deletePociski(ArrayList<Bullet> t){
         pociski.removeAll(t);
     }
 
@@ -185,7 +184,7 @@ public abstract class Pojazd implements IKolizyjne/*, IDrawable*/ {
     }
 
     @Override
-    public Rectangle getWymiary() {
+    public Rectangle getDimension() {
         if(kierunek == GORA || kierunek == DOL)
         return new Rectangle(x+10, y, 20, 40);
         else return new Rectangle(x, y+10, 40, 20);
@@ -196,19 +195,19 @@ public abstract class Pojazd implements IKolizyjne/*, IDrawable*/ {
         if (reloadTimer <= 0) {
             switch (kierunek) {
                 case GORA: {
-                    pociski.add(new Pocisk(x + 18, y, missileSpeed, this));
+                    pociski.add(new Bullet(x + 18, y, missileSpeed, this));
                     break;
                 }
                 case DOL: {
-                    pociski.add(new Pocisk(x + 18, y + 36, missileSpeed, this));
+                    pociski.add(new Bullet(x + 18, y + 36, missileSpeed, this));
                     break;
                 }
                 case PRAWO: {
-                    pociski.add(new Pocisk(x + 36, y + 18, missileSpeed, this));
+                    pociski.add(new Bullet(x + 36, y + 18, missileSpeed, this));
                     break;
                 }
                 case LEWO: {
-                    pociski.add(new Pocisk(x, y + 18, missileSpeed, this));
+                    pociski.add(new Bullet(x, y + 18, missileSpeed, this));
                     break;
                 }
             }

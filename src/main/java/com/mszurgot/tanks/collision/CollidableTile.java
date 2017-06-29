@@ -1,24 +1,22 @@
 package com.mszurgot.tanks.collision;
 
 import com.mszurgot.tanks.Board;
-import com.mszurgot.tanks.IDrawable;
-import com.mszurgot.tanks.components.Kafelek;
+import com.mszurgot.tanks.components.Tile;
 
 import java.awt.*;
-import java.util.Iterator;
 
-public abstract class KafelekKolizyjny extends Kafelek implements IKolizyjne{
+public abstract class CollidableTile extends Tile implements Collidable {
 
     private boolean visible = true;
 
-    public KafelekKolizyjny(int gridX, int gridY) {
+    public CollidableTile(int gridX, int gridY) {
         super(gridX, gridY);
-        TabKolizjiSingleton.setTabKolizji(gridX, gridY, true);
+        Board.setBoundsMatrixValue(gridX, gridY, true);
         setVisible(true);
     }
 
     @Override
-    public Rectangle getWymiary() {
+    public Rectangle getDimension() {
         return this.isVisible()
                 ? new Rectangle(Board.getGridValue(gridX), Board.getGridValue(gridY), 20, 20)
                 : new Rectangle(0, 0, 0, 0);
@@ -30,12 +28,12 @@ public abstract class KafelekKolizyjny extends Kafelek implements IKolizyjne{
 
     public void setVisible(boolean visible) {
         if (visible == false) {
-            TabKolizjiSingleton.setTabKolizji(this.gridX, this.gridY, visible);
+            Board.setBoundsMatrixValue(this.gridX, this.gridY, visible);
             //Board.soutCollisionTable();
             visible = false;
         } else {
             this.visible = true;
-            TabKolizjiSingleton.setTabKolizji(this.gridX, this.gridY, visible);
+            Board.setBoundsMatrixValue(this.gridX, this.gridY, visible);
         }
     }
 

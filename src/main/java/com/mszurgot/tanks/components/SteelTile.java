@@ -5,15 +5,15 @@
  */
 package com.mszurgot.tanks.components;
 
-import com.mszurgot.tanks.collision.KafelekKolizyjny;
+import com.mszurgot.tanks.collision.CollidableTile;
 
 import javax.swing.ImageIcon;
 
-public class Zelazo extends KafelekKolizyjny {
+public class SteelTile extends CollidableTile {
 
-    public Zelazo(int gridX, int gridY) {
+    public SteelTile(int gridX, int gridY) {
         super(gridX, gridY);
-        ImageIcon ii = new ImageIcon(this.getClass().getResource("/images/zelazo.png"));
+        ImageIcon ii = new ImageIcon(this.getClass().getResource("/images/steel-tile.png"));
         image = ii.getImage();
     }
  
