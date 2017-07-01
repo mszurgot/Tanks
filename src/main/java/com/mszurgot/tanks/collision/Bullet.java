@@ -1,5 +1,6 @@
 package com.mszurgot.tanks.collision;
 
+import com.mszurgot.tanks.Direction;
 import com.mszurgot.tanks.WindowFrame;
 import com.mszurgot.tanks.vehicles.Vehicle;
 
@@ -12,14 +13,14 @@ public class Bullet implements Collidable/*, IDrawable*/ {
     private Image image;
     boolean visible;
     private int width, height;
-    private int direction;
+    private Direction direction;
     private Vehicle shooter;
     private int missileSpeed;
 
     public Bullet(int x, int y, int speed, Vehicle p) {
 
         /*tu bedzie trzeba zmieniac obrazki wraz ze zmiana kierunku albo zmieniac pozycje sprite'a*/
-        this.direction = p.getKierunek();
+        this.direction = p.getDirection();
         this.shooter = p;
         this.missileSpeed = speed;
         ImageIcon ii = new ImageIcon(this.getClass().getResource("/images/bullet.png"));
@@ -58,7 +59,7 @@ public class Bullet implements Collidable/*, IDrawable*/ {
 
     public void move() {
         switch (direction) {
-            case Vehicle.GORA: {
+            case NORTH: {
                 y -= missileSpeed;
                 if (y < 0) {
                     visible = false; //tu zrobić obsługę przerzucania obiektu na poczatek kolejki pociskow do uzycia na obiekcie strzelajacego
@@ -66,7 +67,7 @@ public class Bullet implements Collidable/*, IDrawable*/ {
                 }
                 break;
             }
-            case Vehicle.DOL: {
+            case SOUTH: {
                 y += missileSpeed;
                 if (y > WindowFrame.DEFAULT_WINDOW_WIDTH - this.height) {
                     visible = false; //tu zrobić obsługę przerzucania obiektu na poczatek kolejki pociskow do uzycia na obiekcie strzelajacego
@@ -74,7 +75,7 @@ public class Bullet implements Collidable/*, IDrawable*/ {
                 }
                 break;
             }
-            case Vehicle.PRAWO: {
+            case EAST: {
                 x += missileSpeed;
                 if (x > WindowFrame.DEFAULT_WINDOW_HEIGHT - this.width) {
                     visible = false; //tu zrobić obsługę przerzucania obiektu na poczatek kolejki pociskow do uzycia na obiekcie strzelajacego
@@ -82,7 +83,7 @@ public class Bullet implements Collidable/*, IDrawable*/ {
                 }
                 break;
             }
-            case Vehicle.LEWO: {
+            case WEST: {
                 x -= missileSpeed;
                 if (x < 0) {
                     visible = false; //tu zrobić obsługę przerzucania obiektu na poczatek kolejki pociskow do uzycia na obiekcie strzelajacego

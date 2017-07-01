@@ -1,6 +1,7 @@
 package com.mszurgot.tanks.vehicles;
 
 import com.mszurgot.tanks.Board;
+import com.mszurgot.tanks.Direction;
 
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
@@ -34,44 +35,44 @@ public class Player extends Vehicle {
         if (key == KeyEvent.VK_SPACE) {
             fire();
         }
-        System.out.println(kierunek);//TODO do usunięcia
+        System.out.println(direction);//TODO do usunięcia
 
         if ((key == KeyEvent.VK_LEFT) && !ruchWGore && !ruchWDol) {
-            if (kierunek == LEWO) {
+            if (direction == Direction.WEST) {
                 if (!ruchWLewo && Board.getBoundsMatrixValue(gridX - 1, gridY)==false && Board.getBoundsMatrixValue(gridX -1, gridY + 1)==false) {
                     ruchWLewo = true;
 
                 }
             } else {
-                kierunek = LEWO;
-                displayedImage = imageTab[LEWO];
+                direction = Direction.WEST;
+                displayedImage = imageTab[Direction.WEST.getId()];
             }
         } else if ((key == KeyEvent.VK_RIGHT) && !ruchWGore && !ruchWDol ) {
-            if (kierunek == PRAWO) {
+            if (direction == Direction.EAST) {
                 if (!ruchWPrawo && Board.getBoundsMatrixValue(gridX +2, gridY)==false && Board.getBoundsMatrixValue(gridX + 2, gridY + 1)==false) {
                     ruchWPrawo = true;
                 }
             } else {
-                kierunek = PRAWO;
-                displayedImage = imageTab[PRAWO];
+                direction = Direction.EAST;
+                displayedImage = imageTab[Direction.EAST.getId()];
             }
         } else if ((key == KeyEvent.VK_UP) && !ruchWLewo && !ruchWPrawo ) {
-            if (kierunek == GORA) {
+            if (direction == Direction.NORTH) {
                 if (!ruchWGore && Board.getBoundsMatrixValue(gridX, gridY - 1)==false && Board.getBoundsMatrixValue(gridX +1, gridY - 1)==false) {
                     ruchWGore = true;
                 }
             } else {
-                kierunek = GORA;
-                displayedImage = imageTab[GORA];
+                direction = Direction.NORTH;
+                displayedImage = imageTab[Direction.NORTH.getId()];
             }
         } else if ((key == KeyEvent.VK_DOWN) && !ruchWLewo && !ruchWPrawo ) {
-            if (kierunek == DOL) {
+            if (direction == Direction.SOUTH) {
                 if (!ruchWDol && Board.getBoundsMatrixValue(gridX, gridY + 2)==false && Board.getBoundsMatrixValue(gridX +1, gridY + 2)==false) {
                     ruchWDol = true;
                 }
             } else {
-                kierunek = DOL;
-                displayedImage = imageTab[DOL];
+                direction = Direction.SOUTH;
+                displayedImage = imageTab[Direction.SOUTH.getId()];
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.mszurgot.tanks.vehicles;
 
 import com.mszurgot.tanks.Board;
+import com.mszurgot.tanks.Direction;
 import com.mszurgot.tanks.collision.Collidable;
 import com.mszurgot.tanks.collision.Bullet;
 import com.mszurgot.tanks.WindowFrame;
@@ -10,27 +11,32 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import static com.mszurgot.tanks.Direction.NORTH;
+import static com.mszurgot.tanks.Direction.SOUTH;
+
 /**
  *
  * @author Zet
  */
 public abstract class Vehicle implements Collidable/*, IDrawable*/ {
+    private final static int DEFAULT_VEHICLE_WIDTH = 40;
+    private final static int DEFAULT_VEHICLE_HEIGHT = 40;
 
-    public static final int GORA = 0;
-    public static final int DOL = 1;
-    public static final int PRAWO = 2;
-    public static final int LEWO = 3;
+//    public static final int GORA = 0;
+//    public static final int DOL = 1;
+//    public static final int PRAWO = 2;
+//    public static final int LEWO = 3;
     protected static final int V = 1;
-    protected int hp =3;
+    protected int hp = 3;
     protected int tankNumber;
     protected String[] imageSrc = new String[4];
-    protected Image[] imageTab = new Image[4];
+    protected Image[] imageTab = new Image[4];// TODO obrazki wyciagane sa po id - zmienic jakos
     protected boolean ruchWPrawo;
     protected boolean ruchWLewo;
     protected boolean ruchWGore;
     protected boolean ruchWDol;
     protected boolean czyKolizjaRuchu;
-    protected int kierunek;
+    protected Direction direction;
     protected int dx;
     protected int dy;
     protected int x;
@@ -41,19 +47,21 @@ public abstract class Vehicle implements Collidable/*, IDrawable*/ {
     protected int gridY;
     protected int maxHP;
     protected boolean visible;
-    protected ArrayList<Bullet> pociski;
+    protected ArrayList<Bullet> bullets;
     protected int missileSpeed;
     protected Image displayedImage;
     protected int reloadTimer;
     protected int reloadTime;
 
+
+
     public Vehicle(int gridX, int gridY, int reload, int missileSpeed, int ileHP) {
         tankNumber = 3;
         initImage();
-        width = 40;
-        height = 40;
-        kierunek = GORA;
-        pociski = new ArrayList();
+        width = DEFAULT_VEHICLE_WIDTH;
+        height = DEFAULT_VEHICLE_HEIGHT;
+        direction = NORTH;
+        bullets = new ArrayList();
         visible = true;
         this.x = Board.getGridValue(gridX);
         this.y = Board.getGridValue(gridY);
@@ -69,7 +77,7 @@ public abstract class Vehicle implements Collidable/*, IDrawable*/ {
     }
 
     public void moveBullets(){
-        Iterator<Bullet> ms = this.getPociski().iterator();
+        Iterator<Bullet> ms = this.getBullets().iterator();
         while (ms.hasNext()){
             Bullet m = ms.next();
             if (m.isVisible()) {
@@ -151,12 +159,12 @@ public abstract class Vehicle implements Collidable/*, IDrawable*/ {
         return displayedImage;
     }
 
-    public int getKierunek() {
-        return kierunek;
+    public Direction getDirection() {
+        return direction;
     }
 
-    public void setKierunek(int kierunek) {
-        this.kierunek = kierunek;
+    public void setDirection(Direction direction) {
+        this.direction = direction;
     }
 
     public int getX() {
@@ -167,12 +175,12 @@ public abstract class Vehicle implements Collidable/*, IDrawable*/ {
         return y;
     }
 
-    public ArrayList<Bullet> getPociski() {
-        return pociski;
+    public ArrayList<Bullet> getBullets() {
+        return bullets;
     }
     
     public void deletePociski(ArrayList<Bullet> t){
-        pociski.removeAll(t);
+        bullets.removeAll(t);
     }
 
     public void setVisible(boolean visible) {
@@ -185,7 +193,7 @@ public abstract class Vehicle implements Collidable/*, IDrawable*/ {
 
     @Override
     public Rectangle getDimension() {
-        if(kierunek == GORA || kierunek == DOL)
+        if(direction == NORTH || direction == SOUTH)
         return new Rectangle(x+10, y, 20, 40);
         else return new Rectangle(x, y+10, 40, 20);
             
@@ -193,21 +201,21 @@ public abstract class Vehicle implements Collidable/*, IDrawable*/ {
 
     public void fire() {
         if (reloadTimer <= 0) {
-            switch (kierunek) {
-                case GORA: {
-                    pociski.add(new Bullet(x + 18, y, missileSpeed, this));
+            switch (direction) {
+                case NORTH: {
+                    bullets.add(new Bullet(x + 18, y, missileSpeed, this));
                     break;
                 }
-                case DOL: {
-                    pociski.add(new Bullet(x + 18, y + 36, missileSpeed, this));
+                case SOUTH: {
+                    bullets.add(new Bullet(x + 18, y + 36, missileSpeed, this));
                     break;
                 }
-                case PRAWO: {
-                    pociski.add(new Bullet(x + 36, y + 18, missileSpeed, this));
+                case EAST: {
+                    bullets.add(new Bullet(x + 36, y + 18, missileSpeed, this));
                     break;
                 }
-                case LEWO: {
-                    pociski.add(new Bullet(x, y + 18, missileSpeed, this));
+                case WEST: {
+                    bullets.add(new Bullet(x, y + 18, missileSpeed, this));
                     break;
                 }
             }
@@ -217,5 +225,7 @@ public abstract class Vehicle implements Collidable/*, IDrawable*/ {
     }
 
     protected abstract void delete();
+
+
 
 }

@@ -6,6 +6,7 @@
 package com.mszurgot.tanks.vehicles;
 
 import com.mszurgot.tanks.Board;
+import com.mszurgot.tanks.Direction;
 
 import java.util.Random;
 import javax.swing.ImageIcon;
@@ -16,6 +17,7 @@ import javax.swing.ImageIcon;
  * @author Zet
  */
 public class AIVehicle extends Vehicle {
+    private final static Direction DEFAULT_RESPAWN_DIRECTION = Direction.SOUTH;
 
     static final long RESPAWN_TIME = 1000;
     long doRespawnu;
@@ -46,7 +48,7 @@ public class AIVehicle extends Vehicle {
             this.gridY=gridYDoRespawnu;
             this.setVisible(true);
             this.hp = 3;
-            kierunek = DOL;
+            direction = DEFAULT_RESPAWN_DIRECTION;
             ruchWDol = true;
             System.out.println("respawn("+gridXDoRespawnu+", "+gridYDoRespawnu+")");
         }
@@ -92,8 +94,8 @@ public class AIVehicle extends Vehicle {
         }
         if ((wylosowana <= 10) && !ruchWGore && !ruchWDol && !ruchWPrawo) {
             odbilSie = false;
-            kierunek = LEWO;
-            displayedImage = imageTab[LEWO];
+            direction = Direction.WEST;
+            displayedImage = imageTab[Direction.WEST.getId()];
             if (Board.getBoundsMatrixValue(gridX - 1, gridY) == false && Board.getBoundsMatrixValue(gridX - 1, gridY + 1) == false) {
                 ruchWLewo = true;
             } else {
@@ -102,8 +104,8 @@ public class AIVehicle extends Vehicle {
 
         } else if ((wylosowana <= 20) && !ruchWGore && !ruchWDol && !ruchWLewo) {
             odbilSie = false;
-            kierunek = PRAWO;
-            displayedImage = imageTab[PRAWO];
+            direction = Direction.EAST;
+            displayedImage = imageTab[Direction.EAST.getId()];
             if (Board.getBoundsMatrixValue(gridX + 2, gridY) == false && Board.getBoundsMatrixValue(gridX + 2, gridY + 1) == false) {
                 ruchWPrawo = true;
             } else {
@@ -111,8 +113,8 @@ public class AIVehicle extends Vehicle {
             }
         } else if ((wylosowana <= 30) && !ruchWLewo && !ruchWPrawo && !ruchWDol) {
             odbilSie = false;
-            kierunek = GORA;
-            displayedImage = imageTab[GORA];
+            direction = Direction.NORTH;
+            displayedImage = imageTab[Direction.NORTH.getId()];
             if (Board.getBoundsMatrixValue(gridX, gridY - 1) == false && Board.getBoundsMatrixValue(gridX + 1, gridY - 1) == false) {
                 ruchWGore = true;
             } else {
@@ -120,8 +122,8 @@ public class AIVehicle extends Vehicle {
             }
         } else if ((wylosowana < 40) && !ruchWLewo && !ruchWPrawo && !ruchWGore) {
             odbilSie = false;
-            kierunek = DOL;
-            displayedImage = imageTab[DOL];
+            direction = Direction.SOUTH;
+            displayedImage = imageTab[Direction.SOUTH.getId()];
             if (Board.getBoundsMatrixValue(gridX, gridY + 2) == false && Board.getBoundsMatrixValue(gridX + 1, gridY + 2) == false) {
                 ruchWDol = true;
             } else {

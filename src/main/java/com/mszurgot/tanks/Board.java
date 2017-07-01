@@ -115,7 +115,7 @@ public class Board extends JPanel implements ActionListener {
 
             if (player.isVisible()) {
                 g2d.drawImage(player.getImage(), player.getX(), player.getY(), this);
-                ArrayList<Bullet> ms = player.getPociski();
+                ArrayList<Bullet> ms = player.getBullets();
                 for (int i = 0; i < ms.size(); i++) {
                     Bullet m =  ms.get(i);
                     if (m.isVisible()) {
@@ -128,7 +128,7 @@ public class Board extends JPanel implements ActionListener {
                 AIVehicle wr = (AIVehicle) it.next();
                 if (wr.isVisible()) {
                     g2d.drawImage(wr.getImage(), wr.getX(), wr.getY(), this);
-                    ArrayList<Bullet> ms = wr.getPociski();
+                    ArrayList<Bullet> ms = wr.getBullets();
                     for (int i = 0; i < ms.size(); i++) {
                         Bullet m = ms.get(i);
                         if (m.isVisible()) {
@@ -195,7 +195,7 @@ public class Board extends JPanel implements ActionListener {
 
         ArrayList<CollidableTile> kafelkiDoUsuniecia = new ArrayList();
         ArrayList<Bullet> pociskiDoUsuniecia = new ArrayList();
-        ArrayList<Bullet> pociskiGracza = player.getPociski();
+        ArrayList<Bullet> pociskiGracza = player.getBullets();
         Iterator<Bullet> itrGP = pociskiGracza.listIterator();
         while (itrGP.hasNext()) {
             Bullet pociskGracza = itrGP.next();
@@ -205,7 +205,7 @@ public class Board extends JPanel implements ActionListener {
             while (itrW.hasNext()) {
                 AIVehicle pojazdWroga = itrW.next();
                 if (pojazdWroga.isVisible()) {
-                    ArrayList<Bullet> pociskiW = pojazdWroga.getPociski();
+                    ArrayList<Bullet> pociskiW = pojazdWroga.getBullets();
                     Iterator<Bullet> itrWP = pociskiW.iterator();
                     while (itrWP.hasNext()) {
                         Bullet pociskWroga = itrWP.next();
@@ -213,7 +213,7 @@ public class Board extends JPanel implements ActionListener {
                         if (r1.intersects(r2)) {
                             pociskiDoUsuniecia.add(pociskGracza);
                             pociskiDoUsuniecia.add(pociskWroga);
-                            //System.out.println("delete pociski");
+                            //System.out.println("delete bullets");
                         }
                     }
                     pociskiW.removeAll(pociskiDoUsuniecia);
@@ -247,7 +247,7 @@ public class Board extends JPanel implements ActionListener {
         while (itrW.hasNext()) {
             AIVehicle pojazdWroga = itrW.next();
             if (pojazdWroga.isVisible()) {
-                ArrayList<Bullet> pociskiW = pojazdWroga.getPociski();
+                ArrayList<Bullet> pociskiW = pojazdWroga.getBullets();
                 Iterator<Bullet> itrWP = pociskiW.iterator();
                 while (itrWP.hasNext()) {
                     Bullet pociskWroga = itrWP.next();
