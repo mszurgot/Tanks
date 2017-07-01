@@ -57,6 +57,11 @@ public class Bullet implements Collidable/*, IDrawable*/ {
         return new Rectangle(x-9, y-10, 20,  20);
     }
 
+    @Override
+    public void collideAction() {
+        //TODO
+    }
+
     public void move() {
         switch (direction) {
             case NORTH: {

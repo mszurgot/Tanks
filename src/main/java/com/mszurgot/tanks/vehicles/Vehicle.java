@@ -88,6 +88,10 @@ public abstract class Vehicle implements Collidable/*, IDrawable*/ {
         }
     }
 
+    public void collideAction() {
+        //TODO
+    }
+
     public void move() {
         //System.out.println("x:" + x + " y:" + y + " dx:" + dx + " dy:" + dy + " gridX:" + gridX + " gridY:" + gridY + " ruchWPrawo:" + ruchWPrawo + " ruchWLewo:" + ruchWLewo + " ruchWGore:" + ruchWGore + " ruchWDol:" + ruchWDol);
         if (ruchWLewo) {

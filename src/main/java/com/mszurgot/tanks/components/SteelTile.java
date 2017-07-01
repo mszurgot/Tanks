@@ -16,5 +16,9 @@ public class SteelTile extends CollidableTile {
         ImageIcon ii = new ImageIcon(this.getClass().getResource("/images/steel-tile.png"));
         image = ii.getImage();
     }
- 
+
+    @Override
+    public void collideAction() {
+        //TODO
+    }
 }

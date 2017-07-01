@@ -11,4 +11,9 @@ public class WallTile extends CollidableTile {
         ImageIcon ii = new ImageIcon(this.getClass().getResource("/images/wall-tile.png"));
         image = ii.getImage();
     }
+
+    @Override
+    public void collideAction() {
+        //TODO
+    }
 }

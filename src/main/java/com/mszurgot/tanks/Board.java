@@ -43,10 +43,6 @@ public class Board extends JPanel implements ActionListener {
     private final Image background;
 
     static {
-
-    }
-
-    static {
         for (int i = 0; i < WindowFrame.DEFAULT_WINDOW_WIDTH / SPACES; i++) {
             grid[i] = (i - 1) * SPACES;
         }
