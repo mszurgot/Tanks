@@ -3,10 +3,10 @@ package com.mszurgot.tanks.vehicles;
 import com.mszurgot.tanks.Board;
 import com.mszurgot.tanks.Direction;
 
+import javax.swing.*;
 import java.awt.event.KeyEvent;
-import javax.swing.ImageIcon;
 
-public class Player extends Vehicle {
+public class Player extends Vehicle{
 
     public Player(int gridX, int gridY, int reload, int missileSpeed, int ileHP) {
         super(gridX, gridY, reload, missileSpeed, ileHP);

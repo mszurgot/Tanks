@@ -8,8 +8,8 @@ package com.mszurgot.tanks.vehicles;
 import com.mszurgot.tanks.Board;
 import com.mszurgot.tanks.Direction;
 
+import javax.swing.*;
 import java.util.Random;
-import javax.swing.ImageIcon;
 
 
 /**

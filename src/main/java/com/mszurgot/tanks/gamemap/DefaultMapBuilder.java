@@ -1,13 +1,13 @@
 
 package com.mszurgot.tanks.gamemap;
 
-import com.mszurgot.tanks.*;
+import com.mszurgot.tanks.Board;
 import com.mszurgot.tanks.components.BushTile;
 import com.mszurgot.tanks.components.SteelTile;
-import com.mszurgot.tanks.components.WallTile;
 import com.mszurgot.tanks.components.Totem;
-import com.mszurgot.tanks.vehicles.Player;
+import com.mszurgot.tanks.components.WallTile;
 import com.mszurgot.tanks.vehicles.AIVehicle;
+import com.mszurgot.tanks.vehicles.Player;
 
 import java.util.Random;
 

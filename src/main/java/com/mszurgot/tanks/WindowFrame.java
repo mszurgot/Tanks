@@ -5,16 +5,15 @@
  */
 package com.mszurgot.tanks;
 
+import com.mszurgot.tanks.gamemap.DefaultMapBuilder;
 import com.mszurgot.tanks.gamemap.MapBuilder;
 import com.mszurgot.tanks.gamemap.MapProvider;
-import com.mszurgot.tanks.gamemap.DefaultMapBuilder;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
-import javax.swing.UnsupportedLookAndFeelException;
 
 public class WindowFrame extends JFrame {
     public final static int DEFAULT_WINDOW_WIDTH = 600;

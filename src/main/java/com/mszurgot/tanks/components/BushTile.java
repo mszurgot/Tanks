@@ -1,6 +1,6 @@
 package com.mszurgot.tanks.components;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 
 public class BushTile extends Tile {
     

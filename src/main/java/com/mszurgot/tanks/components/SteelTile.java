@@ -7,7 +7,7 @@ package com.mszurgot.tanks.components;
 
 import com.mszurgot.tanks.collision.CollidableTile;
 
-import javax.swing.ImageIcon;
+import javax.swing.*;
 
 public class SteelTile extends CollidableTile {
 

@@ -7,8 +7,8 @@ package com.mszurgot.tanks.components;
 
 import com.mszurgot.tanks.Board;
 
-import java.awt.Rectangle;
-import javax.swing.ImageIcon;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  *

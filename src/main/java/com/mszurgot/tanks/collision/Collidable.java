@@ -1,7 +1,7 @@
 
 package com.mszurgot.tanks.collision;
 
-import java.awt.Rectangle;
+import java.awt.*;
 
 public interface Collidable {
     public Rectangle getDimension();

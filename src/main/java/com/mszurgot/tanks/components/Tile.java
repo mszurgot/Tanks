@@ -1,6 +1,6 @@
 package com.mszurgot.tanks.components;
 
-import java.awt.Image;
+import java.awt.*;
 
 public abstract class Tile {
     protected  Image image;

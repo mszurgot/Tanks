@@ -2,12 +2,11 @@ package com.mszurgot.tanks.vehicles;
 
 import com.mszurgot.tanks.Board;
 import com.mszurgot.tanks.Direction;
-import com.mszurgot.tanks.collision.Collidable;
-import com.mszurgot.tanks.collision.Bullet;
 import com.mszurgot.tanks.WindowFrame;
+import com.mszurgot.tanks.collision.Bullet;
+import com.mszurgot.tanks.collision.Collidable;
 
-import java.awt.Image;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -88,6 +87,7 @@ public abstract class Vehicle implements Collidable/*, IDrawable*/ {
         }
     }
 
+    @Override
     public void collideAction() {
         //TODO
     }
