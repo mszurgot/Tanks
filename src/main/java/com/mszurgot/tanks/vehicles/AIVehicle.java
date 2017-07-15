@@ -16,6 +16,7 @@ import java.util.Random;
  *
  * @author Zet
  */
+@Deprecated
 public class AIVehicle extends Vehicle {
     private final static Direction DEFAULT_RESPAWN_DIRECTION = Direction.SOUTH;
 

@@ -2,6 +2,7 @@ package com.mszurgot.tanks.components;
 
 import java.awt.*;
 
+@Deprecated
 public abstract class Tile {
     protected  Image image;
     protected int gridX, gridY;

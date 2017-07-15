@@ -3,6 +3,7 @@ package com.mszurgot.tanks.collision;
 
 import java.awt.*;
 
+@Deprecated
 public interface Collidable {
     public Rectangle getDimension();
 

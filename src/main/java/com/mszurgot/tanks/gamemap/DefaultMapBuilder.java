@@ -11,6 +11,7 @@ import com.mszurgot.tanks.vehicles.Player;
 
 import java.util.Random;
 
+@Deprecated
 public class DefaultMapBuilder implements MapBuilder {
     
     Board budowanyBoard;

@@ -9,6 +9,7 @@ package com.mszurgot.tanks;
  *
  * @author Zet
  */
+@Deprecated
 public class Menu extends javax.swing.JPanel {
 
     /**

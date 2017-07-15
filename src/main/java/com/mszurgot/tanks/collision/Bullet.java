@@ -7,6 +7,7 @@ import com.mszurgot.tanks.vehicles.Vehicle;
 import java.awt.*;
 import javax.swing.ImageIcon;
 
+@Deprecated
 public class Bullet implements Collidable/*, IDrawable*/ {
 
     private int x, y;

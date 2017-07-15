@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
+@Deprecated
 public class Board extends JPanel implements ActionListener {
 
     public static boolean[][] BOUNDS_MATRIX;

@@ -9,6 +9,7 @@ import com.mszurgot.tanks.collision.CollidableTile;
 
 import javax.swing.*;
 
+@Deprecated
 public class SteelTile extends CollidableTile {
 
     public SteelTile(int gridX, int gridY) {

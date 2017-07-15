@@ -2,6 +2,7 @@ package com.mszurgot.tanks.components;
 
 import javax.swing.*;
 
+@Deprecated
 public class BushTile extends Tile {
     
     public BushTile(int gridX, int gridY) {

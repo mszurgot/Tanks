@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@Deprecated
 public class WindowFrame extends JFrame {
     public final static int DEFAULT_WINDOW_WIDTH = 600;
     public final static int DEFAULT_WINDOW_HEIGHT = 600;

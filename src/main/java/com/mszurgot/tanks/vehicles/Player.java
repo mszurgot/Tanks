@@ -6,6 +6,7 @@ import com.mszurgot.tanks.Direction;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 
+@Deprecated
 public class Player extends Vehicle{
 
     public Player(int gridX, int gridY, int reload, int missileSpeed, int ileHP) {

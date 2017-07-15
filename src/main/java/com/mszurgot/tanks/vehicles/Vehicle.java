@@ -17,6 +17,7 @@ import static com.mszurgot.tanks.Direction.SOUTH;
  *
  * @author Zet
  */
+@Deprecated
 public abstract class Vehicle implements Collidable/*, IDrawable*/ {
     private final static int DEFAULT_VEHICLE_WIDTH = 40;
     private final static int DEFAULT_VEHICLE_HEIGHT = 40;

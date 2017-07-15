@@ -3,6 +3,7 @@ package com.mszurgot.tanks;
 /**
  * Created by Zet on 01.07.2017.
  */
+@Deprecated
 public enum Direction{
     NORTH(0), SOUTH(1), EAST(2), WEST(3);
 

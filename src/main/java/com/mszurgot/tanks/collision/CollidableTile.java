@@ -5,6 +5,7 @@ import com.mszurgot.tanks.components.Tile;
 
 import java.awt.*;
 
+@Deprecated
 public abstract class CollidableTile extends Tile implements Collidable {
 
     private boolean visible = true;

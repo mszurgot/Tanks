@@ -4,6 +4,7 @@ import com.mszurgot.tanks.collision.CollidableTile;
 
 import javax.swing.*;
 
+@Deprecated
 public class WallTile extends CollidableTile {
 
     public WallTile(int gridX, int gridY) {

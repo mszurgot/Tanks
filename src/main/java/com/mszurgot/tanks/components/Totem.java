@@ -14,6 +14,7 @@ import java.awt.*;
  *
  * @author Zet
  */
+@Deprecated
 public class Totem extends WallTile {
 
     public Totem(int gridX, int gridY) {

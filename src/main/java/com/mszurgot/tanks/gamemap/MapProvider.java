@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 /**
  * @author Zet
  */
+@Deprecated
 public class MapProvider {
 
     private char[][] tab;

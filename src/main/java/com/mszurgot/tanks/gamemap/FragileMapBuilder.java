@@ -10,6 +10,7 @@ import com.mszurgot.tanks.vehicles.Player;
 
 import java.util.Random;
 
+@Deprecated
 public class FragileMapBuilder implements MapBuilder {
     
     Board budowanyBoard;
